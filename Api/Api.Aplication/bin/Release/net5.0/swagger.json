@@ -1,0 +1,176 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Api",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/login": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/LoginDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/login/createuser": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UsuarioPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/usuario/getall": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/usuario/getallpaged": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "LoginDto": {
+      "required": [
+        "email"
+      ],
+      "type": "object",
+      "properties": {
+        "email": {
+          "format": "email",
+          "maxLength": 100,
+          "minLength": 0,
+          "type": "string"
+        },
+        "senha": {
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        },
+        "authToken": {
+          "type": "string"
+        },
+        "idToken": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "photoUrl": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        }
+      }
+    },
+    "UsuarioPostDto": {
+      "required": [
+        "desEmail",
+        "desSenha"
+      ],
+      "type": "object",
+      "properties": {
+        "desImagem": {
+          "type": "string"
+        },
+        "desEmail": {
+          "format": "email",
+          "maxLength": 100,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desSenha": {
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desTelefone": {
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Entre com o Token JWT"
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}
