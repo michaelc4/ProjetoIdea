@@ -1,0 +1,9 @@
+<div class="main_form" style="background-color: white; padding-bottom: 20px;">
+  <div class="example-container">
+    <ngx-datatable class="material" [rows]="usuarios"
+      [columns]="[{ name: 'id' }, { name: 'desEmail' }, { name: 'desImagem' }, { name: 'admin' }]" [headerHeight]="50"
+      [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements"
+      [offset]="page.pageNumber" [columnMode]="ColumnMode.force" [limit]="page.size" (page)="setPage($event)">
+    </ngx-datatable>
+  </div>
+</div>
