@@ -19,12 +19,14 @@ import { AuthGuard } from "./providers/authguard.service";
 
 //Components
 import { AppComponent } from './app.component';
+import { InicialComponent } from "../app/components/inicial/inicial.component";
 import { LoginComponent } from "../app/components/login/login.component";
 import { UsuariosComponent } from "../app/components/auth/usuarios/usuarios.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    InicialComponent,
     LoginComponent,
     UsuariosComponent
   ],

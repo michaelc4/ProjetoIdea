@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router, CanActivate } from '@angular/router';
 import { Global } from "../providers/global.service";
+import { LoginModel } from '../models/login.model';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -15,6 +16,7 @@ export class AuthGuard implements CanActivate {
     const now = new Date();
     if (!token || token.trim() === '' || now > expirationDate) {
       this.router.navigate(['login']);
+      this.global.setLoggedUser(new LoginModel());
       return false;
     }
     return true;

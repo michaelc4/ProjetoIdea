@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { SocialAuthService } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
@@ -6,6 +6,7 @@ import { LoginService } from '../../providers/login.service';
 import { Global } from '../../providers/global.service';
 import { LoginParamModel, UsuarioPostParamModel, LoginModel } from '../../models/login.model';
 import { NotifierService } from 'angular-notifier';
+import { takeWhile } from "rxjs/operators"
 
 @Component({
   selector: 'app-login',
@@ -13,13 +14,14 @@ import { NotifierService } from 'angular-notifier';
   styleUrls: ['./login.component.scss'],
   providers: [LoginService]
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   newUser: boolean = false;
   userimage: string = '';
   username: string = '';
   password: string = '';
   confirmPassword: string = '';
   fone: string = '';
+  alive: boolean = true
 
   constructor(private socialservice: SocialAuthService,
     private global: Global,
@@ -38,11 +40,17 @@ export class LoginComponent {
       param.name = user.name;
       param.photoUrl = user.photoUrl;
       param.provider = user.provider;
-      this.loginService.login(param).subscribe((data: LoginModel) => {
-        this.global.setLoggedUser(data);
-        this.router.navigateByUrl('/usuarios');
-      });
+      this.loginService.login(param)
+        .pipe(takeWhile(() => this.alive))
+        .subscribe((data: LoginModel) => {
+          this.global.setLoggedUser(data);
+          this.router.navigateByUrl('/');
+        });
     });
+  }
+
+  ngOnDestroy() {
+    this.alive = false;
   }
 
   socialsigin(platform: string) {
