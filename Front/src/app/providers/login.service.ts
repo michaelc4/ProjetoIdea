@@ -3,7 +3,7 @@ import { LoginParamModel, UsuarioPostParamModel, LoginModel } from '../models/lo
 import { Global } from "./global.service";
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators'
+import { map, catchError } from 'rxjs/operators'
 
 @Injectable()
 export class LoginService {
@@ -11,7 +11,7 @@ export class LoginService {
     constructor(public http: HttpClient,
         public global: Global) { }
 
-    login(param: LoginParamModel): Observable<LoginModel> {
+    login(param: LoginParamModel): Observable<LoginModel | any> {
         let body = {
             email: param.email,
             senha: param.senha,
@@ -28,6 +28,8 @@ export class LoginService {
             .post(url, body, this.global.getOptions())
             .pipe(map((res: any) => {
                 return res;
+            }), catchError(err => {
+                return err;
             }));
     }
 
@@ -45,6 +47,8 @@ export class LoginService {
             .post(url, body, this.global.getOptions())
             .pipe(map((res: any) => {
                 return res;
+            }), catchError(err => {
+                return err;
             }));
     }
 }

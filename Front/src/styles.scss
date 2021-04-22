@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 $fa-font-path: "~font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome';
+@import '~angular-notifier/styles';
 
 @font-face {
     font-weight: 400;
@@ -1451,6 +1452,12 @@ body.responsive ._2TxBB .DFk41 {
     grid-area: 1 / 1 / 2 / 2;
     justify-self: start;
     align-self: start
+}
+
+#SITE_FOOTER_WRAPPER {
+    width: 100%;
+    position: fixed !important;
+    bottom: 0;
 }
 
 #SITE_FOOTER {

@@ -1,49 +1,48 @@
 <br>
 <br>
 <br>
-<br>
-<br>
 <div class="container" *ngIf="!newUser">
   <div class="d-flex justify-content-center h-100">
     <div class="card">
       <div class="card-header">
-        <h3>Sign In</h3>
-        <div class="d-flex justify-content-end social_icon">
-          <span>
-            <a (click)="socialsigin('facebook')" class="login100-social-item bg1">
-              <i class="fa fa-facebook"></i>
-            </a>
-          </span>
-          <span>
-            <a (click)="socialsigin('gmail')" class="login100-social-item bg3">
-              <i class="fa fa-google"></i>
-            </a>
-          </span>
-        </div>
+        <h3>Login</h3>
       </div>
       <div class="card-body">
         <div class="input-group form-group">
           <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
+            <span class="input-group-text">
+              <i class="fa fa-user"></i>
+            </span>
           </div>
-          <input type="text" class="form-control" placeholder="username" [(ngModel)]="username">
+          <input type="text" class="form-control" placeholder="Email" [(ngModel)]="username">
         </div>
         <div class="input-group form-group">
           <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-key"></i></span>
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
           </div>
-          <input type="password" class="form-control" placeholder="password" [(ngModel)]="password">
+          <input type="password" class="form-control" placeholder="Senha" [(ngModel)]="password">
         </div>
         <div class="form-group">
-          <button (click)="login()">Login</button>
+          <button class="btn btn-secondary" (click)="login()">Entrar</button>
         </div>
       </div>
       <div class="card-footer">
-        <div class="d-flex justify-content-center links">
-          Don't have an account?<a href="#" (click)="createUser()">Sign Up</a>
+        <div class="d-flex justify-content-center social_icon">
+          <span>
+            <a (click)="socialsigin('facebook')" class="login100-social-item bg1">
+              <img src="../../../assets/imagem-facebook.png" width="40px" height="40px">
+            </a>
+          </span>
+          <span>
+            <a (click)="socialsigin('gmail')" class="login100-social-item bg3">
+              <img src="../../../assets/imagem-google.png" width="40px" height="40px">
+            </a>
+          </span>
         </div>
-        <div class="d-flex justify-content-center">
-          <a href="#">Forgot your password?</a>
+        <div class="d-flex justify-content-center links" style="color: white;">
+          Não tem uma conta?<button class="btn btn-link" (click)="createUser()">Criar conta</button>
         </div>
       </div>
     </div>
@@ -53,50 +52,70 @@
   <div class="d-flex justify-content-center h-100">
     <div class="card">
       <div class="card-header">
-        <h3>Sign In</h3>
-        <div class="d-flex justify-content-end social_icon">
-        </div>
+        <h3>Criar conta</h3>
       </div>
       <div class="card-body">
         <div class="input-group form-group">
-          <img src="{{'data:image/jpg;base64,' + userimage}}" style="width: 100px;" />
+          <img src="{{'data:image/jpg;base64,' + userimage}}" class="imgAvatar" width="50px" height="50px" />
           <label class="image-upload-container btn btn-bwm">
-            <input #imageInput type="file" accept="image/jpeg" (change)="processFile(imageInput)">
+            <input #file #imageInput type="file" accept="image/jpeg" (change)="processFile(imageInput)" style="display: none;">
+            <button class="btn btn-secondary" (click)="file.click()">Upload imagem</button>
           </label>
         </div>
         <div class="input-group form-group">
           <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
+            <span class="input-group-text">
+              <i class="fa fa-user"></i>
+            </span>
           </div>
-          <input type="text" class="form-control" placeholder="username" [(ngModel)]="username">
+          <input type="text" class="form-control" placeholder="Email" [(ngModel)]="username">
         </div>
         <div class="input-group form-group">
           <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-key"></i></span>
+            <span class="input-group-text">
+              <i class="fa fa-phone"></i>
+            </span>
           </div>
-          <input type="password" class="form-control" placeholder="password" [(ngModel)]="password">
+          <input type="text" class="form-control" placeholder="Telefone" [(ngModel)]="fone">
         </div>
         <div class="input-group form-group">
           <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-key"></i></span>
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
           </div>
-          <input type="text" class="form-control" placeholder="Fone" [(ngModel)]="fone">
+          <input type="password" class="form-control" placeholder="Senha" [(ngModel)]="password">
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Confirmar Senha" [(ngModel)]="confirmPassword">
         </div>
         <div class="form-group">
-          <button (click)="create()">Criar</button>
-          <button (click)="cancel()">Cancelar</button>
+          <button class="btn btn-secondary" (click)="create()">Criar</button>&nbsp;
+          <button class="btn btn-secondary" (click)="cancel()">Cancelar</button>
         </div>
       </div>
       <div class="card-footer">
-        <div class="d-flex justify-content-center">
-          <a href="#">Forgot your password?</a>
+        <div class="d-flex justify-content-center social_icon">
+          <span>
+            <a (click)="socialsigin('facebook')" class="login100-social-item bg1">
+              <img src="../../../assets/imagem-facebook.png" width="40px" height="40px">
+            </a>
+          </span>
+          <span>
+            <a (click)="socialsigin('gmail')" class="login100-social-item bg3">
+              <img src="../../../assets/imagem-google.png" width="40px" height="40px">
+            </a>
+          </span>
         </div>
       </div>
     </div>
   </div>
 </div>
-<br>
-<br>
 <br>
 <br>
 <br>

@@ -3,8 +3,12 @@
   height: 100%;
   max-height: calc(100% - 40px - 50px);
   padding: 0px 0px 0px;
-  /*background-color: #cfd8dc;*/
   position: relative;
+}
+
+.container{
+  height: 100%;
+  align-content: center;
 }
 
 .content > .row {
@@ -16,476 +20,45 @@
   height: inherit;
 }
 
-table {
-  font-size: 11.20pt;
-}
-
-table td{
-  padding: 8px 5px;
-}
-
-.no-margin-bottom {
-  margin-bottom: 0px !important;
-}
-
-/* SCROOLBAR */
-
-
-.dataTables_scrollBody::-webkit-scrollbar-button {
-  visibility: none;
-}
-
-
-input.browser-default {
-  padding-left: 5px;
-  color: #86868a;
-}
-
-input.browser-default:focus {
-  outline: none;
-}
-
-.list-header-content {
-  height: 82px;
-}
-
-.list-header-content > .input-field{
-  margin-top: 1.5rem;
-}
-
-.list-header-content a.back {
-  position: absolute;
-  right: 20px;
-  color: #000;
-}
-
-.list-header-content .back-content {
-  align-self: baseline;
-  margin-top: 10px;
-}
-
-.list-header {
-  font-weight: bold;
-  font-size: 13.60pt;
-  margin-top: 1.5rem;
-}
-
-label.input-label {
-  font-size: .8rem;
-}
-
-.input-field label:not(.label-icon).actived {
-  -webkit-transform: translateY(-18px);
-  transform: translateY(-18px);
-  -webkit-transform-origin: 0 0;
-  transform-origin: 0 0;
-  top: 0px;
-}
-
-label.radio {
-  font-weight: bold;
-  color: #333;
-}
-
-.m-t-10 {
-  margin-top: 10px;
-}
-
-footer.page-footer {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  background-color: #90a4ae;
-  font-weight: var(--semi-bold);
-  font-size: 9.6pt;
-  height: 50px;
-}
-
-footer .row {
-  margin-bottom: 0px;
-  height: inherit;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 0px;
-}
-
-footer .row .col{
-  height: inherit;
-  padding: 0px;
-  margin-left: 0px;
-}
-
-footer .row .col.hora {
-  padding-right: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-}
-
-
-footer .hora span {
-  display: flex;
-  align-self: flex-end;
-  line-height: 13.6pt;
-}
-
-footer .row .col.logo {
-  font-size: 11.2pt;
-  font-weight: var(--bold);
-  width: 460px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-footer .logo span {
-  flex-basis: 85%;
-}
-
-footer .user {
-  flex-grow: 1;
-}
-
-footer .user > span.bold{
-  font-weight: var(--bold);
-  font-size: 11.2pt;
-}
-
-footer .user > span{
-  margin-right: 10px;
-}
-
-footer .logo-databoff {
-  flex-grow: 1;
-}
-
-footer img.logo{
-  margin-right: 10px;
-  margin-left: 5px;
-}
-
-.console-content {
-  border-top: 1px solid #fff;
-  height: 35px;
-  margin-top: -1px;
-}
-
-.console-content.large {
-  height: 60px;
-  display: flex;
-  flex-direction: column-reverse;
-  padding-bottom: 4px;
-}
-
-.console-content.large input.console {
-  margin-left: 0px;
-}
-
-input.console {
-  height: 26px;
-  width: 215px;
-  padding-left: 5px;
-  font-weight: bold;
-  color: #86868a;
-  margin-top: 5px;
-  margin-left: 10px;
-}
-
-.input-field-details label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #807f80;
-}
-
-.input-field-details span {
-  font-weight: bold;
-  font-size: 15px;
-}
-
-.input-field-details span.password {
-  text-security: disc;
-  -webkit-text-security: disc;
-  -moz-text-security: disc;
-}
-
-.tab-content {
-  position: relative;
-}
-
-.icon-busca-avancada {
-  background-image: url(/assets/images/icone-busca-avancada.png);
-  height: 30px;
-  width: 20px;
-  background-repeat: no-repeat;
-  float: left;
-  background-position: right bottom;
-}
-
-.input-field.biometria {
-  height: 38px;
-  justify-content: flex-end;
-}
-
-.input-field.biometria span{
-  font-weight: var(--semi-bold);
-  font-size: 11.2pt;
-  margin-left: 5px;
-}
-
-.modal {
-  width: 500px;
-}
-
-.modal .modal-header {
-  height: 40px;
-  justify-content: center;
-  background: #eceff1;
-}
-
-.modal .modal-header span{
-  font-size: 11.2pt;
-  font-weight: var(--semi-bold);
-}
-
-.modal .modal-content {
-  background: #cfd8dc;
-  padding: 20px;
-}
-
-.modal .modal-content > div {
-  background: #fbfbfb;
-  text-align: center;
-  height: 220px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-
-.modal .modal-content div span{
-  display: flex;
-  align-self: center;
-  font-weight: var(--semi-bold);
-  font-size: 11.2pt;
-  color: #969696;
-}
-
-.modal .modal-content div a{
-  display: flex;
-  align-self: center;
-  position: absolute;
-  bottom: 10px;
-  font-weight: var(--semi-bold);
-}
-
-.modal .modal-content div div.progress{
-  display: flex;
-  align-self: center;
-  position: absolute;
-  bottom: 10px;
-  font-weight: var(--semi-bold);
-}
-
-
-div.login {
-    background: url(/assets/images/fundo.jpg) no-repeat center center fixed;
-    background-position: center center;
-    background-repeat: no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    height:100%;
-    width:100%;
-  }
-
-  div.login input {
-    width: 70% !important;
-    margin-right: 10px;
-  }
-  
-  .content {
-    width: 484px;
-    margin-right: auto;
-    margin-left: auto;
-    min-height: 100%;
-    /*background-color: #eceff1;*/
-    text-align: center;
-    /*-webkit-box-shadow: 1px 1px 2px 1px rgba(133,133,133,1);
-    -moz-box-shadow: 1px 1px 2px 1px rgba(133,133,133,1);
-    box-shadow: 1px 1px 2px 1px rgba(133,133,133,1);*/
-  }
-  
-  .logo {
-    margin-bottom: 30px;
-	  margin-top: 30px;
-    width: 30%;
-    height: auto;
-  }
-  
-  .title {
-    margin-top: 70px;
-    display: block;
-    font-size: 15px;
-  }
-  
-  .versao {
-    display: block;
-    font-size: 10px;
-    font-weight: bold;
-    color: #807f80;
-  }
-
-  .btn-flat {
-    font-weight: bold;
-  }
-  
-  i.left {
-    font-weight: bold;
-    margin-right: 5px;
-  }
-  
-  span.posto-name {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    color: #fff;
-    margin-bottom: 10px;
-    margin-right: 5px;
-    font-size: 10px;
-  }
-  
-  .input-field {
-    margin-top: 40px;
-  }
-  
-  .error-mesage {
-    display: flex;
-    justify-content: center;
-    color: #f31755;
-  }
-  
-  .error-mesage i{
-    margin-right: 10px;
-  }
-  
-  .row.error .error-mesage {
-    visibility: visible;
-  }
-
-  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
-    background-color: #eceff1!important;
-  }
-
-  .logo_finger {
-    width: 25px !important;
-    height: auto;
-  }
-
-  .logo_recognition {
-    width: 25px !important;
-    height: auto;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /* Made with love by Mutiullah Samim*/
-
-
-
-html,body{
-background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
-background-size: cover;
-background-repeat: no-repeat;
-height: 100%;
-font-family: 'Numans', sans-serif;
-}
-
-.container{
-height: 100%;
-align-content: center;
-}
-
 .card{
-height: 500px;
-margin-top: auto;
-margin-bottom: auto;
-width: 400px;
-background-color: rgba(0,0,0,0.5) !important;
-}
-
-.social_icon span{
-font-size: 60px;
-margin-left: 10px;
-color: #FFC312;
-}
-
-.social_icon span:hover{
-color: white;
-cursor: pointer;
+  height: 500px;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 400px;
+  background-color: rgba(0,0,0,0.5) !important;
 }
 
 .card-header h3{
-color: white;
-}
-
-.social_icon{
-position: absolute;
-right: 20px;
-top: -45px;
+  color: white;
 }
 
 .input-group-prepend span{
-width: 50px;
-background-color: #FFC312;
-color: black;
-border:0 !important;
+  width: 50px;
+  background-color: #FFC312;
+  color: black;
+  border:0 !important;
 }
 
 input:focus{
-outline: 0 0 0 0  !important;
-box-shadow: 0 0 0 0 !important;
-
+  outline: 0 0 0 0  !important;
+  box-shadow: 0 0 0 0 !important;
 }
 
-.remember{
-color: white;
+.social_icon span{
+  margin-left: 10px;
+  color: #FFC312;
 }
 
-.remember input
-{
-width: 20px;
-height: 20px;
-margin-left: 15px;
-margin-right: 5px;
+.social_icon span:hover{
+  color: white;
+  cursor: pointer;
 }
 
-.login_btn{
-color: black;
-background-color: #FFC312;
-width: 100px;
+.social_icon{
+  text-align: center;
 }
 
-.login_btn:hover{
-color: black;
-background-color: white;
-}
-
-.links{
-color: white;
-}
-
-.links a{
-margin-left: 4px;
+.links {
+  margin-top: 5px;
+  align-items: center;
 }

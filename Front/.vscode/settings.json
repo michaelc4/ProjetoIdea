@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/53e7c63e-3b38-4f8e-b047-790ac098536d/resourceGroups/ucsinovateste/providers/Microsoft.Web/sites/ucsinovaangular",
+    "appService.deploySubpath": "."
+}
