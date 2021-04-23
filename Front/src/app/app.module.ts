@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 // Services
 import { Global } from "./providers/global.service";
@@ -65,6 +66,10 @@ const customNotifierOptions: NotifierOptions = {
   },
 };
 
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,6 +82,7 @@ const customNotifierOptions: NotifierOptions = {
     BrowserModule,
     CommonModule,
     FormsModule,
+    NgxMaskModule.forRoot(maskConfig),
     NotifierModule.withConfig(customNotifierOptions),
     NgxSpinnerModule,
     AppRoutingModule,

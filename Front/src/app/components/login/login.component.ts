@@ -8,6 +8,7 @@ import { LoginParamModel, UsuarioPostParamModel, LoginModel } from '../../models
 import { NotifierService } from 'angular-notifier';
 import { takeWhile } from "rxjs/operators"
 import { NgxSpinnerService } from "ngx-spinner";
+import { validateEmail } from '../../functions/string.functions'
 
 @Component({
   selector: 'app-login',
@@ -70,7 +71,7 @@ export class LoginComponent implements OnDestroy {
 
   login() {
     let isError = false;
-    if (!this.username || this.username.trim() == '') {
+    if (!this.username || this.username.trim() == '' || !validateEmail(this.username.trim())) {
       this.notifierService.notify('error', 'Informe o email.');
       isError = true;
     }
@@ -126,13 +127,8 @@ export class LoginComponent implements OnDestroy {
       isError = true;
     }
 
-    if (!this.username || this.username.trim() == '') {
+    if (!this.username || this.username.trim() == '' || !validateEmail(this.username.trim())) {
       this.notifierService.notify('error', 'Informe o email.');
-      isError = true;
-    }
-
-    if (!this.fone || this.fone.trim() == '') {
-      this.notifierService.notify('error', 'Informe o telefone para contato.');
       isError = true;
     }
 
