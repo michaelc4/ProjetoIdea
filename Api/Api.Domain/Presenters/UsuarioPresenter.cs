@@ -3,6 +3,7 @@
     public class UsuarioPresenter
     {
         public string Id { get; set; }
+        public string DesNome { get; set; }
         public string DesImagem { get; set; }
         public string DesEmail { get; set; }
         public string DesTelefone { get; set; }

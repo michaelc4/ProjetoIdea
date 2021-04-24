@@ -12,13 +12,19 @@ namespace Api.CrossCutting.DependencyInjection
 {
     public class ConfigureRepository
     {
-        public static void ConfigureDependenciesRepository(IServiceCollection serviceColection)
+        public static void ConfigureDependenciesRepository(IServiceCollection serviceCollection)
         {
-            serviceColection.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
-            serviceColection.AddScoped(typeof(IUsuarioRepository), typeof(UsuarioImplementation));
+            serviceCollection.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            serviceCollection.AddScoped(typeof(IIdeiaAnexoRepository), typeof(IdeiaAnexoImplementation));
+            serviceCollection.AddScoped(typeof(IIdeiaRepository), typeof(IdeiaImplementation));
+            serviceCollection.AddScoped(typeof(ILikeRepository), typeof(LikeImplementation));
+            serviceCollection.AddScoped(typeof(IProblemaAnexoRepository), typeof(ProblemaAnexoImplementation));
+            serviceCollection.AddScoped(typeof(IProblemaRepository), typeof(ProblemaImplementation));
+            serviceCollection.AddScoped(typeof(IUsuarioRepository), typeof(UsuarioImplementation));
+            serviceCollection.AddScoped(typeof(IVoluntarioRepository), typeof(VoluntarioImplementation));
 
             var connectionString = "server=dbapiinova.mysql.database.azure.com;port=3306;database=dbapiinova;uid=dbapiinova@dbapiinova;password=root@inova123";
-            serviceColection.AddDbContext<MyContext>(options => options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend)));
+            serviceCollection.AddDbContext<MyContext>(options => options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend)));
         }
     }
 }

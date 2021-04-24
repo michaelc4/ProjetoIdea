@@ -8,6 +8,8 @@ namespace Api.CrossCutting.Mappings
     {
         public EntityToPresenterProfile()
         {
+            CreateMap<IdeiaAnexoEntity, IdeiaAnexoPresenter>();
+            CreateMap<PagedResultPresenter<IdeiaAnexoEntity>, PagedResultPresenter<IdeiaAnexoPresenter>>();
             CreateMap<UsuarioEntity, UsuarioPresenter>();
             CreateMap<PagedResultPresenter<UsuarioEntity>, PagedResultPresenter<UsuarioPresenter>>();
         }

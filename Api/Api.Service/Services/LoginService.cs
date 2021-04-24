@@ -166,6 +166,7 @@ namespace Api.Service.Services
             if (userEntity == null)
             {
                 var usuarioEntity = new UsuarioEntity();
+                usuarioEntity.DesNome = user.Name;
                 usuarioEntity.DesImagem = string.IsNullOrEmpty(user.PhotoUrl) ? null : ConvertUrlToBase64.ConvertToBase64(user.PhotoUrl);
                 usuarioEntity.DesEmail = user.Email;
                 usuarioEntity.DesSenha = null;

@@ -4,6 +4,9 @@ namespace Api.Domain.Presenters
 {
     public class UsuarioPostDto
     {
+        [StringLength(50, ErrorMessage = "Nome deve ter no máximo {1} caracteres.")]
+        public string DesNome { get; set; }
+
         public string DesImagem { get; set; }
 
         [Required(ErrorMessage = "Email é um campo obrigatório.")]
