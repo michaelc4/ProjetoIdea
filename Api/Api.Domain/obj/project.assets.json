@@ -1038,11 +1038,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\Projeto\\Api\\Api.Domain\\Api.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Usuario\\Documents\\GitHub\\ProjetoLabSoftware\\Api\\Api.Domain\\Api.Domain.csproj",
       "projectName": "Api.Domain",
-      "projectPath": "C:\\Users\\Usuario\\Desktop\\Projeto\\Api\\Api.Domain\\Api.Domain.csproj",
+      "projectPath": "C:\\Users\\Usuario\\Documents\\GitHub\\ProjetoLabSoftware\\Api\\Api.Domain\\Api.Domain.csproj",
       "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Desktop\\Projeto\\Api\\Api.Domain\\obj\\",
+      "outputPath": "C:\\Users\\Usuario\\Documents\\GitHub\\ProjetoLabSoftware\\Api\\Api.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -1121,7 +1121,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

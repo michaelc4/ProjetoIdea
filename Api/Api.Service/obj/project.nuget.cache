@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kfENy7RTJ+hAGHXMbv0FZxSEPp7fexQdtiP04vzs877qWU+A5wKwHKZeBoUsFwsI1xBwCL3rCTH6OyL6QVOfQw==",
+  "dgSpecHash": "P8mLphYTBJlep2OD1SwBc0WD4czgnL5fZGWI7/Zao7lftfVTBeGiTlUmTN5yptiN3Idvxg1dxRkHiJOV4376Dg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Usuario\\Desktop\\Projeto\\Api\\Api.Service\\Api.Service.csproj",
+  "projectFilePath": "C:\\Users\\Usuario\\Documents\\GitHub\\ProjetoLabSoftware\\Api\\Api.Service\\Api.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Usuario\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Usuario\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",

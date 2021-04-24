@@ -2,6 +2,7 @@
 {
     public class UsuarioEntity : BaseEntity
     {
+        public string DesNome { get; set; }
         public string DesImagem { get; set; }
         public string DesEmail { get; set; }
         public string DesSenha { get; set; }

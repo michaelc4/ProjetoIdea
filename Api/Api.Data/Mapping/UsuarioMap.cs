@@ -11,6 +11,7 @@ namespace Api.Data.Mapping
             builder.ToTable("Usuario");
             builder.HasKey(p => p.Id);
             builder.HasIndex(p => p.DesEmail).IsUnique();
+            builder.Property(p => p.DesNome).HasMaxLength(50);
             builder.Property(p => p.DesImagem).HasColumnType("LONGTEXT");
             builder.Property(p => p.DesEmail).HasMaxLength(100);
             builder.Property(p => p.DesSenha).HasMaxLength(300);
