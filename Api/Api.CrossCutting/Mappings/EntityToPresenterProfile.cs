@@ -10,6 +10,10 @@ namespace Api.CrossCutting.Mappings
         {
             CreateMap<IdeiaAnexoEntity, IdeiaAnexoPresenter>();
             CreateMap<PagedResultPresenter<IdeiaAnexoEntity>, PagedResultPresenter<IdeiaAnexoPresenter>>();
+            CreateMap<ProblemaAnexoEntity, ProblemaAnexoPresenter>();
+            CreateMap<PagedResultPresenter<ProblemaAnexoEntity>, PagedResultPresenter<ProblemaAnexoPresenter>>();
+            CreateMap<ProblemaEntity, ProblemaPresenter>();
+            CreateMap<PagedResultPresenter<ProblemaEntity>, PagedResultPresenter<ProblemaPresenter>>();
             CreateMap<UsuarioEntity, UsuarioPresenter>();
             CreateMap<PagedResultPresenter<UsuarioEntity>, PagedResultPresenter<UsuarioPresenter>>();
         }

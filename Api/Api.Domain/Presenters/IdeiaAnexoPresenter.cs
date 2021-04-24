@@ -10,5 +10,6 @@ namespace Api.Domain.Presenters
         public string DesNomeOriginal { get; set; }
         public DateTime? DataAtualizacao { get; set; }
         public DateTime? DataCriacao { get; set; }
+        public Guid IdeiaId { get; set; }
     }
 }

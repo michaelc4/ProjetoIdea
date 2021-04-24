@@ -8,6 +8,12 @@ namespace Api.CrossCutting.Mappings
     {
         public DtoToEntityProfile()
         {
+            CreateMap<IdeiaAnexoPostDto, IdeiaAnexoEntity>();
+            CreateMap<IdeiaAnexoPutDto, IdeiaAnexoEntity>();
+            CreateMap<ProblemaAnexoPostDto, ProblemaAnexoEntity>();
+            CreateMap<ProblemaAnexoPutDto, ProblemaAnexoEntity>();
+            CreateMap<ProblemaPostDto, ProblemaEntity>();
+            CreateMap<ProblemaPutDto, ProblemaEntity>();
             CreateMap<UsuarioPostDto, UsuarioEntity>();
             CreateMap<UsuarioPutDto, UsuarioEntity>();
         }

@@ -3,15 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Aplication", "Api.Aplication\Api.Aplication.csproj", "{D358DE26-BF4A-441E-9B4A-3D14BDFF89BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Aplication", "Api.Aplication\Api.Aplication.csproj", "{D358DE26-BF4A-441E-9B4A-3D14BDFF89BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Domain", "Api.Domain\Api.Domain.csproj", "{B99211C6-F931-4BBA-925B-7F9AD47100D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Domain", "Api.Domain\Api.Domain.csproj", "{B99211C6-F931-4BBA-925B-7F9AD47100D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.CrossCutting", "Api.CrossCutting\Api.CrossCutting.csproj", "{2795A8E5-DE0B-47DE-8DB8-61D4E7B94334}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.CrossCutting", "Api.CrossCutting\Api.CrossCutting.csproj", "{2795A8E5-DE0B-47DE-8DB8-61D4E7B94334}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Service", "Api.Service\Api.Service.csproj", "{4636FC1B-71FC-436C-A4D9-04AA26EFAEFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Service", "Api.Service\Api.Service.csproj", "{4636FC1B-71FC-436C-A4D9-04AA26EFAEFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Data", "Api.Data\Api.Data.csproj", "{63365B49-8D01-4D04-BC42-593852E641BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Data", "Api.Data\Api.Data.csproj", "{63365B49-8D01-4D04-BC42-593852E641BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{760F94D1-1EF9-48DE-A760-2DBF61E594F8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
