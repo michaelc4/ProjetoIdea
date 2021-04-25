@@ -65,14 +65,30 @@ namespace Api.Service.Services
                 var userEntity = await _repository.FindByLogin(user.Email);
                 if (userEntity != null && ((statusSocialOk && userEntity.Local == 0) || (statusLocalOk && userEntity.Local == 1)))
                 {
-                    ClaimsIdentity identity = new ClaimsIdentity(
-                        new GenericIdentity(user.Email),
-                        new[]
-                        {
-                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                            new Claim(JwtRegisteredClaimNames.UniqueName, user.Email)
-                        }
-                    );
+                    ClaimsIdentity identity = null;
+                    if (userEntity.Admin == 1)
+                    {
+                        identity = new ClaimsIdentity(
+                            new GenericIdentity(user.Email),
+                            new[]
+                            {
+                                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                                new Claim(JwtRegisteredClaimNames.UniqueName, user.Email),
+                                new Claim(ClaimTypes.Role, "Admin")
+                            }
+                        );
+                    }
+                    else
+                    {
+                        identity = new ClaimsIdentity(
+                            new GenericIdentity(user.Email),
+                            new[]
+                            {
+                                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                                new Claim(JwtRegisteredClaimNames.UniqueName, user.Email)
+                            }
+                        );
+                    }
 
                     DateTime createDate = DateTime.Now;
                     DateTime expirationDate = createDate + TimeSpan.FromSeconds(_tokenConfigurations.Seconds);

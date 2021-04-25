@@ -7,8 +7,8 @@ namespace Api.Domain.Entities
         public UsuarioEntity Usuario { get; set; }
         public Guid UsuarioId { get; set; }
         public IdeiaEntity Ideia { get; set; }
-        public Guid IdeiaId { get; set; }
+        public Guid? IdeiaId { get; set; }
         public ProblemaEntity Problema { get; set; }
-        public Guid ProblemaId { get; set; }
+        public Guid? ProblemaId { get; set; }
     }
 }

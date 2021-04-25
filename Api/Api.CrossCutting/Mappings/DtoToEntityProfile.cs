@@ -18,6 +18,8 @@ namespace Api.CrossCutting.Mappings
             CreateMap<ProblemaPutDto, ProblemaEntity>();
             CreateMap<UsuarioPostDto, UsuarioEntity>();
             CreateMap<UsuarioPutDto, UsuarioEntity>();
+            CreateMap<VoluntarioPostDto, VoluntarioEntity>();
+            CreateMap<VoluntarioPutDto, VoluntarioEntity>();
         }
     }
 }

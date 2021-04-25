@@ -15,6 +15,7 @@ namespace Api.CrossCutting.DependencyInjection
             serviceCollection.AddTransient<IProblemaAnexoService<ProblemaAnexoEntity, ProblemaAnexoPresenter, ProblemaAnexoPostDto, ProblemaAnexoPutDto>, ProblemaAnexoService>();
             serviceCollection.AddTransient<IProblemaService<ProblemaEntity, ProblemaPresenter, ProblemaPostDto, ProblemaPutDto>, ProblemaService>();
             serviceCollection.AddTransient<IUsuarioService<UsuarioEntity, UsuarioPresenter, UsuarioPostDto, UsuarioPutDto>, UsuarioService>();
+            serviceCollection.AddTransient<IVoluntarioService<VoluntarioEntity, VoluntarioPresenter, VoluntarioPostDto, VoluntarioPutDto>, VoluntarioService>();
             serviceCollection.AddTransient<ILoginService, LoginService>();
         }
     }

@@ -18,6 +18,8 @@ namespace Api.CrossCutting.Mappings
             CreateMap<PagedResultPresenter<ProblemaEntity>, PagedResultPresenter<ProblemaPresenter>>();
             CreateMap<UsuarioEntity, UsuarioPresenter>();
             CreateMap<PagedResultPresenter<UsuarioEntity>, PagedResultPresenter<UsuarioPresenter>>();
+            CreateMap<VoluntarioEntity, VoluntarioPresenter>();
+            CreateMap<PagedResultPresenter<VoluntarioEntity>, PagedResultPresenter<VoluntarioPresenter>>();
         }
     }
 }
