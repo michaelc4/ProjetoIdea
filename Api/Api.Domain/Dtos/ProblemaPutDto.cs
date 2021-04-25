@@ -19,6 +19,9 @@ namespace Api.Domain.Presenters
 
         public int NumProbabilidadeInvestir { get; set; }
 
+        [StringLength(1, ErrorMessage = "Indicador ativo deve ter no máximo {1} caracteres.")]
+        public string IndAtivo { get; set; }
+
         [StringLength(1, ErrorMessage = "Indicador aprovado deve ter no máximo {1} caracteres.")]
         public string IndAprovado { get; set; }
 

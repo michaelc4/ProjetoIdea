@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Api.Service.Services
 {
-    public class ProblemaService : BaseService<ProblemaEntity, ProblemaPresenter, ProblemaPostDto, ProblemaPutDto>, IProblemaService<ProblemaEntity, ProblemaPresenter, ProblemaPostDto, ProblemaPutDto>
+    public class IdeiaService : BaseService<IdeiaEntity, IdeiaPresenter, IdeiaPostDto, IdeiaPutDto>, IIdeiaService<IdeiaEntity, IdeiaPresenter, IdeiaPostDto, IdeiaPutDto>
     {
-        private IRepository<ProblemaEntity> _repository;
+        private IRepository<IdeiaEntity> _repository;
         private IUsuarioRepository _repositoryUser;
-        private IProblemaAnexoRepository _repositoryAttachment;
+        private IIdeiaAnexoRepository _repositoryAttachment;
         private readonly IMapper _mapper;
 
-        public ProblemaService(IRepository<ProblemaEntity> repository, IUsuarioRepository repositoryUser, IProblemaAnexoRepository repositoryAttachment, IMapper mapper) : base(repository, mapper)
+        public IdeiaService(IRepository<IdeiaEntity> repository, IUsuarioRepository repositoryUser, IIdeiaAnexoRepository repositoryAttachment, IMapper mapper) : base(repository, mapper)
         {
             _repository = repository;
             _repositoryUser = repositoryUser;
@@ -26,48 +26,48 @@ namespace Api.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<PagedResultPresenter<ProblemaPresenter>> GetPaged(int page, int pageSize)
+        public async Task<PagedResultPresenter<IdeiaPresenter>> GetPaged(int page, int pageSize)
         {
-            IQueryable<ProblemaEntity> query = _repository.GetQuery();
+            IQueryable<IdeiaEntity> query = _repository.GetQuery();
             query = query.OrderBy(x => x.IndAprovado);
 
-            var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
+            var result = _mapper.Map<PagedResultPresenter<IdeiaPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
         }
 
-        public async Task<PagedResultPresenter<ProblemaPresenter>> GetPagedByUser(int page, int pageSize, Guid userId)
+        public async Task<PagedResultPresenter<IdeiaPresenter>> GetPagedByUser(int page, int pageSize, Guid userId)
         {
-            IQueryable<ProblemaEntity> query = _repository.GetQuery();
+            IQueryable<IdeiaEntity> query = _repository.GetQuery();
             query = query.Where(x => x.UsuarioId == userId);
             query = query.OrderBy(x => x.IndAprovado);
 
-            var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
+            var result = _mapper.Map<PagedResultPresenter<IdeiaPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
         }
 
-        public override async Task<ProblemaPresenter> Post(ProblemaPostDto dto)
+        public override async Task<IdeiaPresenter> Post(IdeiaPostDto dto)
         {
-            var entity = _mapper.Map<ProblemaEntity>(dto);
+            var entity = _mapper.Map<IdeiaEntity>(dto);
             entity.IndAprovado = "0";
             entity.IndAtivo = "1";
 
-            ProblemaEntity dtoResult = await _repository.InsertAsync(entity);
+            IdeiaEntity dtoResult = await _repository.InsertAsync(entity);
 
             if (dto.Anexos != null && dto.Anexos.Count > 0)
             {
                 foreach (var attach in dto.Anexos)
                 {
-                    attach.ProblemaId = dtoResult.Id;
-                    await _repositoryAttachment.InsertAsync(_mapper.Map<ProblemaAnexoEntity>(dto));
+                    attach.IdeiaId = dtoResult.Id;
+                    await _repositoryAttachment.InsertAsync(_mapper.Map<IdeiaAnexoEntity>(dto));
                 }
             }
 
-            return _mapper.Map<ProblemaPresenter>(dtoResult);
+            return _mapper.Map<IdeiaPresenter>(dtoResult);
         }
 
-        public override async Task<ProblemaPresenter> Put(ProblemaPutDto dto)
+        public override async Task<IdeiaPresenter> Put(IdeiaPutDto dto)
         {
-            ProblemaEntity dtoResult = await _repository.UpdateAsync(_mapper.Map<ProblemaEntity>(dto));
+            IdeiaEntity dtoResult = await _repository.UpdateAsync(_mapper.Map<IdeiaEntity>(dto));
 
             var attachments = await _repositoryAttachment.GetByProjectAsync(dtoResult.Id.ToString());
             if (attachments != null && attachments.Count() > 0)
@@ -82,15 +82,15 @@ namespace Api.Service.Services
             {
                 foreach (var attach in dto.Anexos)
                 {
-                    attach.ProblemaId = dtoResult.Id;
-                    await _repositoryAttachment.InsertAsync(_mapper.Map<ProblemaAnexoEntity>(dto));
+                    attach.IdeiaId = dtoResult.Id;
+                    await _repositoryAttachment.InsertAsync(_mapper.Map<IdeiaAnexoEntity>(dto));
                 }
             }
 
-            return _mapper.Map<ProblemaPresenter>(dtoResult);
+            return _mapper.Map<IdeiaPresenter>(dtoResult);
         }
 
-        private async Task<PagedResultPresenter<ProblemaPresenter>> GetPresenterDetail(PagedResultPresenter<ProblemaPresenter> result)
+        private async Task<PagedResultPresenter<IdeiaPresenter>> GetPresenterDetail(PagedResultPresenter<IdeiaPresenter> result)
         {
             if (result != null && result.Results != null)
             {
@@ -99,11 +99,11 @@ namespace Api.Service.Services
                     var userEntity = await _repositoryUser.SelectAsync(item.UsuarioId);
                     item.Usuario = _mapper.Map<UsuarioPresenter>(userEntity);
 
-                    var listAttachments = new List<ProblemaAnexoPresenter>();
+                    var listAttachments = new List<IdeiaAnexoPresenter>();
                     var attachments = await _repositoryAttachment.GetByProjectAsync(item.Id);
                     foreach (var attach in attachments)
                     {
-                        listAttachments.Add(_mapper.Map<ProblemaAnexoPresenter>(attach));
+                        listAttachments.Add(_mapper.Map<IdeiaAnexoPresenter>(attach));
                     }
                     item.Anexos = listAttachments;
                 }
