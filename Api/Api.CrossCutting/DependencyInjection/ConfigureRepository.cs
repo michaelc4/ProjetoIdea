@@ -4,6 +4,7 @@ using Api.Data.Repository;
 using Api.Domain.Interfaces;
 using Api.Domain.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using System;
@@ -12,7 +13,7 @@ namespace Api.CrossCutting.DependencyInjection
 {
     public class ConfigureRepository
     {
-        public static void ConfigureDependenciesRepository(IServiceCollection serviceCollection)
+        public static void ConfigureDependenciesRepository(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             serviceCollection.AddScoped(typeof(IIdeiaAnexoRepository), typeof(IdeiaAnexoImplementation));
@@ -23,7 +24,7 @@ namespace Api.CrossCutting.DependencyInjection
             serviceCollection.AddScoped(typeof(IUsuarioRepository), typeof(UsuarioImplementation));
             serviceCollection.AddScoped(typeof(IVoluntarioRepository), typeof(VoluntarioImplementation));
 
-            var connectionString = "server=dbapiinova.mysql.database.azure.com;port=3306;database=dbapiinova;uid=dbapiinova@dbapiinova;password=root@inova123";
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
             serviceCollection.AddDbContext<MyContext>(options => options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend)));
         }
     }

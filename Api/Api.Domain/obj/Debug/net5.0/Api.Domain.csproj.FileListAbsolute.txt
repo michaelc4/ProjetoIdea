@@ -19,7 +19,6 @@ C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\bin\Debug\ne
 C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\bin\Debug\net5.0\Api.Domain.dll
 C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\bin\Debug\net5.0\ref\Api.Domain.dll
 C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\bin\Debug\net5.0\Api.Domain.pdb
-C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\obj\Debug\net5.0\Api.Domain.csprojAssemblyReference.cache
 C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\obj\Debug\net5.0\Api.Domain.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\obj\Debug\net5.0\Api.Domain.AssemblyInfoInputs.cache
 C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\obj\Debug\net5.0\Api.Domain.AssemblyInfo.cs
@@ -28,3 +27,4 @@ C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\obj\Debug\ne
 C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\obj\Debug\net5.0\ref\Api.Domain.dll
 C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\obj\Debug\net5.0\Api.Domain.pdb
 C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\obj\Debug\net5.0\Api.Domain.genruntimeconfig.cache
+C:\Users\Usuario\Documents\GitHub\ProjetoLabSoftware\Api\Api.Domain\obj\Debug\net5.0\Api.Domain.csprojAssemblyReference.cache
