@@ -5,6 +5,298 @@
     "version": "v1"
   },
   "paths": {
+    "/api/ideia/getallpaged": {
+      "get": {
+        "tags": [
+          "Ideia"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideia/getallpagedbyuser": {
+      "get": {
+        "tags": [
+          "Ideia"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideia/delete": {
+      "put": {
+        "tags": [
+          "Ideia"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideia/get": {
+      "get": {
+        "tags": [
+          "Ideia"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideia/getall": {
+      "get": {
+        "tags": [
+          "Ideia"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideia/post": {
+      "post": {
+        "tags": [
+          "Ideia"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/IdeiaPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideia/put": {
+      "put": {
+        "tags": [
+          "Ideia"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/IdeiaPutDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideiaanexo/getallpaged": {
+      "get": {
+        "tags": [
+          "IdeiaAnexo"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideiaanexo/delete": {
+      "put": {
+        "tags": [
+          "IdeiaAnexo"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideiaanexo/get": {
+      "get": {
+        "tags": [
+          "IdeiaAnexo"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideiaanexo/getall": {
+      "get": {
+        "tags": [
+          "IdeiaAnexo"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideiaanexo/post": {
+      "post": {
+        "tags": [
+          "IdeiaAnexo"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/IdeiaAnexoPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/ideiaanexo/put": {
+      "put": {
+        "tags": [
+          "IdeiaAnexo"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/IdeiaAnexoPutDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/login": {
       "post": {
         "tags": [
@@ -57,10 +349,290 @@
         }
       }
     },
-    "/api/usuario/getall": {
+    "/api/problema/getallpaged": {
       "get": {
         "tags": [
-          "Usuario"
+          "Problema"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problema/getallpagedbyuser": {
+      "get": {
+        "tags": [
+          "Problema"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problema/delete": {
+      "put": {
+        "tags": [
+          "Problema"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problema/get": {
+      "get": {
+        "tags": [
+          "Problema"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problema/getall": {
+      "get": {
+        "tags": [
+          "Problema"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problema/post": {
+      "post": {
+        "tags": [
+          "Problema"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ProblemaPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problema/put": {
+      "put": {
+        "tags": [
+          "Problema"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ProblemaPutDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problemaanexo/getallpaged": {
+      "get": {
+        "tags": [
+          "ProblemaAnexo"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problemaanexo/delete": {
+      "put": {
+        "tags": [
+          "ProblemaAnexo"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problemaanexo/get": {
+      "get": {
+        "tags": [
+          "ProblemaAnexo"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problemaanexo/getall": {
+      "get": {
+        "tags": [
+          "ProblemaAnexo"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problemaanexo/post": {
+      "post": {
+        "tags": [
+          "ProblemaAnexo"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ProblemaAnexoPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/problemaanexo/put": {
+      "put": {
+        "tags": [
+          "ProblemaAnexo"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ProblemaAnexoPutDto"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -94,9 +666,475 @@
           }
         }
       }
+    },
+    "/api/usuario/delete": {
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/usuario/get": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/usuario/getall": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/usuario/post": {
+      "post": {
+        "tags": [
+          "Usuario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UsuarioPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/usuario/put": {
+      "put": {
+        "tags": [
+          "Usuario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UsuarioPutDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/voluntario/getallpaged": {
+      "get": {
+        "tags": [
+          "Voluntario"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/voluntario/getallpagedbyuser": {
+      "get": {
+        "tags": [
+          "Voluntario"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "userId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/voluntario/getallpagedbyproblemorideia": {
+      "get": {
+        "tags": [
+          "Voluntario"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "query",
+            "name": "problemId",
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "query",
+            "name": "ideaId",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/voluntario/delete": {
+      "put": {
+        "tags": [
+          "Voluntario"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/voluntario/get": {
+      "get": {
+        "tags": [
+          "Voluntario"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/voluntario/getall": {
+      "get": {
+        "tags": [
+          "Voluntario"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/voluntario/post": {
+      "post": {
+        "tags": [
+          "Voluntario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/VoluntarioPostDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/voluntario/put": {
+      "put": {
+        "tags": [
+          "Voluntario"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/VoluntarioPutDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "IdeiaAnexoPostDto": {
+      "type": "object",
+      "properties": {
+        "ideiaId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "desAnexo": {
+          "type": "string"
+        },
+        "indTipoArquivo": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desNomeOriginal": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "IdeiaAnexoPutDto": {
+      "required": [
+        "id"
+      ],
+      "type": "object",
+      "properties": {
+        "ideiaId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "desAnexo": {
+          "type": "string"
+        },
+        "indTipoArquivo": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desNomeOriginal": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "IdeiaPostDto": {
+      "type": "object",
+      "properties": {
+        "desIdeia": {
+          "type": "string"
+        },
+        "desMotivoInvestir": {
+          "type": "string"
+        },
+        "indInteresseCompartilhar": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "indNivelDesenvolvimento": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "indNivelSigilo": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desComentario": {
+          "type": "string"
+        },
+        "usuarioId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "anexos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IdeiaAnexoPostDto"
+          }
+        }
+      }
+    },
+    "IdeiaPutDto": {
+      "type": "object",
+      "properties": {
+        "desIdeia": {
+          "type": "string"
+        },
+        "desMotivoInvestir": {
+          "type": "string"
+        },
+        "indInteresseCompartilhar": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "indNivelDesenvolvimento": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "indNivelSigilo": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desComentario": {
+          "type": "string"
+        },
+        "numPotencialDisrupcao": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numPessoasImpactadas": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numPotencialGanho": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numValorInvestimento": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numImpactoAmbiental": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numPontuacaoGeral": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "indAtivo": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "indAprovado": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "usuarioId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "anexos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IdeiaAnexoPostDto"
+          }
+        }
+      }
+    },
     "LoginDto": {
       "required": [
         "email"
@@ -131,6 +1169,136 @@
         }
       }
     },
+    "ProblemaAnexoPostDto": {
+      "type": "object",
+      "properties": {
+        "problemaId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "desAnexo": {
+          "type": "string"
+        },
+        "indTipoArquivo": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desNomeOriginal": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "ProblemaAnexoPutDto": {
+      "required": [
+        "id"
+      ],
+      "type": "object",
+      "properties": {
+        "problemaId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "desAnexo": {
+          "type": "string"
+        },
+        "indTipoArquivo": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desNomeOriginal": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "ProblemaPostDto": {
+      "type": "object",
+      "properties": {
+        "desProblema": {
+          "type": "string"
+        },
+        "indTipoBeneficio": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "indTipoSolucao": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "numProbabilidadeInvestir": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "usuarioId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "anexos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProblemaAnexoPostDto"
+          }
+        }
+      }
+    },
+    "ProblemaPutDto": {
+      "required": [
+        "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "desProblema": {
+          "type": "string"
+        },
+        "indTipoBeneficio": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "indTipoSolucao": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "numProbabilidadeInvestir": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "indAtivo": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "indAprovado": {
+          "maxLength": 1,
+          "minLength": 0,
+          "type": "string"
+        },
+        "usuarioId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "anexos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProblemaAnexoPostDto"
+          }
+        }
+      }
+    },
     "UsuarioPostDto": {
       "required": [
         "desEmail",
@@ -138,6 +1306,11 @@
       ],
       "type": "object",
       "properties": {
+        "desNome": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
         "desImagem": {
           "type": "string"
         },
@@ -155,6 +1328,89 @@
         "desTelefone": {
           "maxLength": 20,
           "minLength": 0,
+          "type": "string"
+        }
+      }
+    },
+    "UsuarioPutDto": {
+      "required": [
+        "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "desNome": {
+          "maxLength": 50,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desImagem": {
+          "type": "string"
+        },
+        "desSenha": {
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desTelefone": {
+          "maxLength": 20,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desEspecialidade": {
+          "maxLength": 300,
+          "minLength": 0,
+          "type": "string"
+        },
+        "desExperiencia": {
+          "maxLength": 3000,
+          "minLength": 0,
+          "type": "string"
+        },
+        "admin": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "VoluntarioPostDto": {
+      "type": "object",
+      "properties": {
+        "usuarioId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "ideiaId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "problemaId": {
+          "format": "uuid",
+          "type": "string"
+        }
+      }
+    },
+    "VoluntarioPutDto": {
+      "required": [
+        "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "usuarioId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "ideiaId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "problemaId": {
+          "format": "uuid",
           "type": "string"
         }
       }
