@@ -16,30 +16,125 @@ namespace Api.Service.Services
         private IRepository<IdeiaEntity> _repository;
         private IUsuarioRepository _repositoryUser;
         private IIdeiaAnexoRepository _repositoryAttachment;
+        private ILikeRepository _repositoryLike;
         private readonly IMapper _mapper;
 
-        public IdeiaService(IRepository<IdeiaEntity> repository, IUsuarioRepository repositoryUser, IIdeiaAnexoRepository repositoryAttachment, IMapper mapper) : base(repository, mapper)
+        public IdeiaService(IRepository<IdeiaEntity> repository, IUsuarioRepository repositoryUser, IIdeiaAnexoRepository repositoryAttachment, ILikeRepository repositoryLike, IMapper mapper) : base(repository, mapper)
         {
             _repository = repository;
             _repositoryUser = repositoryUser;
             _repositoryAttachment = repositoryAttachment;
+            _repositoryLike = repositoryLike;
             _mapper = mapper;
         }
 
-        public async Task<PagedResultPresenter<IdeiaPresenter>> GetPaged(int page, int pageSize)
+        public async Task<PagedResultPresenter<IdeiaPresenter>> GetPaged(int page, int pageSize, string ideaSearch, string reasonSearch, string shareSearch, string developmentSearch, string secretSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
             IQueryable<IdeiaEntity> query = _repository.GetQuery();
+
+            if (!string.IsNullOrEmpty(ideaSearch))
+            {
+                query = query.Where(x => x.DesIdeia.Contains(ideaSearch));
+            }
+
+            if (!string.IsNullOrEmpty(reasonSearch))
+            {
+                query = query.Where(x => x.DesMotivoInvestir.Contains(reasonSearch));
+            }
+
+            if (!string.IsNullOrEmpty(shareSearch))
+            {
+                query = query.Where(x => x.IndInteresseCompartilhar == shareSearch);
+            }
+
+            if (!string.IsNullOrEmpty(developmentSearch))
+            {
+                query = query.Where(x => x.IndNivelDesenvolvimento == developmentSearch);
+            }
+
+            if (!string.IsNullOrEmpty(secretSearch))
+            {
+                query = query.Where(x => x.IndNivelSigilo == secretSearch);
+            }
+
+            if (!string.IsNullOrEmpty(approvedSearch))
+            {
+                query = query.Where(x => x.IndAprovado == approvedSearch);
+            }
+
+            if (DateTime.TryParse(registrationDateIniSearch, out DateTime dateIni))
+            {
+                query = query.Where(x => x.DataCriacao >= dateIni);
+            }
+
+            if (DateTime.TryParse(registrationDateEndSearch, out DateTime dateEnd))
+            {
+                query = query.Where(x => x.DataCriacao <= dateEnd);
+            }
+
             query = query.OrderBy(x => x.IndAprovado);
 
             var result = _mapper.Map<PagedResultPresenter<IdeiaPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
         }
 
-        public async Task<PagedResultPresenter<IdeiaPresenter>> GetPagedByUser(int page, int pageSize, Guid userId)
+        public async Task<PagedResultPresenter<IdeiaPresenter>> GetPagedByUser(int page, int pageSize, Guid userId, string ideaSearch, string reasonSearch, string shareSearch, string developmentSearch, string secretSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
             IQueryable<IdeiaEntity> query = _repository.GetQuery();
             query = query.Where(x => x.UsuarioId == userId);
-            query = query.OrderBy(x => x.IndAprovado);
+
+            if (!string.IsNullOrEmpty(ideaSearch))
+            {
+                query = query.Where(x => x.DesIdeia.Contains(ideaSearch));
+            }
+
+            if (!string.IsNullOrEmpty(reasonSearch))
+            {
+                query = query.Where(x => x.DesMotivoInvestir.Contains(reasonSearch));
+            }
+
+            if (!string.IsNullOrEmpty(shareSearch))
+            {
+                query = query.Where(x => x.IndInteresseCompartilhar == shareSearch);
+            }
+
+            if (!string.IsNullOrEmpty(developmentSearch))
+            {
+                query = query.Where(x => x.IndNivelDesenvolvimento == developmentSearch);
+            }
+
+            if (!string.IsNullOrEmpty(secretSearch))
+            {
+                query = query.Where(x => x.IndNivelSigilo == secretSearch);
+            }
+
+            if (!string.IsNullOrEmpty(approvedSearch))
+            {
+                query = query.Where(x => x.IndAprovado == approvedSearch);
+            }
+
+            if (DateTime.TryParse(registrationDateIniSearch, out DateTime dateIni))
+            {
+                query = query.Where(x => x.DataCriacao >= dateIni);
+            }
+
+            if (DateTime.TryParse(registrationDateEndSearch, out DateTime dateEnd))
+            {
+                query = query.Where(x => x.DataCriacao <= dateEnd);
+            }
+
+            query = query.OrderByDescending(x => x.IndAprovado);
+
+            var result = _mapper.Map<PagedResultPresenter<IdeiaPresenter>>(await _repository.GetPaged(query, page, pageSize));
+            return await GetPresenterDetail(result);
+        }
+
+        public async Task<PagedResultPresenter<IdeiaPresenter>> GetPagedInitialScreen(int page, int pageSize)
+        {
+            IQueryable<IdeiaEntity> query = _repository.GetQuery();
+
+            query = query.Where(x => x.IndNivelSigilo == "1");
+            query = query.OrderByDescending(x => x.IndAprovado).ThenByDescending(x => x.NumPontuacaoGeral);
 
             var result = _mapper.Map<PagedResultPresenter<IdeiaPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
@@ -106,6 +201,12 @@ namespace Api.Service.Services
                         listAttachments.Add(_mapper.Map<IdeiaAnexoPresenter>(attach));
                     }
                     item.Anexos = listAttachments;
+
+                    var likeQuery = _repositoryLike.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id).ToList();
+                    if (likeQuery != null && likeQuery.Count > 0)
+                    {
+                        item.NumLikes = likeQuery.Count;
+                    }
                 }
             }
 

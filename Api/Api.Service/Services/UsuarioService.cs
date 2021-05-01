@@ -19,9 +19,29 @@ namespace Api.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<PagedResultPresenter<UsuarioPresenter>> GetPaged(int page, int pageSize)
+        public async Task<PagedResultPresenter<UsuarioPresenter>> GetPaged(int page, int pageSize, string nameSearch, string emailSearch, string foneSearch, bool? isAdminSearch)
         {
             IQueryable<UsuarioEntity> query = _repository.GetQuery();
+
+            if (!string.IsNullOrEmpty(nameSearch))
+            {
+                query = query.Where(x => x.DesNome.Contains(nameSearch));
+            }
+
+            if (!string.IsNullOrEmpty(emailSearch))
+            {
+                query = query.Where(x => x.DesEmail.Contains(emailSearch));
+            }
+
+            if (!string.IsNullOrEmpty(foneSearch))
+            {
+                query = query.Where(x => x.DesTelefone.Contains(foneSearch));
+            }
+
+            if (isAdminSearch.HasValue)
+            {
+                query = query.Where(x => x.Admin == (isAdminSearch.Value ? 1 : 0));
+            }
 
             return _mapper.Map<PagedResultPresenter<UsuarioPresenter>>(await _repository.GetPaged(query, page, pageSize));
         }

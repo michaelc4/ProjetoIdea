@@ -9,9 +9,9 @@ namespace Api.Data.Context
     {
         public MyContext CreateDbContext(string[] args)
         {
-            var connectionString = "server=dbapiinova.czdgknerwits.us-east-2.rds.amazonaws.com;port=3306;database=dbapiinova;uid=dbapiinova;password=rootinova123";
+            var connectionString = "server=aa1tb9hblhskc0c.czdgknerwits.us-east-2.rds.amazonaws.com;port=3306;database=dbapiinova;uid=dbapiinova;password=rootinova123";
             var optionsBuilder = new DbContextOptionsBuilder<MyContext>();
-            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend));
+            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend).EnableRetryOnFailure());
             return new MyContext(optionsBuilder.Options);
         }
     }

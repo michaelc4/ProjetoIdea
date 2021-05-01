@@ -16,29 +16,93 @@ namespace Api.Service.Services
         private IRepository<ProblemaEntity> _repository;
         private IUsuarioRepository _repositoryUser;
         private IProblemaAnexoRepository _repositoryAttachment;
+        private ILikeRepository _repositoryLike;
         private readonly IMapper _mapper;
 
-        public ProblemaService(IRepository<ProblemaEntity> repository, IUsuarioRepository repositoryUser, IProblemaAnexoRepository repositoryAttachment, IMapper mapper) : base(repository, mapper)
+        public ProblemaService(IRepository<ProblemaEntity> repository, IUsuarioRepository repositoryUser, IProblemaAnexoRepository repositoryAttachment, ILikeRepository repositoryLike, IMapper mapper) : base(repository, mapper)
         {
             _repository = repository;
             _repositoryUser = repositoryUser;
             _repositoryAttachment = repositoryAttachment;
+            _repositoryLike = repositoryLike;
             _mapper = mapper;
         }
 
-        public async Task<PagedResultPresenter<ProblemaPresenter>> GetPaged(int page, int pageSize)
+        public async Task<PagedResultPresenter<ProblemaPresenter>> GetPaged(int page, int pageSize, string problemSearch, string benefitTypeSearch, string solutionTypeSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
             IQueryable<ProblemaEntity> query = _repository.GetQuery();
+
+            if (!string.IsNullOrEmpty(problemSearch))
+            {
+                query = query.Where(x => x.DesProblema.Contains(problemSearch));
+            }
+
+            if (!string.IsNullOrEmpty(benefitTypeSearch))
+            {
+                query = query.Where(x => x.IndTipoBeneficio == benefitTypeSearch);
+            }
+
+            if (!string.IsNullOrEmpty(solutionTypeSearch))
+            {
+                query = query.Where(x => x.IndTipoSolucao == solutionTypeSearch);
+            }
+
+            if (!string.IsNullOrEmpty(approvedSearch))
+            {
+                query = query.Where(x => x.IndAprovado == approvedSearch);
+            }
+
+            if (DateTime.TryParse(registrationDateIniSearch, out DateTime dateIni))
+            {
+                query = query.Where(x => x.DataCriacao >= dateIni);
+            }
+
+            if (DateTime.TryParse(registrationDateEndSearch, out DateTime dateEnd))
+            {
+                query = query.Where(x => x.DataCriacao <= dateEnd);
+            }
+
             query = query.OrderBy(x => x.IndAprovado);
 
             var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
         }
 
-        public async Task<PagedResultPresenter<ProblemaPresenter>> GetPagedByUser(int page, int pageSize, Guid userId)
+        public async Task<PagedResultPresenter<ProblemaPresenter>> GetPagedByUser(int page, int pageSize, Guid userId, string problemSearch, string benefitTypeSearch, string solutionTypeSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
             IQueryable<ProblemaEntity> query = _repository.GetQuery();
             query = query.Where(x => x.UsuarioId == userId);
+
+            if (!string.IsNullOrEmpty(problemSearch))
+            {
+                query = query.Where(x => x.DesProblema.Contains(problemSearch));
+            }
+
+            if (!string.IsNullOrEmpty(benefitTypeSearch))
+            {
+                query = query.Where(x => x.IndTipoBeneficio == benefitTypeSearch);
+            }
+
+            if (!string.IsNullOrEmpty(solutionTypeSearch))
+            {
+                query = query.Where(x => x.IndTipoSolucao == solutionTypeSearch);
+            }
+
+            if (!string.IsNullOrEmpty(approvedSearch))
+            {
+                query = query.Where(x => x.IndAprovado == approvedSearch);
+            }
+
+            if (DateTime.TryParse(registrationDateIniSearch, out DateTime dateIni))
+            {
+                query = query.Where(x => x.DataCriacao >= dateIni);
+            }
+
+            if (DateTime.TryParse(registrationDateEndSearch, out DateTime dateEnd))
+            {
+                query = query.Where(x => x.DataCriacao <= dateEnd);
+            }
+
             query = query.OrderBy(x => x.IndAprovado);
 
             var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
@@ -106,6 +170,12 @@ namespace Api.Service.Services
                         listAttachments.Add(_mapper.Map<ProblemaAnexoPresenter>(attach));
                     }
                     item.Anexos = listAttachments;
+
+                    var likeQuery = _repositoryLike.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id).ToList();
+                    if (likeQuery != null && likeQuery.Count > 0)
+                    {
+                        item.NumLikes = likeQuery.Count;
+                    }
                 }
             }
 

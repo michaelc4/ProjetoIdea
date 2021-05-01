@@ -22,7 +22,7 @@ namespace Api.Aplication.Controllers
 
         [Authorize("Bearer")]
         [HttpGet("getallpaged")]
-        public async Task<ActionResult> GetPaged(int page, int pageSize)
+        public async Task<ActionResult> GetPaged(int page, int pageSize, string ideaSearch, string reasonSearch, string shareSearch, string developmentSearch, string secretSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
             if (!ModelState.IsValid)
             {
@@ -31,7 +31,7 @@ namespace Api.Aplication.Controllers
 
             try
             {
-                return Ok(await _service.GetPaged(page, pageSize));
+                return Ok(await _service.GetPaged(page, pageSize, ideaSearch, reasonSearch, shareSearch, developmentSearch, secretSearch, approvedSearch, registrationDateIniSearch, registrationDateEndSearch));
             }
             catch (ArgumentException ex)
             {
@@ -41,7 +41,7 @@ namespace Api.Aplication.Controllers
 
         [Authorize("Bearer")]
         [HttpGet("getallpagedbyuser")]
-        public async Task<ActionResult> GetPagedByUser(int page, int pageSize, Guid userId)
+        public async Task<ActionResult> GetPagedByUser(int page, int pageSize, Guid userId, string ideaSearch, string reasonSearch, string shareSearch, string developmentSearch, string secretSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
             if (!ModelState.IsValid)
             {
@@ -50,7 +50,26 @@ namespace Api.Aplication.Controllers
 
             try
             {
-                return Ok(await _service.GetPagedByUser(page, pageSize, userId));
+                return Ok(await _service.GetPagedByUser(page, pageSize, userId, ideaSearch, reasonSearch, shareSearch, developmentSearch, secretSearch, approvedSearch, registrationDateIniSearch, registrationDateEndSearch));
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [Authorize("Bearer")]
+        [HttpGet("getallpagedinitialscreen")]
+        public async Task<ActionResult> GetPagedInitialScreen(int page, int pageSize)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                return Ok(await _service.GetPagedInitialScreen(page, pageSize));
             }
             catch (ArgumentException ex)
             {

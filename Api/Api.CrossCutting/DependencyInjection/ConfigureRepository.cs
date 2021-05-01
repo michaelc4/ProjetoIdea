@@ -25,7 +25,7 @@ namespace Api.CrossCutting.DependencyInjection
             serviceCollection.AddScoped(typeof(IVoluntarioRepository), typeof(VoluntarioImplementation));
 
             var connectionString = configuration.GetConnectionString("DefaultConnection");
-            serviceCollection.AddDbContext<MyContext>(options => options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend)));
+            serviceCollection.AddDbContext<MyContext>(options => options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend).EnableRetryOnFailure()));
         }
     }
 }

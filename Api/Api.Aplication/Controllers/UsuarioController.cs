@@ -22,7 +22,7 @@ namespace Api.Aplication.Controllers
 
         [Authorize("Bearer")]
         [HttpGet("getallpaged")]
-        public async Task<ActionResult> GetPaged(int page, int pageSize)
+        public async Task<ActionResult> GetPaged(int page, int pageSize, string nameSearch, string emailSearch, string foneSearch, bool? isAdminSearch)
         {
             if (!ModelState.IsValid)
             {
@@ -31,7 +31,7 @@ namespace Api.Aplication.Controllers
 
             try
             {
-                return Ok(await _service.GetPaged(page, pageSize));
+                return Ok(await _service.GetPaged(page, pageSize, nameSearch, emailSearch, foneSearch, isAdminSearch));
             }
             catch (ArgumentException ex)
             {

@@ -1,6 +1,7 @@
 ﻿using Api.Domain.Dtos;
 using Api.Domain.Interfaces.Services;
 using Api.Domain.Presenters;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Api.Aplication.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/login")]
     [ApiController]
     public class LoginController : ControllerBase

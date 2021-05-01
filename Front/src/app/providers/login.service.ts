@@ -27,7 +27,7 @@ export class LoginService {
         return this.http
             .post(url, body, this.global.getOptions())
             .pipe(map((res: any) => {
-                return res;
+                return res as LoginModel;
             }), catchError(err => {
                 return err;
             }));

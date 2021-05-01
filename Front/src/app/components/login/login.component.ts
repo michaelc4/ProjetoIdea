@@ -23,7 +23,7 @@ export class LoginComponent implements OnDestroy {
   password: string = '';
   confirmPassword: string = '';
   fone: string = '';
-  alive: boolean = true
+  alive: boolean = true;
 
   constructor(private socialservice: SocialAuthService,
     private global: Global,
@@ -35,6 +35,7 @@ export class LoginComponent implements OnDestroy {
   ngOnInit() {
     this.cleanData();
     this.socialservice.authState.subscribe((user) => {
+      console.log("teste");
       let param = new LoginParamModel();
       param.email = user.email;
       param.senha = '';
@@ -109,6 +110,7 @@ export class LoginComponent implements OnDestroy {
     this.password = '';
     this.confirmPassword = '';
     this.fone = '';
+    this.alive = true;
   }
 
   createUser() {
