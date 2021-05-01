@@ -6,12 +6,12 @@ import { Global } from '../../../providers/global.service';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 
 @Component({
-  selector: 'app-auth-usuarios',
-  templateUrl: `usuarios.component.html`,
-  styleUrls: ['usuarios.component.scss'],
+  selector: 'app-auth-menu-usuarios',
+  templateUrl: `menu_usuario.component.html`,
+  styleUrls: ['menu_usuario.component.scss'],
   providers: [UsuarioService]
 })
-export class UsuariosComponent {
+export class MenuUsuarioComponent {
   ColumnMode = ColumnMode;
   page = new PageModel();
   usuarios: Array<UsuarioModel> = new Array<UsuarioModel>();
@@ -37,5 +37,13 @@ export class UsuariosComponent {
     //   this.page = pagedData.page;
     //  this.rows = pagedData.data;
     //});
+  }
+
+  onSelect(row: any) {
+
+  }
+
+  onSelectBlue(row: any) {
+
   }
 }

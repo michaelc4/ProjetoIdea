@@ -6,6 +6,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-logi
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +25,7 @@ import { AuthGuard } from "./providers/authguard.service";
 import { AppComponent } from './app.component';
 import { InicialComponent } from "../app/components/inicial/inicial.component";
 import { LoginComponent } from "../app/components/login/login.component";
-import { UsuariosComponent } from "../app/components/auth/usuarios/usuarios.component";
+import { MenuUsuarioComponent } from "../app/components/auth/menu_usuario/menu_usuario.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -75,7 +76,7 @@ const maskConfig: Partial<IConfig> = {
     AppComponent,
     InicialComponent,
     LoginComponent,
-    UsuariosComponent
+    MenuUsuarioComponent 
   ],
   imports: [
     BrowserAnimationsModule,
@@ -92,6 +93,7 @@ const maskConfig: Partial<IConfig> = {
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
+    TabsModule.forRoot(),
     NgxDatatableModule.forRoot({
       messages: {
         emptyMessage: 'Nenhum dado encontrado',

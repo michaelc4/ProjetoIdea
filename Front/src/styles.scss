@@ -2,6 +2,10 @@
 $fa-font-path: "~font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome';
 @import '~angular-notifier/styles';
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
 
 @font-face {
     font-weight: 400;
@@ -1931,4 +1935,25 @@ body:not(.responsive).device-mobile-optimized ._2qI_L ._3MMC_ {
 
 .backcolor_35 {
     background-color: rgb(var(--color_35))
+}
+
+.ngx-datatable.bootstrap .datatable-footer {
+    background: #a5a5a5 !important;
+}
+
+@media screen and (max-width: 800px) {
+    .desktop-hidden {
+        display: initial;
+    }
+    .mobile-hidden {
+        display: none;
+    }
+}
+@media screen and (min-width: 800px) {
+    .desktop-hidden {
+        display: none;
+    }
+    .mobile-hidden {
+        display: initial;
+    }
 }

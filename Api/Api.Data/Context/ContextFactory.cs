@@ -9,7 +9,7 @@ namespace Api.Data.Context
     {
         public MyContext CreateDbContext(string[] args)
         {
-            var connectionString = "server=dbapiinova.mysql.database.azure.com;port=3306;database=dbapiinova;uid=dbapiinova@dbapiinova;password=root@inova123";
+            var connectionString = "server=dbapiinova.czdgknerwits.us-east-2.rds.amazonaws.com;port=3306;database=dbapiinova;uid=dbapiinova;password=rootinova123";
             var optionsBuilder = new DbContextOptionsBuilder<MyContext>();
             optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend));
             return new MyContext(optionsBuilder.Options);
