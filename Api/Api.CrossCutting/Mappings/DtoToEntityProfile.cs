@@ -12,6 +12,8 @@ namespace Api.CrossCutting.Mappings
             CreateMap<IdeiaAnexoPutDto, IdeiaAnexoEntity>();
             CreateMap<IdeiaPostDto, IdeiaEntity>();
             CreateMap<IdeiaPutDto, IdeiaEntity>();
+            CreateMap<LikePostDto, LikeEntity>();
+            CreateMap<LikePutDto, LikeEntity>();
             CreateMap<ProblemaAnexoPostDto, ProblemaAnexoEntity>();
             CreateMap<ProblemaAnexoPutDto, ProblemaAnexoEntity>();
             CreateMap<ProblemaPostDto, ProblemaEntity>();

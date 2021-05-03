@@ -7,12 +7,12 @@ namespace Api.Data.Context
     public class MyContext : DbContext
     {
         public DbSet<UsuarioEntity> Usuarios { get; set; }
-        public DbSet<ProblemaEntity> Problemas { get; set; }
-        public DbSet<ProblemaAnexoEntity> ProblemaAnexos { get; set; }
         public DbSet<IdeiaEntity> Ideias { get; set; }
         public DbSet<IdeiaAnexoEntity> IdeiaAnexos { get; set; }
-        public DbSet<VoluntarioEntity> Voluntarios { get; set; }
         public DbSet<LikeEntity> Likes { get; set; }
+        public DbSet<ProblemaEntity> Problemas { get; set; }
+        public DbSet<ProblemaAnexoEntity> ProblemaAnexos { get; set; }
+        public DbSet<VoluntarioEntity> Voluntarios { get; set; }
 
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
 
@@ -20,12 +20,12 @@ namespace Api.Data.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<UsuarioEntity>(new UsuarioMap().Configure);
-            modelBuilder.Entity<ProblemaEntity>(new ProblemaMap().Configure);
-            modelBuilder.Entity<ProblemaAnexoEntity>(new ProblemaAnexoMap().Configure);
             modelBuilder.Entity<IdeiaEntity>(new IdeiaMap().Configure);
             modelBuilder.Entity<IdeiaAnexoEntity>(new IdeiaAnexoMap().Configure);
-            modelBuilder.Entity<VoluntarioEntity>(new VoluntarioMap().Configure);
             modelBuilder.Entity<LikeEntity>(new LikeMap().Configure);
+            modelBuilder.Entity<ProblemaEntity>(new ProblemaMap().Configure);
+            modelBuilder.Entity<ProblemaAnexoEntity>(new ProblemaAnexoMap().Configure);
+            modelBuilder.Entity<VoluntarioEntity>(new VoluntarioMap().Configure);
         }
     }
 }

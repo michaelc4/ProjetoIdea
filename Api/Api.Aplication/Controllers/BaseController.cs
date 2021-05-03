@@ -19,7 +19,7 @@ namespace Api.Aplication.Controllers
 
         [Authorize("Bearer")]
         [HttpPut("delete")]
-        public async Task<ActionResult> Delete(Guid id)
+        public virtual async Task<ActionResult> Delete(Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -39,7 +39,7 @@ namespace Api.Aplication.Controllers
 
         [Authorize("Bearer")]
         [HttpGet("get")]
-        public async Task<ActionResult> Get(Guid id)
+        public virtual async Task<ActionResult> Get(Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace Api.Aplication.Controllers
 
         [Authorize("Bearer")]
         [HttpGet("getall")]
-        public async Task<ActionResult> GetAll()
+        public virtual async Task<ActionResult> GetAll()
         {
             if (!ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace Api.Aplication.Controllers
 
         [Authorize("Bearer")]
         [HttpPost("post")]
-        public async Task<ActionResult> Post([FromBody] TPostDto dto)
+        public virtual async Task<ActionResult> Post([FromBody] TPostDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace Api.Aplication.Controllers
 
         [Authorize("Bearer")]
         [HttpPut("put")]
-        public async Task<ActionResult> Put([FromBody] TPutDto dto)
+        public virtual async Task<ActionResult> Put([FromBody] TPutDto dto)
         {
             if (!ModelState.IsValid)
             {
