@@ -17,7 +17,7 @@ namespace Api.Aplication.Controllers
             _service = service;
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpPut("delete")]
         public virtual async Task<ActionResult> Delete(Guid id)
         {
@@ -37,7 +37,7 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpGet("get")]
         public virtual async Task<ActionResult> Get(Guid id)
         {
@@ -56,7 +56,7 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpGet("getall")]
         public virtual async Task<ActionResult> GetAll()
         {
@@ -75,7 +75,7 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpPost("post")]
         public virtual async Task<ActionResult> Post([FromBody] TPostDto dto)
         {
@@ -94,7 +94,7 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpPut("put")]
         public virtual async Task<ActionResult> Put([FromBody] TPutDto dto)
         {
