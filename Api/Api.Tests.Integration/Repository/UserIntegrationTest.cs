@@ -3,6 +3,7 @@ using Api.Domain.Interfaces.Repository;
 using Api.Tests.Integration.Builders;
 using Bogus;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -92,6 +93,21 @@ namespace Api.Tests.Integration.Repository
             var userSearch = await _userRepository.SelectAsync(user.Id);
             Assert.NotNull(userSearch);
             Assert.Equal(user.Id, userSearch.Id);
+
+            await ResetDatabase();
+        }
+
+        [Fact]
+        public async Task TestSelectManyAsync()
+        {
+            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
+            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
+            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
+            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
+
+            var userSearch = (await _userRepository.SelectAsync()).ToList();
+            Assert.NotNull(userSearch);
+            Assert.Equal(4, userSearch.Count);
 
             await ResetDatabase();
         }
