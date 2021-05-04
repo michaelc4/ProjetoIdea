@@ -13,7 +13,7 @@ namespace Api.CrossCutting.DependencyInjection
 {
     public class ConfigureRepository
     {
-        public static void ConfigureDependenciesRepository(IServiceCollection serviceCollection, IConfiguration configuration)
+        public static void ConfigureDependenciesRepository(IServiceCollection serviceCollection, IConfiguration configuration, string connectionString = null)
         {
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             serviceCollection.AddScoped(typeof(IIdeiaAnexoRepository), typeof(IdeiaAnexoImplementation));
@@ -24,8 +24,15 @@ namespace Api.CrossCutting.DependencyInjection
             serviceCollection.AddScoped(typeof(IUsuarioRepository), typeof(UsuarioImplementation));
             serviceCollection.AddScoped(typeof(IVoluntarioRepository), typeof(VoluntarioImplementation));
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            serviceCollection.AddDbContext<MyContext>(options => options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend).EnableRetryOnFailure()));
+            if (configuration != null)
+            {
+                connectionString = configuration.GetConnectionString("DefaultConnection");
+                serviceCollection.AddDbContext<MyContext>(options => options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend).EnableRetryOnFailure()));
+            }
+            else
+            {
+                serviceCollection.AddDbContext<MyContext>(options => options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend).EnableRetryOnFailure()));
+            }
         }
     }
 }
