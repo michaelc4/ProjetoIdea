@@ -39,8 +39,8 @@ namespace Api.Tests.Integration.Repository
         public async Task TestExistsAsync()
         {
             var user = await _usuarioBuilder.CreateInDataBase(_usuarioEntity);
-            var result = await _userRepository.ExistsAsync(user.Id);
 
+            var result = await _userRepository.ExistsAsync(user.Id);
             Assert.True(result);
 
             await ResetDatabase();
