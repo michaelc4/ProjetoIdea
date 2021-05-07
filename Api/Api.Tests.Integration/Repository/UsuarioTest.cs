@@ -9,13 +9,13 @@ using Xunit;
 
 namespace Api.Tests.Integration.Repository
 {
-    public class UserTest : BaseFixture
+    public class UsuarioTest : BaseFixture
     {
         protected IUsuarioRepository _userRepository;
         protected UsuarioBuilder _usuarioBuilder;
         protected UsuarioEntity _usuarioEntity;
 
-        public UserTest(TestFixture<Startup> fixture) : base(fixture)
+        public UsuarioTest(TestFixture<Startup> fixture) : base(fixture)
         {
             _userRepository = _testServer.Services.GetService<IUsuarioRepository>();
             _usuarioBuilder = new UsuarioBuilder(_userRepository);
