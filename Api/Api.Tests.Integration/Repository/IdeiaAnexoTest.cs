@@ -39,8 +39,6 @@ namespace Api.Tests.Integration.Repository
 
             var ideiaAnexoSearch = await _ideiaAnexoBuilder.Search(ideiaAnexo.Id);
             Assert.Null(ideiaAnexoSearch);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -50,8 +48,6 @@ namespace Api.Tests.Integration.Repository
 
             var result = await _ideiaAnexoRepository.ExistsAsync(ideiaAnexo.Id);
             Assert.True(result);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -65,8 +61,6 @@ namespace Api.Tests.Integration.Repository
             var ideiaAnexoList = await _ideiaAnexoRepository.GetPaged(_ideiaAnexoRepository.GetQuery(), 1, 10);
             Assert.NotNull(ideiaAnexoList);
             Assert.Equal(4, ideiaAnexoList.RowCount);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -77,8 +71,6 @@ namespace Api.Tests.Integration.Repository
             var ideiaAnexoSearch = await _ideiaAnexoBuilder.Search(_ideiaAnexoEntity.Id);
             Assert.NotNull(ideiaAnexoSearch);
             Assert.Equal(_ideiaAnexoEntity.DesNomeOriginal, ideiaAnexoSearch.DesNomeOriginal);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -89,8 +81,6 @@ namespace Api.Tests.Integration.Repository
             var ideiaAnexoSearch = await _ideiaAnexoRepository.SelectAsync(ideiaAnexo.Id);
             Assert.NotNull(ideiaAnexoSearch);
             Assert.Equal(ideiaAnexo.Id, ideiaAnexoSearch.Id);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -104,8 +94,6 @@ namespace Api.Tests.Integration.Repository
             var ideiaAnexoSearch = (await _ideiaAnexoRepository.SelectAsync()).ToList();
             Assert.NotNull(ideiaAnexoSearch);
             Assert.Equal(4, ideiaAnexoSearch.Count);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -119,8 +107,6 @@ namespace Api.Tests.Integration.Repository
             var ideiaAnexoSearch = await _ideiaAnexoBuilder.Search(_ideiaAnexoEntity.Id);
             Assert.NotNull(ideiaAnexoSearch);
             Assert.Equal(ideiaAnexo.DesNomeOriginal, ideiaAnexoSearch.DesNomeOriginal);
-
-            await ResetDatabase();
         }
     }
 }

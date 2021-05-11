@@ -35,8 +35,6 @@ namespace Api.Tests.Integration.Repository
 
             var problemaSearch = await _problemaBuilder.Search(problema.Id);
             Assert.Null(problemaSearch);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -46,8 +44,6 @@ namespace Api.Tests.Integration.Repository
 
             var result = await _problemaRepository.ExistsAsync(problema.Id);
             Assert.True(result);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -61,8 +57,6 @@ namespace Api.Tests.Integration.Repository
             var problemaList = await _problemaRepository.GetPaged(_problemaRepository.GetQuery(), 1, 10);
             Assert.NotNull(problemaList);
             Assert.Equal(4, problemaList.RowCount);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -73,8 +67,6 @@ namespace Api.Tests.Integration.Repository
             var problemaSearch = await _problemaBuilder.Search(_problemaEntity.Id);
             Assert.NotNull(problemaSearch);
             Assert.Equal(_problemaEntity.DesProblema, problemaSearch.DesProblema);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -85,8 +77,6 @@ namespace Api.Tests.Integration.Repository
             var problemaSearch = await _problemaRepository.SelectAsync(problema.Id);
             Assert.NotNull(problemaSearch);
             Assert.Equal(problema.Id, problemaSearch.Id);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -100,8 +90,6 @@ namespace Api.Tests.Integration.Repository
             var problemaSearch = (await _problemaRepository.SelectAsync()).ToList();
             Assert.NotNull(problemaSearch);
             Assert.Equal(4, problemaSearch.Count);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -115,8 +103,6 @@ namespace Api.Tests.Integration.Repository
             var problemaSearch = await _problemaBuilder.Search(_problemaEntity.Id);
             Assert.NotNull(problemaSearch);
             Assert.Equal(problema.DesProblema, problemaSearch.DesProblema);
-
-            await ResetDatabase();
         }
     }
 }

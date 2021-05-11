@@ -39,8 +39,6 @@ namespace Api.Tests.Integration.Repository
 
             var problemaAnexoSearch = await _problemaAnexoBuilder.Search(problemaAnexo.Id);
             Assert.Null(problemaAnexoSearch);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -50,8 +48,6 @@ namespace Api.Tests.Integration.Repository
 
             var result = await _problemaAnexoRepository.ExistsAsync(problemaAnexo.Id);
             Assert.True(result);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -65,8 +61,6 @@ namespace Api.Tests.Integration.Repository
             var problemaAnexoList = await _problemaAnexoRepository.GetPaged(_problemaAnexoRepository.GetQuery(), 1, 10);
             Assert.NotNull(problemaAnexoList);
             Assert.Equal(4, problemaAnexoList.RowCount);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -77,8 +71,6 @@ namespace Api.Tests.Integration.Repository
             var problemaAnexoSearch = await _problemaAnexoBuilder.Search(_problemaAnexoEntity.Id);
             Assert.NotNull(problemaAnexoSearch);
             Assert.Equal(_problemaAnexoEntity.DesNomeOriginal, problemaAnexoSearch.DesNomeOriginal);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -89,8 +81,6 @@ namespace Api.Tests.Integration.Repository
             var problemaAnexoSearch = await _problemaAnexoRepository.SelectAsync(problemaAnexo.Id);
             Assert.NotNull(problemaAnexoSearch);
             Assert.Equal(problemaAnexo.Id, problemaAnexoSearch.Id);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -104,8 +94,6 @@ namespace Api.Tests.Integration.Repository
             var problemaAnexoSearch = (await _problemaAnexoRepository.SelectAsync()).ToList();
             Assert.NotNull(problemaAnexoSearch);
             Assert.Equal(4, problemaAnexoSearch.Count);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -119,8 +107,6 @@ namespace Api.Tests.Integration.Repository
             var problemaAnexoSearch = await _problemaAnexoBuilder.Search(_problemaAnexoEntity.Id);
             Assert.NotNull(problemaAnexoSearch);
             Assert.Equal(problemaAnexo.DesNomeOriginal, problemaAnexoSearch.DesNomeOriginal);
-
-            await ResetDatabase();
         }
     }
 }

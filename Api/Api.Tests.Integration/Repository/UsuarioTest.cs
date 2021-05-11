@@ -31,8 +31,6 @@ namespace Api.Tests.Integration.Repository
 
             var userSearch = await _usuarioBuilder.Search(user.Id);
             Assert.Null(userSearch);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -42,8 +40,6 @@ namespace Api.Tests.Integration.Repository
 
             var result = await _userRepository.ExistsAsync(user.Id);
             Assert.True(result);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -54,8 +50,6 @@ namespace Api.Tests.Integration.Repository
             var userSearch = await _userRepository.FindByLogin(_usuarioEntity.DesEmail);
             Assert.NotNull(userSearch);
             Assert.Equal(_usuarioEntity.DesEmail, userSearch.DesEmail);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -68,9 +62,7 @@ namespace Api.Tests.Integration.Repository
 
             var userList = await _userRepository.GetPaged(_userRepository.GetQuery(), 1, 10);
             Assert.NotNull(userList);
-            Assert.Equal(4, userList.RowCount);
-
-            await ResetDatabase();
+            Assert.NotEmpty(userList.Results);
         }
 
         [Fact]
@@ -81,8 +73,6 @@ namespace Api.Tests.Integration.Repository
             var userSearch = await _usuarioBuilder.Search(_usuarioEntity.Id);
             Assert.NotNull(userSearch);
             Assert.Equal(_usuarioEntity.DesEmail, userSearch.DesEmail);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -93,8 +83,6 @@ namespace Api.Tests.Integration.Repository
             var userSearch = await _userRepository.SelectAsync(user.Id);
             Assert.NotNull(userSearch);
             Assert.Equal(user.Id, userSearch.Id);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -107,9 +95,7 @@ namespace Api.Tests.Integration.Repository
 
             var userSearch = (await _userRepository.SelectAsync()).ToList();
             Assert.NotNull(userSearch);
-            Assert.Equal(4, userSearch.Count);
-
-            await ResetDatabase();
+            Assert.NotEmpty(userSearch);
         }
 
         [Fact]
@@ -123,8 +109,6 @@ namespace Api.Tests.Integration.Repository
             var userSearch = await _usuarioBuilder.Search(_usuarioEntity.Id);
             Assert.NotNull(userSearch);
             Assert.Equal(user.DesEmail, userSearch.DesEmail);
-
-            await ResetDatabase();
         }
     }
 }

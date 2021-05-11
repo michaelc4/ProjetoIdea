@@ -35,8 +35,12 @@ namespace Api.Tests.Integration
                 directoryInfo = directoryInfo.Parent;
                 var projectDirectoryInfo = new DirectoryInfo(Path.Combine(directoryInfo.FullName, projectRelativePath));
                 if (projectDirectoryInfo.Exists)
+                {
                     if (new FileInfo(Path.Combine(projectDirectoryInfo.FullName, projectName, $"{projectName}.csproj")).Exists)
+                    {
                         return Path.Combine(projectDirectoryInfo.FullName, projectName);
+                    }
+                }
             }
             while (directoryInfo.Parent != null);
 
@@ -57,8 +61,7 @@ namespace Api.Tests.Integration
                 {
                     "dbapiinova"
                 },
-                DbAdapter = DbAdapter.MySql,
-
+                DbAdapter = DbAdapter.MySql
             };
         }
 

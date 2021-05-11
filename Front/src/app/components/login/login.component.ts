@@ -35,7 +35,6 @@ export class LoginComponent implements OnDestroy {
   ngOnInit() {
     this.cleanData();
     this.socialservice.authState.subscribe((user) => {
-      console.log("teste");
       let param = new LoginParamModel();
       param.email = user.email;
       param.senha = '';
@@ -47,7 +46,7 @@ export class LoginComponent implements OnDestroy {
       this.spinner.show();
       this.loginService.login(param)
         .pipe(takeWhile(() => this.alive))
-        .subscribe((data: LoginModel) => {
+        .subscribe((data: any) => {
           this.spinner.hide();
           this.notifierService.notify('success', 'Login com sucesso');
           this.global.setLoggedUser(data);
@@ -92,7 +91,7 @@ export class LoginComponent implements OnDestroy {
         .pipe(takeWhile(() => this.alive))
         .subscribe((data: any) => {
           this.spinner.hide();
-          if (data instanceof LoginModel) {
+          if (data && data.authenticated) {
             this.notifierService.notify('success', 'Login com sucesso');
             this.global.setLoggedUser(data);
             this.router.navigateByUrl('/');

@@ -28,15 +28,13 @@ namespace Api.Tests.Integration.Repository
 
         [Fact]
         public async Task TestDeleteAsync()
-        {           
+        {
             var ideia = await _ideiaBuilder.CreateInDataBase(_ideiaEntity);
 
             await _ideiaRepository.DeleteAsync(ideia.Id);
 
             var ideiaSearch = await _ideiaBuilder.Search(ideia.Id);
             Assert.Null(ideiaSearch);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -46,8 +44,6 @@ namespace Api.Tests.Integration.Repository
 
             var result = await _ideiaRepository.ExistsAsync(ideia.Id);
             Assert.True(result);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -61,8 +57,6 @@ namespace Api.Tests.Integration.Repository
             var ideiaList = await _ideiaRepository.GetPaged(_ideiaRepository.GetQuery(), 1, 10);
             Assert.NotNull(ideiaList);
             Assert.Equal(4, ideiaList.RowCount);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -73,8 +67,6 @@ namespace Api.Tests.Integration.Repository
             var ideiaSearch = await _ideiaBuilder.Search(_ideiaEntity.Id);
             Assert.NotNull(ideiaSearch);
             Assert.Equal(_ideiaEntity.DesIdeia, ideiaSearch.DesIdeia);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -85,8 +77,6 @@ namespace Api.Tests.Integration.Repository
             var ideiaSearch = await _ideiaRepository.SelectAsync(ideia.Id);
             Assert.NotNull(ideiaSearch);
             Assert.Equal(ideia.Id, ideiaSearch.Id);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -100,8 +90,6 @@ namespace Api.Tests.Integration.Repository
             var ideiaSearch = (await _ideiaRepository.SelectAsync()).ToList();
             Assert.NotNull(ideiaSearch);
             Assert.Equal(4, ideiaSearch.Count);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -115,8 +103,6 @@ namespace Api.Tests.Integration.Repository
             var ideiaSearch = await _ideiaBuilder.Search(_ideiaEntity.Id);
             Assert.NotNull(ideiaSearch);
             Assert.Equal(ideia.DesIdeia, ideiaSearch.DesIdeia);
-
-            await ResetDatabase();
         }
     }
 }

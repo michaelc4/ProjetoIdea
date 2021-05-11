@@ -1,17 +1,14 @@
 ﻿using Bogus;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
 using MySqlConnector;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Api.Tests.Integration
 {
+    [Collection("Non-Parallel Collection")]
     public abstract class BaseFixture : IClassFixture<TestFixture<Startup>>, IDisposable
     {
         private TestFixture<Startup> _fixture;

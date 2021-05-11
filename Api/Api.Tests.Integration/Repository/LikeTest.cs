@@ -47,8 +47,6 @@ namespace Api.Tests.Integration.Repository
 
             var likeSearch = await _likeIdeiaBuilder.Search(like.Id);
             Assert.Null(likeSearch);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -58,8 +56,6 @@ namespace Api.Tests.Integration.Repository
 
             var result = await _likeRepository.ExistsAsync(like.Id);
             Assert.True(result);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -73,8 +69,6 @@ namespace Api.Tests.Integration.Repository
             var likeList = await _likeRepository.GetPaged(_likeRepository.GetQuery(), 1, 10);
             Assert.NotNull(likeList);
             Assert.Equal(4, likeList.RowCount);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -85,8 +79,6 @@ namespace Api.Tests.Integration.Repository
             var likeSearch = await _likeIdeiaBuilder.Search(_likeIdeiaEntity.Id);
             Assert.NotNull(likeSearch);
             Assert.Equal(_likeIdeiaEntity.IpUsr, likeSearch.IpUsr);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -97,8 +89,6 @@ namespace Api.Tests.Integration.Repository
             var likeSearch = await _likeRepository.SelectAsync(like.Id);
             Assert.NotNull(likeSearch);
             Assert.Equal(like.Id, likeSearch.Id);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -112,8 +102,6 @@ namespace Api.Tests.Integration.Repository
             var likeSearch = (await _likeRepository.SelectAsync()).ToList();
             Assert.NotNull(likeSearch);
             Assert.Equal(4, likeSearch.Count);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -127,8 +115,6 @@ namespace Api.Tests.Integration.Repository
             var likeSearch = await _likeIdeiaBuilder.Search(_likeIdeiaEntity.Id);
             Assert.NotNull(likeSearch);
             Assert.Equal(like.IpUsr, likeSearch.IpUsr);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -140,8 +126,6 @@ namespace Api.Tests.Integration.Repository
 
             var likeSearch = await _likeProblemaBuilder.Search(like.Id);
             Assert.Null(likeSearch);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -151,8 +135,6 @@ namespace Api.Tests.Integration.Repository
 
             var result = await _likeRepository.ExistsAsync(like.Id);
             Assert.True(result);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -166,8 +148,6 @@ namespace Api.Tests.Integration.Repository
             var likeList = await _likeRepository.GetPaged(_likeRepository.GetQuery(), 1, 10);
             Assert.NotNull(likeList);
             Assert.Equal(4, likeList.RowCount);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -178,8 +158,6 @@ namespace Api.Tests.Integration.Repository
             var likeSearch = await _likeProblemaBuilder.Search(_likeProblemaEntity.Id);
             Assert.NotNull(likeSearch);
             Assert.Equal(_likeProblemaEntity.IpUsr, likeSearch.IpUsr);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -190,8 +168,6 @@ namespace Api.Tests.Integration.Repository
             var likeSearch = await _likeRepository.SelectAsync(like.Id);
             Assert.NotNull(likeSearch);
             Assert.Equal(like.Id, likeSearch.Id);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -205,8 +181,6 @@ namespace Api.Tests.Integration.Repository
             var likeSearch = (await _likeRepository.SelectAsync()).ToList();
             Assert.NotNull(likeSearch);
             Assert.Equal(4, likeSearch.Count);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -220,8 +194,6 @@ namespace Api.Tests.Integration.Repository
             var likeSearch = await _likeProblemaBuilder.Search(_likeProblemaEntity.Id);
             Assert.NotNull(likeSearch);
             Assert.Equal(like.IpUsr, likeSearch.IpUsr);
-
-            await ResetDatabase();
         }
     }
 }

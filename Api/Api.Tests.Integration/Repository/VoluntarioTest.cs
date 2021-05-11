@@ -50,8 +50,6 @@ namespace Api.Tests.Integration.Repository
 
             var voluntarioSearch = await _voluntarioIdeiaBuilder.Search(voluntario.Id);
             Assert.Null(voluntarioSearch);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -61,8 +59,6 @@ namespace Api.Tests.Integration.Repository
 
             var result = await _voluntarioRepository.ExistsAsync(voluntario.Id);
             Assert.True(result);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -76,8 +72,6 @@ namespace Api.Tests.Integration.Repository
             var voluntarioList = await _voluntarioRepository.GetPaged(_voluntarioRepository.GetQuery(), 1, 10);
             Assert.NotNull(voluntarioList);
             Assert.Equal(4, voluntarioList.RowCount);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -88,8 +82,6 @@ namespace Api.Tests.Integration.Repository
             var voluntarioSearch = await _voluntarioIdeiaBuilder.Search(_voluntarioIdeiaEntity.Id);
             Assert.NotNull(voluntarioSearch);
             Assert.Equal(_voluntarioIdeiaEntity.UsuarioId, voluntarioSearch.UsuarioId);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -100,8 +92,6 @@ namespace Api.Tests.Integration.Repository
             var voluntarioSearch = await _voluntarioRepository.SelectAsync(voluntario.Id);
             Assert.NotNull(voluntarioSearch);
             Assert.Equal(voluntario.Id, voluntarioSearch.Id);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -115,8 +105,6 @@ namespace Api.Tests.Integration.Repository
             var voluntarioSearch = (await _voluntarioRepository.SelectAsync()).ToList();
             Assert.NotNull(voluntarioSearch);
             Assert.Equal(4, voluntarioSearch.Count);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -130,8 +118,6 @@ namespace Api.Tests.Integration.Repository
             var voluntarioSearch = await _voluntarioIdeiaBuilder.Search(_voluntarioIdeiaEntity.Id);
             Assert.NotNull(voluntarioSearch);
             Assert.Equal(voluntario.UsuarioId, voluntarioSearch.UsuarioId);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -143,8 +129,6 @@ namespace Api.Tests.Integration.Repository
 
             var voluntarioSearch = await _voluntarioProblemaBuilder.Search(voluntario.Id);
             Assert.Null(voluntarioSearch);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -154,8 +138,6 @@ namespace Api.Tests.Integration.Repository
 
             var result = await _voluntarioRepository.ExistsAsync(voluntario.Id);
             Assert.True(result);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -169,8 +151,6 @@ namespace Api.Tests.Integration.Repository
             var voluntarioList = await _voluntarioRepository.GetPaged(_voluntarioRepository.GetQuery(), 1, 10);
             Assert.NotNull(voluntarioList);
             Assert.Equal(4, voluntarioList.RowCount);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -181,8 +161,6 @@ namespace Api.Tests.Integration.Repository
             var voluntarioSearch = await _voluntarioProblemaBuilder.Search(_voluntarioProblemaEntity.Id);
             Assert.NotNull(voluntarioSearch);
             Assert.Equal(_voluntarioProblemaEntity.UsuarioId, voluntarioSearch.UsuarioId);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -193,8 +171,6 @@ namespace Api.Tests.Integration.Repository
             var voluntarioSearch = await _voluntarioRepository.SelectAsync(voluntario.Id);
             Assert.NotNull(voluntarioSearch);
             Assert.Equal(voluntario.Id, voluntarioSearch.Id);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -208,8 +184,6 @@ namespace Api.Tests.Integration.Repository
             var voluntarioSearch = (await _voluntarioRepository.SelectAsync()).ToList();
             Assert.NotNull(voluntarioSearch);
             Assert.Equal(4, voluntarioSearch.Count);
-
-            await ResetDatabase();
         }
 
         [Fact]
@@ -223,8 +197,6 @@ namespace Api.Tests.Integration.Repository
             var voluntarioSearch = await _voluntarioProblemaBuilder.Search(_voluntarioProblemaEntity.Id);
             Assert.NotNull(voluntarioSearch);
             Assert.Equal(voluntario.UsuarioId, voluntarioSearch.UsuarioId);
-
-            await ResetDatabase();
         }
     }
 }
