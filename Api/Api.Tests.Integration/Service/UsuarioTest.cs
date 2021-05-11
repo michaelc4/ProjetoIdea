@@ -95,16 +95,17 @@ namespace Api.Tests.Integration.Service
         public async Task TestPutAsync()
         {
             var user = await _usuarioBuilder.CreateInDataBase(_usuarioEntity);
-            user.DesSenha = _faker.Internet.Email();
-
+            
             var userDto = new UsuarioPutDto();
             Reflection.CopyProperties(_usuarioEntity, userDto);
+            userDto.Id = _usuarioEntity.Id.ToString();
+            userDto.DesSenha = _faker.Internet.Password();
 
             await _userService.Put(userDto);
 
             var userSearch = await _usuarioBuilder.Search(_usuarioEntity.Id);
             Assert.NotNull(userSearch);
-            Assert.Equal(user.DesEmail, userSearch.DesEmail);
+            Assert.Equal(user.DesSenha, userSearch.DesSenha);
         }
     }
 }
