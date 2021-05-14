@@ -30,6 +30,7 @@ namespace Api.Tests.Integration.Builders
             DesTelefone = _faker.Phone.PhoneNumber(),
             DesEspecialidade = _faker.Lorem.Sentence(),
             DesExperiencia = _faker.Lorem.Sentence(),
+            DesSenha = _faker.Internet.Password(),
             Admin = 1,
             Local = 1
         };

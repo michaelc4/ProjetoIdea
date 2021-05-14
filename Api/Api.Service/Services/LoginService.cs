@@ -127,7 +127,14 @@ namespace Api.Service.Services
                 usuarioEntity.DesSenha = BCrypt.Net.BCrypt.HashPassword(usuarioEntity.DesSenha, WorkFactor);
                 usuarioEntity.Admin = 0;
                 usuarioEntity.Local = 1;
-                usuarioEntity.DesImagem = ConvertUrlToBase64.ImageResize(usuarioEntity.DesImagem);
+                if (!string.IsNullOrEmpty(usuarioEntity.DesImagem))
+                {
+                    usuarioEntity.DesImagem = ConvertUrlToBase64.ImageResize(usuarioEntity.DesImagem);
+                }
+                else
+                {
+                    usuarioEntity.DesImagem = null;
+                }
 
                 await _repository.InsertAsync(usuarioEntity);
 

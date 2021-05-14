@@ -2,3 +2,6 @@
 
 # Default severity for analyzer diagnostics with category 'Style'
 dotnet_analyzer_diagnostic.category-Style.severity = none
+
+# CA1822: Marcar membros como estáticos
+dotnet_diagnostic.CA1822.severity = none
