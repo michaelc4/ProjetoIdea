@@ -20,7 +20,7 @@ namespace Api.Aplication.Controllers
             _service = service;
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpGet("getallpaged")]
         public async Task<ActionResult> GetPaged(int page, int pageSize, string nameSearch, string emailSearch, string foneSearch, bool? isAdminSearch)
         {

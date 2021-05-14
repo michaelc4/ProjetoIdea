@@ -7,36 +7,43 @@ using Api.Tests.Integration.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Api.Tests.Integration.Controller
 {
-    public class UsuarioTest : BaseFixture
+    public class IdeiaAnexoTest : BaseFixture
     {
-        protected IUsuarioService<UsuarioEntity, UsuarioPresenter, UsuarioPostDto, UsuarioPutDto> _userService;
+        protected IIdeiaAnexoService<IdeiaAnexoEntity, IdeiaAnexoPresenter, IdeiaAnexoPostDto, IdeiaAnexoPutDto> _ideiaAnexoService;
         protected IUsuarioRepository _userRepository;
-        protected UsuarioBuilder _usuarioBuilder;
-        protected UsuarioEntity _usuarioEntity;
+        protected IdeiaAnexoBuilder _ideiaAnexoBuilder;
+        protected IdeiaAnexoEntity _ideiaAnexoEntity;
 
-        public UsuarioTest(TestFixture<Startup> fixture) : base(fixture)
+        public IdeiaAnexoTest(TestFixture<Startup> fixture) : base(fixture)
         {
-            _userService = _testServer.Services.GetService<IUsuarioService<UsuarioEntity, UsuarioPresenter, UsuarioPostDto, UsuarioPutDto>>();
+            _ideiaAnexoService = _testServer.Services.GetService<IIdeiaAnexoService<IdeiaAnexoEntity, IdeiaAnexoPresenter, IdeiaAnexoPostDto, IdeiaAnexoPutDto>>();
 
             _userRepository = _testServer.Services.GetService<IUsuarioRepository>();
-            _usuarioBuilder = new UsuarioBuilder(_userRepository);
-            _usuarioEntity = _usuarioBuilder.InstanciarObjeto();
+            var usuarioBuilder = new UsuarioBuilder(_userRepository);
+            var usuarioEntity = usuarioBuilder.CreateInDataBase(usuarioBuilder.InstanciarObjeto()).Result;
+
+            var ideiaRepository = _testServer.Services.GetService<IIdeiaRepository>();
+            var ideiaBuilder = new IdeiaBuilder(ideiaRepository, usuarioEntity);
+            var ideiaEntity = ideiaBuilder.CreateInDataBase(ideiaBuilder.InstanciarObjeto()).Result;
+
+            var ideiaAnexoRepository = _testServer.Services.GetService<IIdeiaAnexoRepository>();
+            _ideiaAnexoBuilder = new IdeiaAnexoBuilder(ideiaAnexoRepository, ideiaEntity);
+            _ideiaAnexoEntity = _ideiaAnexoBuilder.InstanciarObjeto();
         }
 
         [Fact]
         public async Task TestDeleteAsync()
         {
-            var user = await _usuarioBuilder.CreateInDataBase(_usuarioEntity);
+            var ideiaAnexo = await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoEntity);
 
             var request = new
             {
-                Url = $"/api/usuario/delete?id={user.Id}"
+                Url = $"/api/ideiaanexo/delete?id={ideiaAnexo.Id}"
             };
 
             if (!_client.DefaultRequestHeaders.Contains("Authorization"))
@@ -49,14 +56,14 @@ namespace Api.Tests.Integration.Controller
         [Fact]
         public async Task TestGetAllAsync()
         {
-            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
-            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
-            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
-            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
+            await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoBuilder.InstanciarObjeto());
+            await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoBuilder.InstanciarObjeto());
+            await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoBuilder.InstanciarObjeto());
+            await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoBuilder.InstanciarObjeto());
 
             var request = new
             {
-                Url = $"/api/usuario/getall"
+                Url = $"/api/ideiaanexo/getall"
             };
 
             if (!_client.DefaultRequestHeaders.Contains("Authorization"))
@@ -69,11 +76,11 @@ namespace Api.Tests.Integration.Controller
         [Fact]
         public async Task TestGetAsync()
         {
-            var user = await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
+            var ideiaAnexo = await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoBuilder.InstanciarObjeto());
 
             var request = new
             {
-                Url = $"/api/usuario/get?id={user.Id}"
+                Url = $"/api/ideiaanexo/get?id={ideiaAnexo.Id}"
             };
 
             if (!_client.DefaultRequestHeaders.Contains("Authorization"))
@@ -86,14 +93,14 @@ namespace Api.Tests.Integration.Controller
         [Fact]
         public async Task TestGetPagedAsync()
         {
-            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
-            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
-            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
-            await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
+            await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoBuilder.InstanciarObjeto());
+            await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoBuilder.InstanciarObjeto());
+            await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoBuilder.InstanciarObjeto());
+            await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoBuilder.InstanciarObjeto());
 
             var request = new
             {
-                Url = $"/api/usuario/getallpaged?page=1&pageSize=10"
+                Url = $"/api/ideiaanexo/getallpaged?page=1&pageSize=10"
             };
 
             if (!_client.DefaultRequestHeaders.Contains("Authorization"))
@@ -106,13 +113,13 @@ namespace Api.Tests.Integration.Controller
         [Fact]
         public async Task TestPostAsync()
         {
-            var userDto = new UsuarioPostDto();
-            Reflection.CopyProperties(_usuarioEntity, userDto);
+            var ideiaAnexoDto = new IdeiaAnexoPostDto();
+            Reflection.CopyProperties(_ideiaAnexoEntity, ideiaAnexoDto);
 
             var request = new
             {
-                Url = "/api/usuario/post",
-                Body = userDto
+                Url = "/api/ideiaanexo/post",
+                Body = ideiaAnexoDto
             };
 
             if (!_client.DefaultRequestHeaders.Contains("Authorization"))
@@ -125,17 +132,17 @@ namespace Api.Tests.Integration.Controller
         [Fact]
         public async Task TestPutAsync()
         {
-            var user = await _usuarioBuilder.CreateInDataBase(_usuarioEntity);
+            var ideiaAnexo = await _ideiaAnexoBuilder.CreateInDataBase(_ideiaAnexoEntity);
 
-            var userDto = new UsuarioPutDto();
-            Reflection.CopyProperties(_usuarioEntity, userDto);
-            userDto.Id = _usuarioEntity.Id.ToString();
-            userDto.DesSenha = _faker.Internet.Password();
+            var ideiaAnexoDto = new IdeiaAnexoPutDto();
+            Reflection.CopyProperties(ideiaAnexo, ideiaAnexoDto);
+            ideiaAnexoDto.Id = ideiaAnexo.Id.ToString();
+            ideiaAnexoDto.DesNomeOriginal = _faker.System.FileName();
 
             var request = new
             {
-                Url = "/api/usuario/put",
-                Body = userDto
+                Url = "/api/ideiaanexo/put",
+                Body = ideiaAnexoDto
             };
 
             if (!_client.DefaultRequestHeaders.Contains("Authorization"))

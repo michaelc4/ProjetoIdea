@@ -20,7 +20,7 @@ namespace Api.Aplication.Controllers
             _service = service;
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpGet("getallpaged")]
         public async Task<ActionResult> GetPaged(int page, int pageSize)
         {
@@ -39,7 +39,7 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpGet("getallpagedbyuser")]
         public async Task<ActionResult> GetPagedByUser(int page, int pageSize, Guid userId)
         {
@@ -58,7 +58,7 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpGet("getallpagedbyproblemorideia")]
         public async Task<ActionResult> GetPagedByProblemOrIdeia(int page, int pageSize, Guid? problemId, Guid? ideaId)
         {

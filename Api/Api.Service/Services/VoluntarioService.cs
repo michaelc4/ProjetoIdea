@@ -4,6 +4,7 @@ using Api.Domain.Interfaces.Repository;
 using Api.Domain.Interfaces.Services;
 using Api.Domain.Presenters;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,10 @@ namespace Api.Service.Services
         {
             IQueryable<VoluntarioEntity> query = _repository.GetQuery();
             query = query.OrderByDescending(x => x.DataCriacao);
+            query = query
+                .Include(x => x.Usuario)
+                .Include(x => x.Ideia)
+                .Include(x => x.Problema);
 
             var result = _mapper.Map<PagedResultPresenter<VoluntarioPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
@@ -43,6 +48,10 @@ namespace Api.Service.Services
             IQueryable<VoluntarioEntity> query = _repository.GetQuery();
             query = query.Where(x => x.UsuarioId == userId);
             query = query.OrderByDescending(x => x.DataCriacao);
+            query = query
+                .Include(x => x.Usuario)
+                .Include(x => x.Ideia)
+                .Include(x => x.Problema);
 
             var result = _mapper.Map<PagedResultPresenter<VoluntarioPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
@@ -63,6 +72,11 @@ namespace Api.Service.Services
             }
 
             query = query.OrderByDescending(x => x.DataCriacao);
+
+            query = query
+                .Include(x => x.Usuario)
+                .Include(x => x.Ideia)
+                .Include(x => x.Problema);
 
             var result = _mapper.Map<PagedResultPresenter<VoluntarioPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return result;

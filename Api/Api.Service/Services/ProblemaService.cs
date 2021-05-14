@@ -4,6 +4,7 @@ using Api.Domain.Interfaces.Repository;
 using Api.Domain.Interfaces.Services;
 using Api.Domain.Presenters;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +62,7 @@ namespace Api.Service.Services
             }
 
             query = query.OrderBy(x => x.IndAprovado);
+            query = query.Include(x => x.Usuario);
 
             var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
@@ -102,6 +104,7 @@ namespace Api.Service.Services
             }
 
             query = query.OrderBy(x => x.IndAprovado);
+            query = query.Include(x => x.Usuario);
 
             var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
@@ -115,7 +118,7 @@ namespace Api.Service.Services
             query = query.OrderByDescending(x => x.DataCriacao);
 
             var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
-            return await GetPresenterDetail(result);
+            return await GetPresenterDetailInitial(result);
         }
 
         public override async Task<ProblemaPresenter> Post(ProblemaPostDto dto)
@@ -177,7 +180,26 @@ namespace Api.Service.Services
                     }
                     item.Anexos = listAttachments;
 
-                    var likeQuery = _repositoryLike.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id).ToList();
+                    var likeQuery = await _repositoryLike.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id).ToListAsync();
+                    if (likeQuery != null && likeQuery.Count > 0)
+                    {
+                        item.NumLikes = likeQuery.Count;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private async Task<PagedResultPresenter<ProblemaPresenter>> GetPresenterDetailInitial(PagedResultPresenter<ProblemaPresenter> result)
+        {
+            if (result != null && result.Results != null)
+            {
+                foreach (var item in result.Results)
+                {
+                    item.Usuario = null;
+
+                    var likeQuery = await _repositoryLike.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id).ToListAsync();
                     if (likeQuery != null && likeQuery.Count > 0)
                     {
                         item.NumLikes = likeQuery.Count;

@@ -20,7 +20,7 @@ namespace Api.Aplication.Controllers
             _service = service;
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpGet("getallpaged")]
         public async Task<ActionResult> GetPaged(int page, int pageSize, string problemSearch, string benefitTypeSearch, string solutionTypeSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
@@ -39,7 +39,7 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer")]
+        [Authorize("Bearer", Roles = "Admin")]
         [HttpGet("getallpagedbyuser")]
         public async Task<ActionResult> GetPagedByUser(int page, int pageSize, Guid userId, string problemSearch, string benefitTypeSearch, string solutionTypeSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
@@ -58,7 +58,6 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer")]
         [HttpGet("getallpagedinitialscreen")]
         public async Task<ActionResult> GetPagedInitialScreen(int page, int pageSize)
         {
