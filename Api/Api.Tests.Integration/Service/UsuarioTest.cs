@@ -64,7 +64,7 @@ namespace Api.Tests.Integration.Service
         [Fact]
         public async Task TestGetPagedAsync()
         {
-            var userTest = await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
+            await _usuarioBuilder.CreateInDataBase(_usuarioEntity);
             await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
             await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
             await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
@@ -73,9 +73,9 @@ namespace Api.Tests.Integration.Service
             Assert.NotNull(userList);
             Assert.Equal(4, userList.RowCount);
 
-            var userListOne = await _userService.GetPaged(1, 10, userTest.DesNome, userTest.DesEmail, userTest.DesTelefone, null);
+            var userListOne = await _userService.GetPaged(1, 10, _usuarioEntity.DesNome, _usuarioEntity.DesEmail, _usuarioEntity.DesTelefone, null);
             Assert.NotNull(userListOne);
-            Assert.Equal(1, userListOne.RowCount);
+            Assert.Equal(1, userList.RowCount);
         }
 
         [Fact]
@@ -105,7 +105,7 @@ namespace Api.Tests.Integration.Service
 
             var userSearch = await _usuarioBuilder.Search(_usuarioEntity.Id);
             Assert.NotNull(userSearch);
-            Assert.Equal(user.DesSenha, userSearch.DesSenha);
+            Assert.Equal(userDto.DesSenha, userSearch.DesSenha);
         }
     }
 }

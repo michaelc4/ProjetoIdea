@@ -57,5 +57,24 @@ namespace Api.Aplication.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
             }
         }
+
+        [Authorize("Bearer")]
+        [HttpGet("getallpagedinitialscreen")]
+        public async Task<ActionResult> GetPagedInitialScreen(int page, int pageSize)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                return Ok(await _service.GetPagedInitialScreen(page, pageSize));
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
     }
 }

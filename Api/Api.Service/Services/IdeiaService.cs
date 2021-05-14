@@ -34,32 +34,32 @@ namespace Api.Service.Services
 
             if (!string.IsNullOrEmpty(ideaSearch))
             {
-                query = query.Where(x => x.DesIdeia.Contains(ideaSearch));
+                query = query.Where(x => x.DesIdeia.Contains(ideaSearch.Trim()));
             }
 
             if (!string.IsNullOrEmpty(reasonSearch))
             {
-                query = query.Where(x => x.DesMotivoInvestir.Contains(reasonSearch));
+                query = query.Where(x => x.DesMotivoInvestir.Contains(reasonSearch.Trim()));
             }
 
             if (!string.IsNullOrEmpty(shareSearch))
             {
-                query = query.Where(x => x.IndInteresseCompartilhar == shareSearch);
+                query = query.Where(x => x.IndInteresseCompartilhar == shareSearch.Trim());
             }
 
             if (!string.IsNullOrEmpty(developmentSearch))
             {
-                query = query.Where(x => x.IndNivelDesenvolvimento == developmentSearch);
+                query = query.Where(x => x.IndNivelDesenvolvimento == developmentSearch.Trim());
             }
 
             if (!string.IsNullOrEmpty(secretSearch))
             {
-                query = query.Where(x => x.IndNivelSigilo == secretSearch);
+                query = query.Where(x => x.IndNivelSigilo == secretSearch.Trim());
             }
 
             if (!string.IsNullOrEmpty(approvedSearch))
             {
-                query = query.Where(x => x.IndAprovado == approvedSearch);
+                query = query.Where(x => x.IndAprovado == approvedSearch.Trim());
             }
 
             if (DateTime.TryParse(registrationDateIniSearch, out DateTime dateIni))
@@ -85,32 +85,32 @@ namespace Api.Service.Services
 
             if (!string.IsNullOrEmpty(ideaSearch))
             {
-                query = query.Where(x => x.DesIdeia.Contains(ideaSearch));
+                query = query.Where(x => x.DesIdeia.Contains(ideaSearch.Trim()));
             }
 
             if (!string.IsNullOrEmpty(reasonSearch))
             {
-                query = query.Where(x => x.DesMotivoInvestir.Contains(reasonSearch));
+                query = query.Where(x => x.DesMotivoInvestir.Contains(reasonSearch.Trim()));
             }
 
             if (!string.IsNullOrEmpty(shareSearch))
             {
-                query = query.Where(x => x.IndInteresseCompartilhar == shareSearch);
+                query = query.Where(x => x.IndInteresseCompartilhar == shareSearch.Trim());
             }
 
             if (!string.IsNullOrEmpty(developmentSearch))
             {
-                query = query.Where(x => x.IndNivelDesenvolvimento == developmentSearch);
+                query = query.Where(x => x.IndNivelDesenvolvimento == developmentSearch.Trim());
             }
 
             if (!string.IsNullOrEmpty(secretSearch))
             {
-                query = query.Where(x => x.IndNivelSigilo == secretSearch);
+                query = query.Where(x => x.IndNivelSigilo == secretSearch.Trim());
             }
 
             if (!string.IsNullOrEmpty(approvedSearch))
             {
-                query = query.Where(x => x.IndAprovado == approvedSearch);
+                query = query.Where(x => x.IndAprovado == approvedSearch.Trim());
             }
 
             if (DateTime.TryParse(registrationDateIniSearch, out DateTime dateIni))
@@ -134,7 +134,8 @@ namespace Api.Service.Services
             IQueryable<IdeiaEntity> query = _repository.GetQuery();
 
             query = query.Where(x => x.IndNivelSigilo == "1");
-            query = query.OrderByDescending(x => x.IndAprovado).ThenByDescending(x => x.NumPontuacaoGeral);
+            query = query.Where(x => x.IndAprovado == "1");
+            query = query.OrderByDescending(x => x.NumPontuacaoGeral).ThenByDescending(x => x.DataCriacao);
 
             var result = _mapper.Map<PagedResultPresenter<IdeiaPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
@@ -153,7 +154,7 @@ namespace Api.Service.Services
                 foreach (var attach in dto.Anexos)
                 {
                     attach.IdeiaId = dtoResult.Id;
-                    await _repositoryAttachment.InsertAsync(_mapper.Map<IdeiaAnexoEntity>(dto));
+                    await _repositoryAttachment.InsertAsync(_mapper.Map<IdeiaAnexoEntity>(attach));
                 }
             }
 
@@ -178,7 +179,7 @@ namespace Api.Service.Services
                 foreach (var attach in dto.Anexos)
                 {
                     attach.IdeiaId = dtoResult.Id;
-                    await _repositoryAttachment.InsertAsync(_mapper.Map<IdeiaAnexoEntity>(dto));
+                    await _repositoryAttachment.InsertAsync(_mapper.Map<IdeiaAnexoEntity>(attach));
                 }
             }
 

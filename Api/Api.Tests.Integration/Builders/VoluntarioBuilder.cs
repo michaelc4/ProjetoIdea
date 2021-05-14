@@ -32,6 +32,7 @@ namespace Api.Tests.Integration.Builders
 
         private VoluntarioEntity CreateVoluntary() => new VoluntarioEntity
         {
+            Id = Guid.Empty,
             UsuarioId = _user.Id,
             IdeiaId = _idea != null ? _idea.Id : null,
             ProblemaId = _problem != null ? _problem.Id : null

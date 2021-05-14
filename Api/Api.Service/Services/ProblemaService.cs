@@ -34,22 +34,22 @@ namespace Api.Service.Services
 
             if (!string.IsNullOrEmpty(problemSearch))
             {
-                query = query.Where(x => x.DesProblema.Contains(problemSearch));
+                query = query.Where(x => x.DesProblema.Contains(problemSearch.Trim()));
             }
 
             if (!string.IsNullOrEmpty(benefitTypeSearch))
             {
-                query = query.Where(x => x.IndTipoBeneficio == benefitTypeSearch);
+                query = query.Where(x => x.IndTipoBeneficio == benefitTypeSearch.Trim());
             }
 
             if (!string.IsNullOrEmpty(solutionTypeSearch))
             {
-                query = query.Where(x => x.IndTipoSolucao == solutionTypeSearch);
+                query = query.Where(x => x.IndTipoSolucao == solutionTypeSearch.Trim());
             }
 
             if (!string.IsNullOrEmpty(approvedSearch))
             {
-                query = query.Where(x => x.IndAprovado == approvedSearch);
+                query = query.Where(x => x.IndAprovado == approvedSearch.Trim());
             }
 
             if (DateTime.TryParse(registrationDateIniSearch, out DateTime dateIni))
@@ -75,22 +75,22 @@ namespace Api.Service.Services
 
             if (!string.IsNullOrEmpty(problemSearch))
             {
-                query = query.Where(x => x.DesProblema.Contains(problemSearch));
+                query = query.Where(x => x.DesProblema.Contains(problemSearch.Trim()));
             }
 
             if (!string.IsNullOrEmpty(benefitTypeSearch))
             {
-                query = query.Where(x => x.IndTipoBeneficio == benefitTypeSearch);
+                query = query.Where(x => x.IndTipoBeneficio == benefitTypeSearch.Trim());
             }
 
             if (!string.IsNullOrEmpty(solutionTypeSearch))
             {
-                query = query.Where(x => x.IndTipoSolucao == solutionTypeSearch);
+                query = query.Where(x => x.IndTipoSolucao == solutionTypeSearch.Trim());
             }
 
             if (!string.IsNullOrEmpty(approvedSearch))
             {
-                query = query.Where(x => x.IndAprovado == approvedSearch);
+                query = query.Where(x => x.IndAprovado == approvedSearch.Trim());
             }
 
             if (DateTime.TryParse(registrationDateIniSearch, out DateTime dateIni))
@@ -109,6 +109,17 @@ namespace Api.Service.Services
             return await GetPresenterDetail(result);
         }
 
+        public async Task<PagedResultPresenter<ProblemaPresenter>> GetPagedInitialScreen(int page, int pageSize)
+        {
+            IQueryable<ProblemaEntity> query = _repository.GetQuery();
+
+            query = query.Where(x => x.IndAprovado == "1");
+            query = query.OrderByDescending(x => x.DataCriacao);
+
+            var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
+            return await GetPresenterDetail(result);
+        }
+
         public override async Task<ProblemaPresenter> Post(ProblemaPostDto dto)
         {
             var entity = _mapper.Map<ProblemaEntity>(dto);
@@ -122,7 +133,7 @@ namespace Api.Service.Services
                 foreach (var attach in dto.Anexos)
                 {
                     attach.ProblemaId = dtoResult.Id;
-                    await _repositoryAttachment.InsertAsync(_mapper.Map<ProblemaAnexoEntity>(dto));
+                    await _repositoryAttachment.InsertAsync(_mapper.Map<ProblemaAnexoEntity>(attach));
                 }
             }
 
@@ -147,7 +158,7 @@ namespace Api.Service.Services
                 foreach (var attach in dto.Anexos)
                 {
                     attach.ProblemaId = dtoResult.Id;
-                    await _repositoryAttachment.InsertAsync(_mapper.Map<ProblemaAnexoEntity>(dto));
+                    await _repositoryAttachment.InsertAsync(_mapper.Map<ProblemaAnexoEntity>(attach));
                 }
             }
 

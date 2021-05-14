@@ -10,5 +10,7 @@ namespace Api.Domain.Interfaces.Services
         Task<PagedResultPresenter<ProblemaPresenter>> GetPaged(int page, int pageSize, string problemSearch, string benefitTypeSearch, string solutionTypeSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch);
 
         Task<PagedResultPresenter<ProblemaPresenter>> GetPagedByUser(int page, int pageSize, Guid userId, string problemSearch, string benefitTypeSearch, string solutionTypeSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch);
+
+        Task<PagedResultPresenter<ProblemaPresenter>> GetPagedInitialScreen(int page, int pageSize);
     }
 }

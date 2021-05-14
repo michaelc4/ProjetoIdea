@@ -4,7 +4,6 @@ using Api.Domain.Interfaces.Services;
 using Api.Domain.Presenters;
 using Api.Service.Util;
 using Api.Tests.Integration.Builders;
-using Bogus;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;

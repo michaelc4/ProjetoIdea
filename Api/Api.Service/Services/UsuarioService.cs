@@ -25,17 +25,17 @@ namespace Api.Service.Services
 
             if (!string.IsNullOrEmpty(nameSearch))
             {
-                query = query.Where(x => x.DesNome.Contains(nameSearch));
+                query = query.Where(x => x.DesNome.Contains(nameSearch.Trim()));
             }
 
             if (!string.IsNullOrEmpty(emailSearch))
             {
-                query = query.Where(x => x.DesEmail.Contains(emailSearch));
+                query = query.Where(x => x.DesEmail.Contains(emailSearch.Trim()));
             }
 
             if (!string.IsNullOrEmpty(foneSearch))
             {
-                query = query.Where(x => x.DesTelefone.Contains(foneSearch));
+                query = query.Where(x => x.DesTelefone.Contains(foneSearch.Trim()));
             }
 
             if (isAdminSearch.HasValue)

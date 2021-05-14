@@ -6,6 +6,9 @@ namespace Api.Domain.Presenters
 {
     public class IdeiaPutDto
     {
+        [Required(ErrorMessage = "Id é um campo obrigatório.")]
+        public string Id { get; set; }
+
         public string DesIdeia { get; set; }
 
         public string DesMotivoInvestir { get; set; }
