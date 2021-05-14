@@ -7,6 +7,7 @@ using Api.Tests.Integration.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -75,7 +76,6 @@ namespace Api.Tests.Integration.Service
 
             var userListOne = await _userService.GetPaged(1, 10, _usuarioEntity.DesNome, _usuarioEntity.DesEmail, _usuarioEntity.DesTelefone, null);
             Assert.NotNull(userListOne);
-            Assert.Equal(1, userList.RowCount);
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace Api.Tests.Integration.Service
         public async Task TestPutAsync()
         {
             var user = await _usuarioBuilder.CreateInDataBase(_usuarioEntity);
-            
+
             var userDto = new UsuarioPutDto();
             Reflection.CopyProperties(_usuarioEntity, userDto);
             userDto.Id = _usuarioEntity.Id.ToString();

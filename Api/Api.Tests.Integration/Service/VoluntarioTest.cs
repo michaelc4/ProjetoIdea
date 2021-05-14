@@ -22,6 +22,7 @@ namespace Api.Tests.Integration.Service
         protected VoluntarioEntity _voluntarioProblemaEntity;
         protected UsuarioEntity _usuarioVoluntario;
         protected IdeiaEntity _ideiaEntity;
+        protected ProblemaEntity _problemaEntity;
 
         public VoluntarioTest(TestFixture<Startup> fixture) : base(fixture)
         {
@@ -38,12 +39,12 @@ namespace Api.Tests.Integration.Service
 
             var problemaRepository = _testServer.Services.GetService<IProblemaRepository>();
             var problemaBuilder = new ProblemaBuilder(problemaRepository, usuarioEntity);
-            var problemaEntity = problemaBuilder.CreateInDataBase(problemaBuilder.InstanciarObjeto()).Result;
+            _problemaEntity = problemaBuilder.CreateInDataBase(problemaBuilder.InstanciarObjeto()).Result;
 
             var voluntarioRepository = _testServer.Services.GetService<IVoluntarioRepository>();
             _voluntarioIdeiaBuilder = new VoluntarioBuilder(voluntarioRepository, _usuarioVoluntario, _ideiaEntity, null);
             _voluntarioIdeiaEntity = _voluntarioIdeiaBuilder.InstanciarObjeto();
-            _voluntarioProblemaBuilder = new VoluntarioBuilder(voluntarioRepository, _usuarioVoluntario, null, problemaEntity);
+            _voluntarioProblemaBuilder = new VoluntarioBuilder(voluntarioRepository, _usuarioVoluntario, null, _problemaEntity);
             _voluntarioProblemaEntity = _voluntarioProblemaBuilder.InstanciarObjeto();
         }
 
@@ -122,19 +123,19 @@ namespace Api.Tests.Integration.Service
         [Fact]
         public async Task TestIdeiaGetPagedByProblemOrIdeiaAsync()
         {
-            //await _voluntarioIdeiaBuilder.CreateInDataBase(_voluntarioIdeiaBuilder.InstanciarObjeto());
-            //await _voluntarioIdeiaBuilder.CreateInDataBase(_voluntarioIdeiaBuilder.InstanciarObjeto());
-            //await _voluntarioIdeiaBuilder.CreateInDataBase(_voluntarioIdeiaBuilder.InstanciarObjeto());
-            //await _voluntarioIdeiaBuilder.CreateInDataBase(_voluntarioIdeiaBuilder.InstanciarObjeto());
+            await _voluntarioIdeiaBuilder.CreateInDataBase(_voluntarioIdeiaBuilder.InstanciarObjeto());
+            await _voluntarioIdeiaBuilder.CreateInDataBase(_voluntarioIdeiaBuilder.InstanciarObjeto());
+            await _voluntarioIdeiaBuilder.CreateInDataBase(_voluntarioIdeiaBuilder.InstanciarObjeto());
+            await _voluntarioIdeiaBuilder.CreateInDataBase(_voluntarioIdeiaBuilder.InstanciarObjeto());
 
-            //var voluntarioList = await _voluntarioService.GetPagedByProblemOrIdeia(1, 10, null, null);
-            //Assert.NotNull(voluntarioList);
-            //Assert.Equal(1, voluntarioList.RowCount);
+            var voluntarioList = await _voluntarioService.GetPagedByProblemOrIdeia(1, 10, null, _ideiaEntity.Id);
+            Assert.NotNull(voluntarioList);
+            Assert.Equal(4, voluntarioList.RowCount);
 
-            //foreach (var voluntario in voluntarioList.Results)
-            //{
-            //    Assert.NotNull(voluntario.Usuario);
-            //}
+            foreach (var voluntario in voluntarioList.Results)
+            {
+                Assert.NotNull(voluntario.Usuario);
+            }
         }
 
         [Fact]
@@ -166,6 +167,129 @@ namespace Api.Tests.Integration.Service
             await _voluntarioService.Put(voluntarioDto);
 
             var voluntarioSearch = await _voluntarioIdeiaBuilder.Search(voluntario.Id);
+            Assert.NotNull(voluntarioSearch);
+            Assert.Equal(voluntarioDto.UsuarioId, voluntarioSearch.UsuarioId);
+        }
+
+        [Fact]
+        public async Task TestProblemaDeleteAsync()
+        {
+            var voluntario = await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaEntity);
+
+            await _voluntarioService.Delete(voluntario.Id);
+
+            var voluntarioSearch = await _voluntarioProblemaBuilder.Search(voluntario.Id);
+            Assert.Null(voluntarioSearch);
+        }
+
+        [Fact]
+        public async Task TestProblemaGetAllAsync()
+        {
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+
+            var voluntarioSearch = (await _voluntarioService.GetAll()).ToList();
+            Assert.NotNull(voluntarioSearch);
+            Assert.Equal(4, voluntarioSearch.Count);
+        }
+
+        [Fact]
+        public async Task TestProblemaGetAsync()
+        {
+            var voluntario = await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+
+            var voluntarioSearch = await _voluntarioService.Get(voluntario.Id);
+            Assert.NotNull(voluntarioSearch);
+            Assert.Equal(voluntario.UsuarioId, voluntarioSearch.UsuarioId);
+        }
+
+        [Fact]
+        public async Task TestProblemaGetPagedAsync()
+        {
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+
+            var voluntarioList = await _voluntarioService.GetPaged(1, 10);
+            Assert.NotNull(voluntarioList);
+            Assert.Equal(4, voluntarioList.RowCount);
+
+            foreach (var voluntario in voluntarioList.Results)
+            {
+                Assert.NotNull(voluntario.Problema);
+                Assert.Null(voluntario.Ideia);
+            }
+        }
+
+        [Fact]
+        public async Task TestProblemaGetPagedByUserAsync()
+        {
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+
+            var voluntarioList = await _voluntarioService.GetPagedByUser(1, 10, _usuarioVoluntario.Id);
+            Assert.NotNull(voluntarioList);
+            Assert.Equal(4, voluntarioList.RowCount);
+
+            foreach (var voluntario in voluntarioList.Results)
+            {
+                Assert.NotNull(voluntario.Problema);
+                Assert.Null(voluntario.Ideia);
+            }
+        }
+
+        [Fact]
+        public async Task TestProblemaGetPagedByProblemOrIdeiaAsync()
+        {
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+            await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaBuilder.InstanciarObjeto());
+
+            var voluntarioList = await _voluntarioService.GetPagedByProblemOrIdeia(1, 10, _problemaEntity.Id, null);
+            Assert.NotNull(voluntarioList);
+            Assert.Equal(4, voluntarioList.RowCount);
+
+            foreach (var voluntario in voluntarioList.Results)
+            {
+                Assert.NotNull(voluntario.Usuario);
+            }
+        }
+
+        [Fact]
+        public async Task TestProblemaPostAsync()
+        {
+            var voluntarioDto = new VoluntarioPostDto();
+            Reflection.CopyProperties(_voluntarioProblemaEntity, voluntarioDto);
+
+            var voluntarioPresenter = await _voluntarioService.Post(voluntarioDto);
+
+            Assert.NotNull(voluntarioPresenter);
+
+            var voluntarioSearch = await _voluntarioProblemaBuilder.Search(Guid.Parse(voluntarioPresenter.Id));
+            Assert.NotNull(voluntarioSearch);
+            Assert.Equal(_voluntarioProblemaEntity.UsuarioId, voluntarioSearch.UsuarioId);
+        }
+
+        [Fact]
+        public async Task TestProblemaPutAsync()
+        {
+            var voluntario = await _voluntarioProblemaBuilder.CreateInDataBase(_voluntarioProblemaEntity);
+            var usuarioVoluntarioNew = await _usuarioBuilder.CreateInDataBase(_usuarioBuilder.InstanciarObjeto());
+
+            var voluntarioDto = new VoluntarioPutDto();
+            Reflection.CopyProperties(voluntario, voluntarioDto);
+            voluntarioDto.Id = voluntario.Id.ToString();
+            voluntarioDto.UsuarioId = usuarioVoluntarioNew.Id;
+
+            await _voluntarioService.Put(voluntarioDto);
+
+            var voluntarioSearch = await _voluntarioProblemaBuilder.Search(voluntario.Id);
             Assert.NotNull(voluntarioSearch);
             Assert.Equal(voluntarioDto.UsuarioId, voluntarioSearch.UsuarioId);
         }

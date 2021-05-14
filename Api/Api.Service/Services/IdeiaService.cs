@@ -14,15 +14,13 @@ namespace Api.Service.Services
     public class IdeiaService : BaseService<IdeiaEntity, IdeiaPresenter, IdeiaPostDto, IdeiaPutDto>, IIdeiaService<IdeiaEntity, IdeiaPresenter, IdeiaPostDto, IdeiaPutDto>
     {
         private IRepository<IdeiaEntity> _repository;
-        private IUsuarioRepository _repositoryUser;
         private IIdeiaAnexoRepository _repositoryAttachment;
         private ILikeRepository _repositoryLike;
         private readonly IMapper _mapper;
 
-        public IdeiaService(IRepository<IdeiaEntity> repository, IUsuarioRepository repositoryUser, IIdeiaAnexoRepository repositoryAttachment, ILikeRepository repositoryLike, IMapper mapper) : base(repository, mapper)
+        public IdeiaService(IRepository<IdeiaEntity> repository, IIdeiaAnexoRepository repositoryAttachment, ILikeRepository repositoryLike, IMapper mapper) : base(repository, mapper)
         {
             _repository = repository;
-            _repositoryUser = repositoryUser;
             _repositoryAttachment = repositoryAttachment;
             _repositoryLike = repositoryLike;
             _mapper = mapper;
@@ -192,9 +190,6 @@ namespace Api.Service.Services
             {
                 foreach (var item in result.Results)
                 {
-                    var userEntity = await _repositoryUser.SelectAsync(item.UsuarioId);
-                    item.Usuario = _mapper.Map<UsuarioPresenter>(userEntity);
-
                     var listAttachments = new List<IdeiaAnexoPresenter>();
                     var attachments = await _repositoryAttachment.GetByProjectAsync(item.Id);
                     foreach (var attach in attachments)

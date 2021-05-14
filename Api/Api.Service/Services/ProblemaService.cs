@@ -14,15 +14,13 @@ namespace Api.Service.Services
     public class ProblemaService : BaseService<ProblemaEntity, ProblemaPresenter, ProblemaPostDto, ProblemaPutDto>, IProblemaService<ProblemaEntity, ProblemaPresenter, ProblemaPostDto, ProblemaPutDto>
     {
         private IRepository<ProblemaEntity> _repository;
-        private IUsuarioRepository _repositoryUser;
         private IProblemaAnexoRepository _repositoryAttachment;
         private ILikeRepository _repositoryLike;
         private readonly IMapper _mapper;
 
-        public ProblemaService(IRepository<ProblemaEntity> repository, IUsuarioRepository repositoryUser, IProblemaAnexoRepository repositoryAttachment, ILikeRepository repositoryLike, IMapper mapper) : base(repository, mapper)
+        public ProblemaService(IRepository<ProblemaEntity> repository, IProblemaAnexoRepository repositoryAttachment, ILikeRepository repositoryLike, IMapper mapper) : base(repository, mapper)
         {
             _repository = repository;
-            _repositoryUser = repositoryUser;
             _repositoryAttachment = repositoryAttachment;
             _repositoryLike = repositoryLike;
             _mapper = mapper;
@@ -171,9 +169,6 @@ namespace Api.Service.Services
             {
                 foreach (var item in result.Results)
                 {
-                    var userEntity = await _repositoryUser.SelectAsync(item.UsuarioId);
-                    item.Usuario = _mapper.Map<UsuarioPresenter>(userEntity);
-
                     var listAttachments = new List<ProblemaAnexoPresenter>();
                     var attachments = await _repositoryAttachment.GetByProjectAsync(item.Id);
                     foreach (var attach in attachments)
