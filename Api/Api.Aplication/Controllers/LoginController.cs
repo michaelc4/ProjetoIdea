@@ -30,7 +30,7 @@ namespace Api.Aplication.Controllers
             }
             if (user == null)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             try
@@ -52,7 +52,7 @@ namespace Api.Aplication.Controllers
             }
             if (user == null)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             try

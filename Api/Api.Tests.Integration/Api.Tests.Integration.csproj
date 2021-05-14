@@ -34,8 +34,4 @@
     <ProjectReference Include="..\Api.Service\Api.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
-
 </Project>

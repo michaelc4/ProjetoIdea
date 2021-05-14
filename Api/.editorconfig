@@ -5,3 +5,6 @@ dotnet_analyzer_diagnostic.category-Style.severity = none
 
 # CA1822: Marcar membros como estáticos
 dotnet_diagnostic.CA1822.severity = none
+
+# CS0108: O membro oculta o membro herdado; nova palavra-chave ausente
+dotnet_diagnostic.CS0108.severity = none

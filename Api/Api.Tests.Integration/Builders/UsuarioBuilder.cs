@@ -25,7 +25,7 @@ namespace Api.Tests.Integration.Builders
 
         private UsuarioEntity CreateUser() => new UsuarioEntity
         {
-            DesNome = _faker.Lorem.Sentence(),
+            DesNome = _faker.Lorem.Letter(20),
             DesEmail = _faker.Internet.Email(),
             DesTelefone = _faker.Phone.PhoneNumber(),
             DesEspecialidade = _faker.Lorem.Sentence(),

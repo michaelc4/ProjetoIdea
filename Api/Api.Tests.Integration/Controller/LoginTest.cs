@@ -8,21 +8,22 @@ using Api.Tests.Integration.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Api.Tests.Integration.Service
+namespace Api.Tests.Integration.Controller
 {
     public class LoginTest : BaseFixture
     {
-        protected ILoginService _loginService;
+        private HttpClient _client;
         protected UsuarioBuilder _usuarioBuilder;
         protected UsuarioEntity _usuarioEntity;
 
         public LoginTest(TestFixture<Startup> fixture) : base(fixture)
         {
-            _loginService = _testServer.Services.GetService<ILoginService>();
+            _client = fixture.Client;
 
             var userRepository = _testServer.Services.GetService<IUsuarioRepository>();
             _usuarioBuilder = new UsuarioBuilder(userRepository);
@@ -30,7 +31,7 @@ namespace Api.Tests.Integration.Service
         }
 
         [Fact]
-        public async Task TestFindByLoginAsync()
+        public async Task TestLoginAsync()
         {
             var userEntity = _usuarioBuilder.InstanciarObjeto();
             string senha = userEntity.DesSenha;
@@ -39,13 +40,23 @@ namespace Api.Tests.Integration.Service
 
             var user = await _usuarioBuilder.CreateInDataBase(userEntity);
 
-            var loginDto = new LoginDto();
-            loginDto.Email = user.DesEmail;
-            loginDto.Senha = senha;
-            loginDto.Provider = "LOCAL";
+            var request = new
+            {
+                Url = "/api/login",
+                Body = new
+                {
+                    Email = user.DesEmail,
+                    Senha = senha,
+                    Provider = "LOCAL"
+                }
+            };
 
-            var userSearch = await _loginService.FindByLogin(loginDto);
-            Assert.NotNull(userSearch);
+            var response = await _client.PostAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            response.EnsureSuccessStatusCode();
+
+            var contents = await response.Content.ReadAsStringAsync();
+            var obj = ContentHelper.GetObject(contents);
+            Assert.NotNull(obj);
         }
 
         [Fact]
@@ -54,8 +65,14 @@ namespace Api.Tests.Integration.Service
             var userDto = new UsuarioPostDto();
             Reflection.CopyProperties(_usuarioEntity, userDto);
 
-            var userPresenter = await _loginService.CreateUser(userDto);
-            Assert.NotNull(userPresenter);
+            var request = new
+            {
+                Url = "/api/login/createuser",
+                Body = userDto
+            };
+
+            var response = await _client.PostAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            response.EnsureSuccessStatusCode();
         }
     }
 }
