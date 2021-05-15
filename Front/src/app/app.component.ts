@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Global } from './providers/global.service';
 import { LoginModel } from './models/login.model';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,12 @@ import { LoginModel } from './models/login.model';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  modalRef: BsModalRef = new BsModalRef();
   logged: boolean = false;
   baseImg: string = this.global.getDefaultUserImg();
 
   constructor(public router: Router,
+    private modalService: BsModalService,
     private global: Global) { }
 
   ngDoCheck() {
@@ -36,5 +39,11 @@ export class AppComponent {
   logout() {
     this.global.setLoggedUser(new LoginModel());
     this.router.navigateByUrl('/');
+  }
+
+  openModal(template: TemplateRef<any>) {
+    if (this.logged) {
+      this.modalRef = this.modalService.show(template);
+    }
   }
 }

@@ -1,14 +1,14 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { SocialAuthService } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { LoginService } from '../../providers/login.service';
 import { Global } from '../../providers/global.service';
-import { LoginParamModel, UsuarioPostParamModel, LoginModel } from '../../models/login.model';
+import { LoginParamModel, UsuarioPostParamModel } from '../../models/login.model';
 import { NotifierService } from 'angular-notifier';
-import { takeWhile } from "rxjs/operators"
+import { takeWhile } from "rxjs/operators";
 import { NgxSpinnerService } from "ngx-spinner";
-import { validateEmail } from '../../functions/string.functions'
+import { validateEmail, isValidImage } from '../../functions/string.functions'
 
 @Component({
   selector: 'app-login',
@@ -34,25 +34,27 @@ export class LoginComponent implements OnDestroy {
 
   ngOnInit() {
     this.cleanData();
-    this.socialservice.authState.subscribe((user) => {
-      let param = new LoginParamModel();
-      param.email = user.email;
-      param.senha = '';
-      param.authToken = user.authToken;
-      param.idToken = user.idToken;
-      param.name = user.name;
-      param.photoUrl = user.photoUrl;
-      param.provider = user.provider;
-      this.spinner.show();
-      this.loginService.login(param)
-        .pipe(takeWhile(() => this.alive))
-        .subscribe((data: any) => {
-          this.spinner.hide();
-          this.notifierService.notify('success', 'Login com sucesso');
-          this.global.setLoggedUser(data);
-          this.router.navigateByUrl('/');
-        });
-    });
+    this.socialservice.authState
+      .pipe(takeWhile(() => this.alive))
+      .subscribe((user: any) => {
+        let param = new LoginParamModel();
+        param.email = user.email;
+        param.senha = '';
+        param.authToken = user.authToken;
+        param.idToken = user.idToken;
+        param.name = user.name;
+        param.photoUrl = user.photoUrl;
+        param.provider = user.provider;
+        this.spinner.show();
+        this.loginService.login(param)
+          .pipe(takeWhile(() => this.alive))
+          .subscribe((data: any) => {
+            this.spinner.hide();
+            this.notifierService.notify('success', 'Login com sucesso');
+            this.global.setLoggedUser(data);
+            this.router.navigateByUrl('/');
+          });
+      });
   }
 
   ngOnDestroy() {
@@ -123,11 +125,6 @@ export class LoginComponent implements OnDestroy {
 
   create() {
     let isError = false;
-    if (!this.userimage || this.userimage.trim() == '' || this.userimage.trim() === this.global.getDefaultUserImg().trim()) {
-      this.notifierService.notify('error', 'Adicione uma imagem.');
-      isError = true;
-    }
-
     if (!this.username || this.username.trim() == '' || !validateEmail(this.username.trim())) {
       this.notifierService.notify('error', 'Informe o email.');
       isError = true;
@@ -150,7 +147,7 @@ export class LoginComponent implements OnDestroy {
 
     if (!isError) {
       let user = new UsuarioPostParamModel();
-      user.desImagem = this.userimage;
+      user.desImagem = isValidImage(this.userimage, this.global.getDefaultUserImg()) ? this.userimage : '';
       user.desEmail = this.username;
       user.desSenha = this.password;
       user.desTelefone = this.fone;
@@ -174,5 +171,16 @@ export class LoginComponent implements OnDestroy {
     });
 
     reader.readAsDataURL(file);
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key == 'Enter') {
+      if (this.newUser) {
+        this.create();
+      } else {
+        this.login();
+      }
+    }
   }
 }

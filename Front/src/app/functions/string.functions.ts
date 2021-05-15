@@ -32,3 +32,7 @@ export function validateEmail(email: string) {
   var re = /\S+@\S+\.\S+/;
   return re.test(email);
 }
+
+export function isValidImage(img: any, defaultImg: string) {
+  return img && img.trim() !== '' && img.trim() !== defaultImg.trim();
+}

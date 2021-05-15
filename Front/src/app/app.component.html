@@ -89,9 +89,9 @@
                                             </a>
                                         </div>
                                         <div style="right: 20px; top: 10px; position: absolute; text-align: center; padding: 10px; width: 80px;">
-                                            <img src="data:image/jpeg;base64,{{baseImg}}" alt="Avatar" class="imgAvatar" width="40px" height="40px">
+                                            <img src="data:image/jpeg;base64,{{baseImg}}" alt="Avatar" class="imgAvatar" width="45px" height="45px" (click)="openModal(template)" [ngStyle]="{'cursor': logged ? 'pointer' : ''}">
                                         </div>
-                                        <div style="right: 20px; top: 55px; position: absolute; text-align: center; padding: 10px; width: 80px;">
+                                        <div style="right: 20px; top: 60px; position: absolute; text-align: center; padding: 10px; width: 80px;">
                                             <button class="btn btn-secondary" style="padding: 0 3px;" *ngIf="!logged" (click)="login()">
                                                 Login
                                             </button>
@@ -105,9 +105,7 @@
                         </div>
                     </div>
                 </header>
-
                 <router-outlet></router-outlet>
-
                 <footer tabindex="-1" id="SITE_FOOTER_WRAPPER">
                     <div id="SITE_FOOTER" class="_11CDm">
                         <div class="_1nb6T">
@@ -181,3 +179,30 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate-pulse" [fullScreen]="true">
     <p style="color: white"> Aguarde... </p>
 </ngx-spinner>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Perfil</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">@</span>
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">@</span>
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">@</span>
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">With textarea</span>
+            <textarea class="form-control" aria-label="With textarea"></textarea>
+        </div>
+    </div>
+</ng-template>
