@@ -1,2 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 @import '~font-awesome/css/font-awesome.css';
+
+.input-group-prepend span{
+    width: 50px;
+    background-color: #e6e6e6;
+    color: black;
+    border:0 !important;
+}
+  
+input:focus{
+    outline: 0 0 0 0  !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+.imgCss {
+    margin-left: auto;
+    margin-right: auto;
+}

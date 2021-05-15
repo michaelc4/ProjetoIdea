@@ -21,3 +21,21 @@ export class UsuariosPagedResult extends Serializable {
     public lastRowOnPage: number = 0;
     public results: Array<UsuarioModel> = new Array<UsuarioModel>();
 }
+
+export class UsuarioPostParamModel extends Serializable {
+    public desNome: string = '';
+    public desImagem: string = '';
+    public desEmail: string = '';
+    public desSenha: string = '';
+    public desTelefone: string = '';
+}
+
+export class UsuarioPutParamModel extends Serializable {
+    public id: string = '';
+    public desNome: string = '';
+    public desImagem: string = '';
+    public desSenha: string = '';
+    public desTelefone: string = '';
+    public desEspecialidade: string = '';
+    public desExperiencia: string = '';
+}
