@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PagedResult, UsuarioModel } from '../../../models/usuario.model';
+import { UsuariosPagedResult, UsuarioModel } from '../../../models/usuario.model';
 import { PageModel } from '../../../models/page.model';
 import { UsuarioService } from '../../../providers/usuario.service';
 import { Global } from '../../../providers/global.service';
@@ -24,7 +24,7 @@ export class MenuUsuarioComponent {
 
   ngOnInit() {
     this.setPage({ offset: 0 });
-    this.usuarioService.getAllPaged().subscribe((data: PagedResult) => {
+    this.usuarioService.getAllPaged().subscribe((data: UsuariosPagedResult) => {
       this.usuarios = data.results;
       this.page.totalElements = data.rowCount;
       this.page.totalPages = data.pageCount;

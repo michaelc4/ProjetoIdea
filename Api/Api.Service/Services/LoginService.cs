@@ -100,6 +100,7 @@ namespace Api.Service.Services
                         authenticated = true,
                         message = "Usuário autenticado",
                         accessToken = CreateToken(identity, createDate, expirationDate, handler),
+                        id = userEntity.Id,
                         email = userEntity.DesEmail,
                         imagem = userEntity.DesImagem,
                         admin = userEntity.Admin == 1,

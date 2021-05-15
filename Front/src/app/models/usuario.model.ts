@@ -11,7 +11,7 @@ export class UsuarioModel extends Serializable {
     public local: number = 0;
 }
 
-export class PagedResult extends Serializable {
+export class UsuariosPagedResult extends Serializable {
     public currentPage: number = 0;
     public pageCount: number = 0;
     public pageSize: number = 0;
