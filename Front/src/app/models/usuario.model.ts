@@ -2,6 +2,7 @@ import { Serializable } from './serializable';
 
 export class UsuarioModel extends Serializable {
     public id: string = '';
+    public desNome: string = '';
     public desImagem: string = '';
     public desEmail: string = '';
     public desTelefone: string = '';

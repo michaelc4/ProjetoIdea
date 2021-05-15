@@ -17,7 +17,7 @@ export class UsuarioService {
         return this.http
             .get(url, this.global.getAutheticatedOptions())
             .pipe(map((res: any) => {
-                return res;
+                return res as UsuariosPagedResult;
             }));
     }
 }

@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Domain.Presenters
+namespace Api.Domain.Dtos
 {
-    public class ProblemaPutDto
+    public class ProblemaPutDto : BasePutDto
     {
-        [Required(ErrorMessage = "Id é um campo obrigatório.")]
-        public string Id { get; set; }
-
         public string DesProblema { get; set; }
 
         [StringLength(1, ErrorMessage = "Tipo benefício deve ter no máximo {1} caracteres.")]

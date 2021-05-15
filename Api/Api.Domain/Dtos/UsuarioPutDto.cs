@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.Domain.Presenters
+namespace Api.Domain.Dtos
 {
-    public class UsuarioPutDto
+    public class UsuarioPutDto : BasePutDto
     {
-        [Required(ErrorMessage = "Id é um campo obrigatório.")]
-        public string Id { get; set; }
-
         [StringLength(50, ErrorMessage = "Nome deve ter no máximo {1} caracteres.")]
         public string DesNome { get; set; }
 
@@ -23,7 +20,5 @@ namespace Api.Domain.Presenters
 
         [StringLength(3000, ErrorMessage = "Experiência deve ter no máximo {1} caracteres.")]
         public string DesExperiencia { get; set; }
-
-        public int Admin { get; set; }
     }
 }

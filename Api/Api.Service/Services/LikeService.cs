@@ -1,13 +1,10 @@
-﻿using Api.Domain.Entities;
+﻿using Api.Domain.Dtos;
+using Api.Domain.Entities;
 using Api.Domain.Interfaces;
-using Api.Domain.Interfaces.Repository;
 using Api.Domain.Interfaces.Services;
 using Api.Domain.Presenters;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Api.Service.Services

@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Domain.Presenters
+namespace Api.Domain.Dtos
 {
-    public class LikePutDto
+    public class LikePutDto : BasePutDto
     {
-        [Required(ErrorMessage = "Id é um campo obrigatório.")]
-        public string Id { get; set; }
-
         [Required(ErrorMessage = "IP é um campo obrigatório.")]
         public string IpUsr { get; set; }
 

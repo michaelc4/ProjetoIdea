@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Domain.Presenters
+namespace Api.Domain.Dtos
 {
     public class LikePostDto
     {

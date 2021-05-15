@@ -1,5 +1,7 @@
-﻿using Api.Domain.Entities;
+﻿using Api.Domain.Dtos;
+using Api.Domain.Entities;
 using Api.Domain.Interfaces;
+using Api.Service.Util;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Api.Service.Services
 {
-    public abstract class BaseService<T, TPresenter, TPostDto, TPutDto> where T : BaseEntity
+    public abstract class BaseService<T, TPresenter, TPostDto, TPutDto> where T : BaseEntity where TPutDto : BasePutDto
     {
         private IRepository<T> _repository;
         private readonly IMapper _mapper;
@@ -41,7 +43,10 @@ namespace Api.Service.Services
 
         public virtual async Task<TPresenter> Put(TPutDto dto)
         {
-            T dtoResult = await _repository.UpdateAsync(_mapper.Map<T>(dto));
+            T obj = await _repository.SelectAsync(Guid.Parse(dto.Id));
+            Reflection.CopyProperties(dto, obj);
+
+            T dtoResult = await _repository.UpdateAsync(obj);
             return _mapper.Map<TPresenter>(dtoResult);
         }
     }

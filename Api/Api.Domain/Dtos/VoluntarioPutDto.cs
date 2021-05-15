@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Domain.Presenters
+namespace Api.Domain.Dtos
 {
-    public class VoluntarioPutDto
+    public class VoluntarioPutDto : BasePutDto
     {
-        [Required(ErrorMessage = "Id é um campo obrigatório.")]
-        public string Id { get; set; }
-
         public Guid UsuarioId { get; set; }
 
         public Guid? IdeiaId { get; set; }

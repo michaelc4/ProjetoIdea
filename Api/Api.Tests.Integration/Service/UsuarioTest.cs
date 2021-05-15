@@ -1,3 +1,4 @@
+using Api.Domain.Dtos;
 using Api.Domain.Entities;
 using Api.Domain.Interfaces.Repository;
 using Api.Domain.Interfaces.Services;
@@ -7,7 +8,6 @@ using Api.Tests.Integration.Builders;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 

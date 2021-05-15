@@ -1,4 +1,5 @@
-﻿using Api.Domain.Entities;
+﻿using Api.Domain.Dtos;
+using Api.Domain.Entities;
 using Api.Domain.Presenters;
 using AutoMapper;
 

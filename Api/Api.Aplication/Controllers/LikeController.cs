@@ -1,7 +1,7 @@
-﻿using Api.Domain.Entities;
+﻿using Api.Domain.Dtos;
+using Api.Domain.Entities;
 using Api.Domain.Interfaces.Services;
 using Api.Domain.Presenters;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;

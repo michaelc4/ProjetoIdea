@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Api.Domain.Dtos;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Api.Domain.Presenters
+namespace Api.Domain.Dtos
 {
-    public class IdeiaAnexoPutDto
+    public class IdeiaAnexoPutDto : BasePutDto
     {
         public Guid IdeiaId { get; set; }
-
-        [Required(ErrorMessage = "Id é um campo obrigatório.")]
-        public string Id { get; set; }
 
         public string DesAnexo { get; set; }
 

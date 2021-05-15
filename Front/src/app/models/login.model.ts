@@ -4,6 +4,7 @@ export class LoginModel extends Serializable {
     public authenticated: boolean = false;
     public message: string = '';
     public accessToken: string = '';
+    public id: string = '';
     public email: string = '';
     public imagem: string = '';
     public admin: boolean = false;
