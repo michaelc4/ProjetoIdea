@@ -182,82 +182,78 @@
 
 <ng-template #template>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">Perfil</h4>
+        <h4 class="modal-title pull-left">Perfil
+            <div class="modal-title-email">({{usuario.desEmail}})</div>
+        </h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <div class="input-group mb-3" style="text-align: center;">
-            <img src="{{'data:image/jpg;base64,' + usuario.desImagem}}" class="imgAvatar imgCss" width="80px" height="80px" (click)="file.click()" />
-            <input #file #imageInput type="file" accept="image/jpeg" (change)="processFile(imageInput)" style="display: none;">
-        </div>
-        <div class="card" style="width: 100%;">
-            <div class="card-body">
-                <h5 class="card-title">Dados</h5>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fa fa-key"></i>
-                        </span>
+        <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+            <div class="input-group mb-3" style="text-align: center;">
+                <img src="{{'data:image/jpg;base64,' + usuario.desImagem}}" class="imgAvatar imgCss" width="80px" height="80px" (click)="file.click()" />
+                <input #file #imageInput type="file" accept="image/jpeg" (change)="processFile(imageInput)" style="display: none;">
+            </div>
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <h5 class="card-title">Dados</h5>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-user"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Nome" [(ngModel)]="usuario.desNome">
                     </div>
-                    <input type="text" class="form-control" placeholder="Email" [(ngModel)]="usuario.desEmail" readonly>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fa fa-key"></i>
-                        </span>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-phone"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Telefone" [(ngModel)]="usuario.desTelefone" mask="(00) 0000-0000||(00) 00000-0000">
                     </div>
-                    <input type="text" class="form-control" placeholder="Nome" [(ngModel)]="usuario.desNome">
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fa fa-key"></i>
-                        </span>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-align-justify"></i>
+                            </span>
+                        </div>
+                        <textarea class="form-control" placeholder="Especialidade..." [(ngModel)]="usuario.desEspecialidade"></textarea>
                     </div>
-                    <input type="text" class="form-control" placeholder="Telefone" [(ngModel)]="usuario.desTelefone" mask="(00) 0000-0000||(00) 00000-0000">
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fa fa-key"></i>
-                        </span>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-align-justify"></i>
+                            </span>
+                        </div>
+                        <textarea class="form-control" placeholder="Experiência..." [(ngModel)]="usuario.desExperiencia"></textarea>
                     </div>
-                    <textarea class="form-control" placeholder="Especialidade..." [(ngModel)]="usuario.desEspecialidade"></textarea>
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fa fa-key"></i>
-                        </span>
-                    </div>
-                    <textarea class="form-control" placeholder="Experiência..." [(ngModel)]="usuario.desExperiencia"></textarea>
                 </div>
             </div>
-        </div>
-        <div class="card" style="width: 100%; margin-top: 10px;" *ngIf="usuario.local == 1">
-            <div class="card-body">
-                <h5 class="card-title">Trocar Senha</h5>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fa fa-key"></i>
-                        </span>
+            <div class="card" style="width: 100%; margin-top: 10px;" *ngIf="usuario.local == 1">
+                <div class="card-body">
+                    <h5 class="card-title">Trocar Senha</h5>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-key"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Senha" [(ngModel)]="senha">
                     </div>
-                    <input type="password" class="form-control" placeholder="Senha" [(ngModel)]="senha">
-                </div>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fa fa-key"></i>
-                        </span>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fa fa-key"></i>
+                            </span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Confirmação" [(ngModel)]="confSenha">
                     </div>
-                    <input type="password" class="form-control" placeholder="Confirmação" [(ngModel)]="confSenha">
                 </div>
             </div>
-        </div>
+        </perfect-scrollbar>
         <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
             <button class="btn btn-secondary" (click)="saveUser()">Salvar</button>&nbsp;
             <button class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>

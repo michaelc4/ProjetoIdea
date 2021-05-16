@@ -12,13 +12,71 @@ namespace Api.Aplication.Controllers
 {
     [Route("api/voluntario")]
     [ApiController]
-    public class VoluntarioController : BaseController<VoluntarioEntity, VoluntarioPresenter, VoluntarioPostDto, VoluntarioPutDto>
+    public class VoluntarioController : ControllerBase
     {
         private IVoluntarioService<VoluntarioEntity, VoluntarioPresenter, VoluntarioPostDto, VoluntarioPutDto> _service;
 
-        public VoluntarioController(IVoluntarioService<VoluntarioEntity, VoluntarioPresenter, VoluntarioPostDto, VoluntarioPutDto> service) : base(service)
+        public VoluntarioController(IVoluntarioService<VoluntarioEntity, VoluntarioPresenter, VoluntarioPostDto, VoluntarioPutDto> service)
         {
             _service = service;
+        }
+
+        [Authorize("Bearer")]
+        [HttpPut("delete")]
+        public virtual async Task<ActionResult> Delete(Guid id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                await _service.Delete(id);
+                return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [Authorize("Bearer")]
+        [HttpGet("get")]
+        public virtual async Task<ActionResult> Get(Guid id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                return Ok(await _service.Get(id));
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [Authorize("Bearer", Roles = "Admin")]
+        [HttpGet("getall")]
+        public virtual async Task<ActionResult> GetAll()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                return Ok(await _service.GetAll());
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
         }
 
         [Authorize("Bearer", Roles = "Admin")]
@@ -40,7 +98,7 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer", Roles = "Admin")]
+        [Authorize("Bearer")]
         [HttpGet("getallpagedbyuser")]
         public async Task<ActionResult> GetPagedByUser(int page, int pageSize, Guid userId)
         {
@@ -71,6 +129,44 @@ namespace Api.Aplication.Controllers
             try
             {
                 return Ok(await _service.GetPagedByProblemOrIdeia(page, pageSize, problemId, ideaId));
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [Authorize("Bearer")]
+        [HttpPost("post")]
+        public virtual async Task<ActionResult> Post([FromBody] VoluntarioPostDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                return Ok(await _service.Post(dto));
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [Authorize("Bearer", Roles = "Admin")]
+        [HttpPut("put")]
+        public virtual async Task<ActionResult> Put([FromBody] VoluntarioPutDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                return Ok(await _service.Put(dto));
             }
             catch (ArgumentException ex)
             {

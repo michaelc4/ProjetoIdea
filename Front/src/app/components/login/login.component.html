@@ -14,7 +14,7 @@
               <i class="fa fa-user"></i>
             </span>
           </div>
-          <input type="text" class="form-control" placeholder="Email" [(ngModel)]="username">
+          <input type="text" class="form-control" placeholder="Email" [(ngModel)]="username" maxlength="100">
         </div>
         <div class="input-group form-group">
           <div class="input-group-prepend">
@@ -22,7 +22,7 @@
               <i class="fa fa-key"></i>
             </span>
           </div>
-          <input type="password" class="form-control" placeholder="Senha" [(ngModel)]="password">
+          <input type="password" class="form-control" placeholder="Senha" [(ngModel)]="password" maxlength="20">
         </div>
         <div class="form-group">
           <button class="btn btn-secondary" (click)="login()">Entrar</button>
@@ -52,7 +52,7 @@
   <div class="d-flex justify-content-center h-100">
     <div class="card">
       <div class="card-header">
-        <h3>Criar conta</h3> 
+        <h3>Criar conta</h3>
         <img src="{{'data:image/jpg;base64,' + userimage}}" class="imgAvatar imgAvatarCss" width="40px" height="40px" (click)="file.click()" />
         <input #file #imageInput type="file" accept="image/jpeg" (change)="processFile(imageInput)" style="display: none;">
       </div>
@@ -63,7 +63,7 @@
               <i class="fa fa-user"></i>
             </span>
           </div>
-          <input type="text" class="form-control" placeholder="Email" [(ngModel)]="username">
+          <input type="text" class="form-control" placeholder="Email" [(ngModel)]="username" maxlength="100">
         </div>
         <div class="input-group form-group">
           <div class="input-group-prepend">
@@ -79,7 +79,7 @@
               <i class="fa fa-key"></i>
             </span>
           </div>
-          <input type="password" class="form-control" placeholder="Senha" [(ngModel)]="password">
+          <input type="password" class="form-control" placeholder="Senha" [(ngModel)]="password" maxlength="20">
         </div>
         <div class="input-group form-group">
           <div class="input-group-prepend">
@@ -87,7 +87,7 @@
               <i class="fa fa-key"></i>
             </span>
           </div>
-          <input type="password" class="form-control" placeholder="Confirmar Senha" [(ngModel)]="confirmPassword">
+          <input type="password" class="form-control" placeholder="Confirmar Senha" [(ngModel)]="confirmPassword" maxlength="20">
         </div>
         <div class="form-group">
           <button class="btn btn-secondary" (click)="create()">Criar</button>&nbsp;

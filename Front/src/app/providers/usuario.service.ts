@@ -61,7 +61,7 @@ export class UsuarioService {
         let url = this.global.getUrlApi() + "/api/usuario/post";
 
         return this.http
-            .post(url, body, this.global.getOptions())
+            .post(url, body, this.global.getAutheticatedOptions())
             .pipe(map((res: any) => {
                 return res;
             }), catchError((err: any) => {
@@ -83,7 +83,7 @@ export class UsuarioService {
         let url = this.global.getUrlApi() + "/api/usuario/put";
 
         return this.http
-            .put(url, body, this.global.getOptions())
+            .put(url, body, this.global.getAutheticatedOptions())
             .pipe(map((res: any) => {
                 return res;
             }), catchError((err: any) => {
@@ -97,7 +97,7 @@ export class UsuarioService {
         let url = this.global.getUrlApi() + "/api/usuario/delete?id=" + id;
 
         return this.http
-            .put(url, body, this.global.getOptions())
+            .put(url, body, this.global.getAutheticatedOptions())
             .pipe(map((res: any) => {
                 return res;
             }), catchError((err: any) => {

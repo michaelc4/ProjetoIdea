@@ -15,7 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 
 // Services
 import { Global } from "./providers/global.service";
@@ -71,12 +72,17 @@ const maskConfig: Partial<IConfig> = {
   validation: false,
 };
 
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+  suppressScrollY: false
+};
+
 @NgModule({
   declarations: [
     AppComponent,
     InicialComponent,
     LoginComponent,
-    MenuUsuarioComponent 
+    MenuUsuarioComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -89,6 +95,7 @@ const maskConfig: Partial<IConfig> = {
     AppRoutingModule,
     SocialLoginModule,
     HttpClientModule,
+    PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
@@ -118,6 +125,10 @@ const maskConfig: Partial<IConfig> = {
           }
         ]
       } as SocialAuthServiceConfig,
+    },
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
     Global,
     AuthGuard

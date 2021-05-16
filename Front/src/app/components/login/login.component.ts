@@ -8,7 +8,7 @@ import { LoginParamModel, UsuarioPostParamModel } from '../../models/login.model
 import { NotifierService } from 'angular-notifier';
 import { takeWhile } from "rxjs/operators";
 import { NgxSpinnerService } from "ngx-spinner";
-import { validateEmail, isValidImage } from '../../functions/string.functions'
+import { validateEmail, isValidImage } from '../../functions/string.functions';
 
 @Component({
   selector: 'app-login',

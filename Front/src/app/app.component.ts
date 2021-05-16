@@ -2,12 +2,13 @@ import { Component, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Global } from './providers/global.service';
 import { LoginModel } from './models/login.model';
-import { UsuarioModel } from './models/usuario.model';
+import { UsuarioModel, UsuarioPutParamModel } from './models/usuario.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UsuarioService } from './providers/usuario.service';
 import { NotifierService } from 'angular-notifier';
 import { NgxSpinnerService } from "ngx-spinner";
-import { validateEmail, isValidImage } from './functions/string.functions'
+import { isValidImage } from './functions/string.functions';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent {
   usuario: UsuarioModel = new UsuarioModel();
   senha: string = '';
   confSenha: string = '';
+  config: PerfectScrollbarConfigInterface = {};
 
   constructor(public router: Router,
     private modalService: BsModalService,
@@ -56,12 +58,16 @@ export class AppComponent {
   openModal(template: TemplateRef<any>) {
     if (this.logged) {
       this.spinner.show();
-      this.usuarioService
-        .get(this.global.getLoggedUser().id)
+      this.usuarioService.get(this.global.getLoggedUser().id)
         .subscribe((user: any) => {
           this.spinner.hide();
+          this.senha = '';
+          this.confSenha = '';
           this.usuario = user;
-          this.modalRef = this.modalService.show(template);
+          if (!this.usuario.desImagem || this.usuario.desImagem.trim() == '') {
+            this.usuario.desImagem = this.global.getDefaultUserImg();
+          }
+          this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-md' }));
         });
     }
   }
@@ -78,41 +84,29 @@ export class AppComponent {
   }
 
   saveUser() {
-    //let isError = false;
-    //if (!this.username || this.username.trim() == '' || !validateEmail(this.username.trim())) {
-    //  this.notifierService.notify('error', 'Informe o email.');
-    //  isError = true;
-    //}
+    let isError = false;
+    if (this.senha && this.senha.trim() != '' && this.senha.trim() !== this.confSenha.trim()) {
+      this.notifierService.notify('error', 'Confirmação de senha não confere.');
+      isError = true;
+    }
 
-    //if (!this.password || this.password.trim() == '') {
-    //  this.notifierService.notify('error', 'Informe a senha.');
-    //  isError = true;
-    //}
-
-    //if (!this.confirmPassword || this.confirmPassword.trim() == '') {
-    //  this.notifierService.notify('error', 'Informe a confirmação de senha.');
-    //  isError = true;
-    //}
-
-    //if (!isError && this.password.trim() !== this.confirmPassword.trim()) {
-    //  this.notifierService.notify('error', 'Confirmação de senha não confere.');
-    //  isError = true;
-    //}
-
-    //if (!isError) {
-    //  let user = new UsuarioPostParamModel();
-    //  user.desImagem = isValidImage(this.userimage, this.global.getDefaultUserImg()) ? this.userimage : '';
-    //  user.desEmail = this.username;
-    //  user.desSenha = this.password;
-    //  user.desTelefone = this.fone;
-    //  this.spinner.show();
-    //  this.loginService.create(user)
-    //    .pipe(takeWhile(() => this.alive))
-    //    .subscribe((data: any) => {
-    //      this.spinner.hide();
-    //      this.notifierService.notify('success', 'Usuário Criado.');
-    //      this.cleanData();
-    //    });
-    //}
+    if (!isError) {
+      let user = new UsuarioPutParamModel();
+      user.id = this.usuario.id;
+      user.desNome = this.usuario.desNome;
+      user.desImagem = isValidImage(this.usuario.desImagem, this.global.getDefaultUserImg()) ? this.usuario.desImagem : '';
+      user.desSenha = this.senha && this.senha.trim() != '' ? this.senha : '';
+      user.desTelefone = this.usuario.desTelefone;
+      user.desEspecialidade = this.usuario.desEspecialidade;
+      user.desExperiencia = this.usuario.desExperiencia;
+      this.spinner.show();
+      this.usuarioService.put(user)
+        .subscribe((data: any) => {
+          this.spinner.hide();
+          this.global.getLoggedUser().imagem = this.usuario.desImagem;
+          this.modalRef.hide();
+          this.notifierService.notify('success', 'Usuário Alterado.');
+        });
+    }
   }
 }

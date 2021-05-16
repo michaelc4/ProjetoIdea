@@ -12,18 +12,38 @@ namespace Api.Aplication.Controllers
 {
     [Route("api/usuario")]
     [ApiController]
-    public class UsuarioController : BaseController<UsuarioEntity, UsuarioPresenter, UsuarioPostDto, UsuarioPutDto>
+    public class UsuarioController : ControllerBase
     {
         private IUsuarioService<UsuarioEntity, UsuarioPresenter, UsuarioPostDto, UsuarioPutDto> _service;
 
-        public UsuarioController(IUsuarioService<UsuarioEntity, UsuarioPresenter, UsuarioPostDto, UsuarioPutDto> service) : base(service)
+        public UsuarioController(IUsuarioService<UsuarioEntity, UsuarioPresenter, UsuarioPostDto, UsuarioPutDto> service)
         {
             _service = service;
         }
 
+        [Authorize("Bearer", Roles = "Admin")]
+        [HttpPut("delete")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                await _service.Delete(id);
+                return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [Authorize("Bearer")]
         [HttpGet("get")]
-        public override async Task<ActionResult> Get(Guid id)
+        public async Task<ActionResult> Get(Guid id)
         {
             if (!ModelState.IsValid)
             {
@@ -33,6 +53,25 @@ namespace Api.Aplication.Controllers
             try
             {
                 return Ok(await _service.Get(id));
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [Authorize("Bearer", Roles = "Admin")]
+        [HttpGet("getall")]
+        public async Task<ActionResult> GetAll()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                return Ok(await _service.GetAll());
             }
             catch (ArgumentException ex)
             {
@@ -59,9 +98,28 @@ namespace Api.Aplication.Controllers
             }
         }
 
+        [Authorize("Bearer", Roles = "Admin")]
+        [HttpPost("post")]
+        public async Task<ActionResult> Post([FromBody] UsuarioPostDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                return Ok(await _service.Post(dto));
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
         [Authorize("Bearer")]
         [HttpPut("put")]
-        public override async Task<ActionResult> Put([FromBody] UsuarioPutDto dto)
+        public async Task<ActionResult> Put([FromBody] UsuarioPutDto dto)
         {
             if (!ModelState.IsValid)
             {
