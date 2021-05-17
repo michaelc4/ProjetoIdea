@@ -216,5 +216,39 @@ namespace Api.Tests.Integration.Controller
             var response = await _client.PutAsync(request.Url, ContentHelper.GetStringContent(request.Body));
             response.EnsureSuccessStatusCode();
         }
+
+        [Fact]
+        public async Task TestPutAvaliacaoAsync()
+        {
+            var problema = await _problemaBuilder.CreateInDataBase(_problemaEntity);
+            var problemaAnexoBuilder = new ProblemaAnexoBuilder(_problemaAnexoRepository, problema);
+            await problemaAnexoBuilder.CreateInDataBase(problemaAnexoBuilder.InstanciarObjeto());
+
+            var problemaDto = new ProblemaAvaliacaoPutDto();
+            Reflection.CopyProperties(problema, problemaDto);
+            problemaDto.Id = problema.Id.ToString();
+            problemaDto.DesProblema = _faker.Lorem.Paragraph();
+
+            List<ProblemaAnexoPostDto> listAnexos = new List<ProblemaAnexoPostDto>();
+            for (int i = 0; i < 4; i++)
+            {
+                var anexoDto = new ProblemaAnexoPostDto();
+                Reflection.CopyProperties(_problemaAnexoBuilder.InstanciarObjeto(), anexoDto);
+                listAnexos.Add(anexoDto);
+            }
+            problemaDto.Anexos = listAnexos;
+
+            var request = new
+            {
+                Url = "/api/problema/putavaliacao",
+                Body = problemaDto
+            };
+
+            if (!_client.DefaultRequestHeaders.Contains("Authorization"))
+                _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + await GetToken(_userRepository));
+
+            var response = await _client.PutAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

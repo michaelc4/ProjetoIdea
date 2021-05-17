@@ -167,6 +167,31 @@ namespace Api.Service.Services
             return _mapper.Map<ProblemaPresenter>(dtoResult);
         }
 
+        public async Task<ProblemaPresenter> PutAvaliacao(ProblemaAvaliacaoPutDto dto)
+        {
+            ProblemaEntity dtoResult = await _repository.UpdateAsync(_mapper.Map<ProblemaEntity>(dto));
+
+            var attachments = await _repositoryAttachment.GetByProjectAsync(dtoResult.Id.ToString());
+            if (attachments != null && attachments.Count() > 0)
+            {
+                foreach (var attach in attachments)
+                {
+                    await _repositoryAttachment.DeleteAsync(attach.Id);
+                }
+            }
+
+            if (dto.Anexos != null && dto.Anexos.Count > 0)
+            {
+                foreach (var attach in dto.Anexos)
+                {
+                    attach.ProblemaId = dtoResult.Id;
+                    await _repositoryAttachment.InsertAsync(_mapper.Map<ProblemaAnexoEntity>(attach));
+                }
+            }
+
+            return _mapper.Map<ProblemaPresenter>(dtoResult);
+        }
+
         private async Task<PagedResultPresenter<ProblemaPresenter>> GetPresenterDetail(PagedResultPresenter<ProblemaPresenter> result)
         {
             if (result != null && result.Results != null)
@@ -199,6 +224,14 @@ namespace Api.Service.Services
                 foreach (var item in result.Results)
                 {
                     item.Usuario = null;
+
+                    var listAttachments = new List<ProblemaAnexoPresenter>();
+                    var attachments = await _repositoryAttachment.GetByProjectAsync(item.Id);
+                    foreach (var attach in attachments)
+                    {
+                        listAttachments.Add(_mapper.Map<ProblemaAnexoPresenter>(attach));
+                    }
+                    item.Anexos = listAttachments;
 
                     var likeQuery = await _repositoryLike.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id).ToListAsync();
                     if (likeQuery != null && likeQuery.Count > 0)

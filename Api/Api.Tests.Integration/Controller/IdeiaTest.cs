@@ -216,5 +216,39 @@ namespace Api.Tests.Integration.Controller
             var response = await _client.PutAsync(request.Url, ContentHelper.GetStringContent(request.Body));
             response.EnsureSuccessStatusCode();
         }
+
+        [Fact]
+        public async Task TestPutAvaliacaoAsync()
+        {
+            var ideia = await _ideiaBuilder.CreateInDataBase(_ideiaEntity);
+            var ideiaAnexoBuilder = new IdeiaAnexoBuilder(_ideiaAnexoRepository, ideia);
+            await ideiaAnexoBuilder.CreateInDataBase(ideiaAnexoBuilder.InstanciarObjeto());
+
+            var ideiaDto = new IdeiaAvaliacaoPutDto();
+            Reflection.CopyProperties(ideia, ideiaDto);
+            ideiaDto.Id = ideia.Id.ToString();
+            ideiaDto.DesIdeia = _faker.Lorem.Paragraph();
+
+            List<IdeiaAnexoPostDto> listAnexos = new List<IdeiaAnexoPostDto>();
+            for (int i = 0; i < 4; i++)
+            {
+                var anexoDto = new IdeiaAnexoPostDto();
+                Reflection.CopyProperties(_ideiaAnexoBuilder.InstanciarObjeto(), anexoDto);
+                listAnexos.Add(anexoDto);
+            }
+            ideiaDto.Anexos = listAnexos;
+
+            var request = new
+            {
+                Url = "/api/ideia/putavaliacao",
+                Body = ideiaDto
+            };
+
+            if (!_client.DefaultRequestHeaders.Contains("Authorization"))
+                _client.DefaultRequestHeaders.Add("Authorization", "Bearer " + await GetToken(_userRepository));
+
+            var response = await _client.PutAsync(request.Url, ContentHelper.GetStringContent(request.Body));
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

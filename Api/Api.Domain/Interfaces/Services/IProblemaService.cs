@@ -1,4 +1,5 @@
-﻿using Api.Domain.Entities;
+﻿using Api.Domain.Dtos;
+using Api.Domain.Entities;
 using Api.Domain.Presenters;
 using System;
 using System.Threading.Tasks;
@@ -12,5 +13,7 @@ namespace Api.Domain.Interfaces.Services
         Task<PagedResultPresenter<ProblemaPresenter>> GetPagedByUser(int page, int pageSize, Guid userId, string problemSearch, string benefitTypeSearch, string solutionTypeSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch);
 
         Task<PagedResultPresenter<ProblemaPresenter>> GetPagedInitialScreen(int page, int pageSize);
+
+        Task<ProblemaPresenter> PutAvaliacao(ProblemaAvaliacaoPutDto dto);
     }
 }

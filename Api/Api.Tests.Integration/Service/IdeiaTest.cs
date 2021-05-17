@@ -181,5 +181,38 @@ namespace Api.Tests.Integration.Service
             Assert.Equal(1, ideiaListOne.RowCount);
             Assert.Equal(4, ideiaListOne.Results[0].Anexos.Count());
         }
+
+        [Fact]
+        public async Task TestPutAvalacaoAsync()
+        {
+            var ideia = await _ideiaBuilder.CreateInDataBase(_ideiaEntity);
+            var ideiaAnexoBuilder = new IdeiaAnexoBuilder(_ideiaAnexoRepository, ideia);
+            await ideiaAnexoBuilder.CreateInDataBase(ideiaAnexoBuilder.InstanciarObjeto());
+
+            var ideiaDto = new IdeiaAvaliacaoPutDto();
+            Reflection.CopyProperties(ideia, ideiaDto);
+            ideiaDto.Id = ideia.Id.ToString();
+            ideiaDto.DesIdeia = _faker.Lorem.Paragraph();
+
+            List<IdeiaAnexoPostDto> listAnexos = new List<IdeiaAnexoPostDto>();
+            for (int i = 0; i < 4; i++)
+            {
+                var anexoDto = new IdeiaAnexoPostDto();
+                Reflection.CopyProperties(_ideiaAnexoBuilder.InstanciarObjeto(), anexoDto);
+                listAnexos.Add(anexoDto);
+            }
+            ideiaDto.Anexos = listAnexos;
+
+            await _ideiaService.PutAvaliacao(ideiaDto);
+
+            var ideiaSearch = await _ideiaBuilder.Search(ideia.Id);
+            Assert.NotNull(ideiaSearch);
+            Assert.Equal(ideiaDto.DesIdeia, ideiaSearch.DesIdeia);
+
+            var ideiaListOne = await _ideiaService.GetPaged(1, 10, _ideiaEntity.DesIdeia, _ideiaEntity.DesMotivoInvestir, _ideiaEntity.IndInteresseCompartilhar, _ideiaEntity.IndNivelDesenvolvimento, null, null, null, null);
+            Assert.NotNull(ideiaListOne);
+            Assert.Equal(1, ideiaListOne.RowCount);
+            Assert.Equal(4, ideiaListOne.Results[0].Anexos.Count());
+        }
     }
 }

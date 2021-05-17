@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Domain.Dtos
 {
-    public class ProblemaPutDto : BasePutDto
+    public class ProblemaAvaliacaoPutDto : BasePutDto
     {
         public string DesProblema { get; set; }
 
@@ -15,6 +15,12 @@ namespace Api.Domain.Dtos
         public string IndTipoSolucao { get; set; }
 
         public int NumProbabilidadeInvestir { get; set; }
+
+        [StringLength(1, ErrorMessage = "Indicador ativo deve ter no máximo {1} caracteres.")]
+        public string IndAtivo { get; set; }
+
+        [StringLength(1, ErrorMessage = "Indicador aprovado deve ter no máximo {1} caracteres.")]
+        public string IndAprovado { get; set; }
 
         public Guid UsuarioId { get; set; }
 

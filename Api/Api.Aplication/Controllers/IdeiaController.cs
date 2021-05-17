@@ -154,7 +154,7 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer", Roles = "Admin")]
+        [Authorize("Bearer")]
         [HttpPut("put")]
         public async Task<ActionResult> Put([FromBody] IdeiaPutDto dto)
         {
@@ -166,6 +166,25 @@ namespace Api.Aplication.Controllers
             try
             {
                 return Ok(await _service.Put(dto));
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex.Message);
+            }
+        }
+
+        [Authorize("Bearer", Roles = "Admin")]
+        [HttpPut("putavaliacao")]
+        public async Task<ActionResult> PutAvaliacao([FromBody] IdeiaAvaliacaoPutDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                return Ok(await _service.PutAvaliacao(dto));
             }
             catch (ArgumentException ex)
             {

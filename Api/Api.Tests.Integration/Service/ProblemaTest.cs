@@ -181,5 +181,38 @@ namespace Api.Tests.Integration.Service
             Assert.Equal(1, problemaListOne.RowCount);
             Assert.Equal(4, problemaListOne.Results[0].Anexos.Count());
         }
+
+        [Fact]
+        public async Task TestPutAvaliacaoAsync()
+        {
+            var problema = await _problemaBuilder.CreateInDataBase(_problemaEntity);
+            var problemaAnexoBuilder = new ProblemaAnexoBuilder(_problemaAnexoRepository, problema);
+            await problemaAnexoBuilder.CreateInDataBase(problemaAnexoBuilder.InstanciarObjeto());
+
+            var problemaDto = new ProblemaAvaliacaoPutDto();
+            Reflection.CopyProperties(problema, problemaDto);
+            problemaDto.Id = problema.Id.ToString();
+            problemaDto.DesProblema = _faker.Lorem.Paragraph();
+
+            List<ProblemaAnexoPostDto> listAnexos = new List<ProblemaAnexoPostDto>();
+            for (int i = 0; i < 4; i++)
+            {
+                var anexoDto = new ProblemaAnexoPostDto();
+                Reflection.CopyProperties(_problemaAnexoBuilder.InstanciarObjeto(), anexoDto);
+                listAnexos.Add(anexoDto);
+            }
+            problemaDto.Anexos = listAnexos;
+
+            await _problemaService.PutAvaliacao(problemaDto);
+
+            var problemaSearch = await _problemaBuilder.Search(problema.Id);
+            Assert.NotNull(problemaSearch);
+            Assert.Equal(problemaDto.DesProblema, problemaSearch.DesProblema);
+
+            var problemaListOne = await _problemaService.GetPaged(1, 10, _problemaEntity.DesProblema, _problemaEntity.IndTipoBeneficio, _problemaEntity.IndTipoSolucao, null, null, null);
+            Assert.NotNull(problemaListOne);
+            Assert.Equal(1, problemaListOne.RowCount);
+            Assert.Equal(4, problemaListOne.Results[0].Anexos.Count());
+        }
     }
 }
