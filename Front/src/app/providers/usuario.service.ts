@@ -36,8 +36,24 @@ export class UsuarioService {
             }));
     }
 
-    getAllPaged(): Observable<UsuariosPagedResult | any> {
-        let url = this.global.getUrlApi() + "/api/usuario/getallpaged?page=1&pageSize=10";
+    getAllPaged(page: number, pageSize: number, nameSearch?: string, emailSearch?: string, foneSearch?: string, isAdminSearch?: boolean): Observable<UsuariosPagedResult | any> {
+        let url = this.global.getUrlApi() + "/api/usuario/getallpaged?page=" + page + "&pageSize=" + pageSize;
+
+        if (nameSearch && nameSearch.trim() != '') {
+            url += "&nameSearch=" + nameSearch;
+        }
+
+        if (emailSearch && emailSearch.trim() != '') {
+            url += "&emailSearch=" + emailSearch;
+        }
+
+        if (foneSearch && foneSearch.trim() != '') {
+            url += "&foneSearch=" + foneSearch;
+        }
+
+        if (isAdminSearch) {
+            url += "&isAdminSearch=" + isAdminSearch;
+        }
 
         return this.http
             .get(url, this.global.getAutheticatedOptions())

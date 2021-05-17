@@ -24,7 +24,7 @@ export class MenuUsuarioComponent {
 
   ngOnInit() {
     this.setPage({ offset: 0 });
-    this.usuarioService.getAllPaged().subscribe((data: UsuariosPagedResult) => {
+    this.usuarioService.getAllPaged(1, 10).subscribe((data: UsuariosPagedResult) => {
       this.usuarios = data.results;
       this.page.totalElements = data.rowCount;
       this.page.totalPages = data.pageCount;

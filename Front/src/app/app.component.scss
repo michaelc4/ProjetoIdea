@@ -5,11 +5,12 @@
     width: 50px;
     background-color: #e6e6e6;
     color: black;
-    border:0 !important;
+    border: 0 !important;
 }
-  
-textarea:focus, input:focus {
-    outline: 0 0 0 0  !important;
+
+textarea:focus,
+input:focus {
+    outline: 0 0 0 0 !important;
     box-shadow: 0 0 0 0 !important;
 }
 

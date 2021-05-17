@@ -11,12 +11,12 @@
   align-content: center;
 }
 
-.content > .row {
+.content>.row {
   margin-bottom: 0px;
 }
 
-.content > .row.row-inherit,
-.content > .row.row-inherit > .col{
+.content>.row.row-inherit,
+.content>.row.row-inherit>.col {
   height: inherit;
 }
 
@@ -25,7 +25,7 @@
   margin-top: auto;
   margin-bottom: auto;
   width: 400px;
-  background-color: rgba(0,0,0,0.5) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
 .card-header h3 {
@@ -36,11 +36,11 @@
   width: 50px;
   background-color: #FFC312;
   color: black;
-  border:0 !important;
+  border: 0 !important;
 }
 
 input:focus {
-  outline: 0 0 0 0  !important;
+  outline: 0 0 0 0 !important;
   box-shadow: 0 0 0 0 !important;
 }
 
