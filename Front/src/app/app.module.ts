@@ -8,7 +8,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { PaginationModule } from 'ngx-bootstrap/pagination'
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { RatingModule } from 'ngx-bootstrap/rating';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from "@angular/common";
 import { FormsModule } from '@angular/forms';
@@ -27,6 +28,7 @@ import { AppComponent } from './app.component';
 import { InicialComponent } from "../app/components/inicial/inicial.component";
 import { LoginComponent } from "../app/components/login/login.component";
 import { MenuUsuarioComponent } from "../app/components/auth/menu_usuario/menu_usuario.component";
+import { MenuUsuarioProblemasComponent } from "../app/components/auth/menu_usuario/listagem/listagem_problemas.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -82,7 +84,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppComponent,
     InicialComponent,
     LoginComponent,
-    MenuUsuarioComponent
+    MenuUsuarioComponent,
+    MenuUsuarioProblemasComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -101,6 +104,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     TabsModule.forRoot(),
+    RatingModule.forRoot(),
     NgxDatatableModule.forRoot({
       messages: {
         emptyMessage: 'Nenhum dado encontrado',

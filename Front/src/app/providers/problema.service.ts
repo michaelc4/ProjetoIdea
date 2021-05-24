@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
-export class UsuarioService {
+export class ProblemaService {
 
     constructor(public http: HttpClient,
         public global: Global) { }
@@ -124,6 +124,7 @@ export class UsuarioService {
     post(param: ProblemaPostParamModel): Observable<any> {
         let body = {
             desProblema: param.desProblema,
+            desSolucao: param.desSolucao,
             indTipoBeneficio: param.indTipoBeneficio,
             indTipoSolucao: param.indTipoSolucao,
             numProbabilidadeInvestir: param.numProbabilidadeInvestir,
@@ -146,6 +147,29 @@ export class UsuarioService {
         let body = {
             id: param.id,
             desProblema: param.desProblema,
+            desSolucao: param.desSolucao,
+            indTipoBeneficio: param.indTipoBeneficio,
+            indTipoSolucao: param.indTipoSolucao,
+            numProbabilidadeInvestir: param.numProbabilidadeInvestir,
+            usuarioId: param.usuarioId,
+            anexos: param.anexos
+        };
+
+        let url = this.global.getUrlApi() + "/api/problema/put";
+
+        return this.http
+            .put(url, body, this.global.getAutheticatedOptions())
+            .pipe(map((res: any) => {
+                return res;
+            }), catchError((err: any) => {
+                return err;
+            }));
+    }
+
+    putAvaliacao(param: ProblemaPutParamModel): Observable<any> {
+        let body = {
+            id: param.id,
+            desProblema: param.desProblema,
             indTipoBeneficio: param.indTipoBeneficio,
             indTipoSolucao: param.indTipoSolucao,
             numProbabilidadeInvestir: param.numProbabilidadeInvestir,
@@ -155,7 +179,7 @@ export class UsuarioService {
             anexos: param.anexos
         };
 
-        let url = this.global.getUrlApi() + "/api/problema/put";
+        let url = this.global.getUrlApi() + "/api/problema/putavaliacao";
 
         return this.http
             .put(url, body, this.global.getAutheticatedOptions())

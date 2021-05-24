@@ -5,6 +5,7 @@ namespace Api.Domain.Entities
     public class ProblemaEntity : BaseEntity
     {
         public string DesProblema { get; set; }
+        public string DesSolucao { get; set; }
         public string IndTipoBeneficio { get; set; }
         public string IndTipoSolucao { get; set; }
         public int NumProbabilidadeInvestir { get; set; }

@@ -8,6 +8,8 @@ namespace Api.Domain.Dtos
     {
         public string DesProblema { get; set; }
 
+        public string DesSolucao { get; set; }
+
         [StringLength(1, ErrorMessage = "Tipo benefício deve ter no máximo {1} caracteres.")]
         public string IndTipoBeneficio { get; set; }
 

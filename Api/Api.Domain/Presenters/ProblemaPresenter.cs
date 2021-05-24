@@ -7,6 +7,7 @@ namespace Api.Domain.Presenters
     {
         public string Id { get; set; }
         public string DesProblema { get; set; }
+        public string DesSolucao { get; set; }
         public string IndTipoBeneficio { get; set; }
         public string IndTipoSolucao { get; set; }
         public int NumProbabilidadeInvestir { get; set; }

@@ -11,6 +11,7 @@ namespace Api.Data.Mapping
             builder.ToTable("Problema");
             builder.HasKey(p => p.Id);
             builder.Property(p => p.DesProblema).HasColumnType("LONGTEXT");
+            builder.Property(p => p.DesSolucao).HasColumnType("LONGTEXT");
             builder.Property(p => p.IndTipoBeneficio).HasMaxLength(1);
             builder.Property(p => p.IndTipoSolucao).HasMaxLength(1);
             builder.Property(p => p.NumProbabilidadeInvestir);

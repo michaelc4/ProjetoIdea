@@ -28,6 +28,7 @@ namespace Api.Tests.Integration.Builders
         private ProblemaEntity CreateProblem() => new ProblemaEntity
         {
             DesProblema = _faker.Lorem.Text(),
+            DesSolucao = _faker.Lorem.Text(),
             IndTipoBeneficio = "1",
             IndTipoSolucao = "1",
             NumProbabilidadeInvestir = _faker.Random.Int(),

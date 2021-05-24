@@ -1960,3 +1960,7 @@ body:not(.responsive).device-mobile-optimized ._2qI_L ._3MMC_ {
         display: initial;
     }
 }
+
+.my-custom-cell-global .datatable-body-cell-label {
+    margin-top: 5px;
+}

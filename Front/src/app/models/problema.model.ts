@@ -4,6 +4,7 @@ import { UsuarioModel } from './usuario.model';
 export class ProblemaModel extends Serializable {
     public id: string = '';
     public desProblema: string = '';
+    public desSolucao: string = '';
     public indTipoBeneficio: string = '';
     public indTipoSolucao: string = '';
     public numProbabilidadeInvestir: number = 0;
@@ -39,6 +40,7 @@ export class ProblemasPagedResult extends Serializable {
 
 export class ProblemaPostParamModel extends Serializable {
     public desProblema: string = '';
+    public desSolucao: string = '';
     public indTipoBeneficio: string = '';
     public indTipoSolucao: string = '';
     public numProbabilidadeInvestir: number = 0;
@@ -49,6 +51,7 @@ export class ProblemaPostParamModel extends Serializable {
 export class ProblemaPutParamModel extends Serializable {
     public id: string = '';
     public desProblema: string = '';
+    public desSolucao: string = '';
     public indTipoBeneficio: string = '';
     public indTipoSolucao: string = '';
     public numProbabilidadeInvestir: number = 0;

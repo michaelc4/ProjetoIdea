@@ -1,0 +1,181 @@
+<div [ngStyle]="{'width': !changeText ? '80px' : '450px'}" style="float: left;">
+  <ul class="accordion">
+    <li class="tabs" (mouseover)="changeText=true" (mouseout)="changeText=false">
+      <div class="social-links twitter-icon">
+        <i class="fa fa-filter"></i>
+      </div>
+      <div class="paragraph" style="padding: 10px;">
+        <div class="form-group">
+          <button class="btn btn-secondary" (click)="openModalNew(template)">Criar Problema</button>
+        </div>
+
+
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
+        </div>
+
+
+        <div class="form-group">
+          <button class="btn btn-secondary" (click)="getAllPaged()">Pesquisar</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div [ngStyle]="{'width': !changeText ? 'calc(100% - 80px)' : 'calc(100% - 450px)'}" style="float: left; padding-left: 10px;">
+  <ngx-datatable class="bootstrap" [rows]="problemas" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.force" [limit]="page.size" (page)="setPage($event)">
+    <ngx-datatable-column name="desProblema" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> Descrição do Problema </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getStringRezise(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="desSolucao" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> Possível solução </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getStringRezise(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indTipoBeneficio" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> A resolução beneficia a que público? </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getTipoBeneficio(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indTipoSolucao" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> Interesse na resolução deste problema? </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getTipoSolucao(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indAprovado" [sortable]="false" [width]="30" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> Aprovado </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value == '1' ? 'Sim' : 'Não' }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="id" [sortable]="false" [width]="30">
+      <ng-template let-column="column" ngx-datatable-header-template> Ações </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <button class="btn btn-primary" (click)="openModalChange(value, template)"><i class="fa fa-pencil-square-o"></i></button>
+        &nbsp;
+        <button class="btn btn-danger" (click)="delete(value, templateexclusao)"><i class="fa fa-trash"></i></button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Problema</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Dados</h5>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-align-justify"></i>
+              </span>
+            </div>
+            <textarea class="form-control" placeholder="Descrição do problema..." [(ngModel)]="problema.desProblema"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">A resolução deste problema beneficia a que público?</label><br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="1" name="indTipoBeneficio"> Empresa<br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="2" name="indTipoBeneficio"> Consumidor<br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="3" name="indTipoBeneficio"> Sociedade<br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="4" name="indTipoBeneficio"> Governo<br>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-align-justify"></i>
+              </span>
+            </div>
+            <textarea class="form-control" placeholder="Como você acha que esse problema seria resolvido?" [(ngModel)]="problema.desSolucao"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Qual é o seu interesse na resolução deste problema?</label><br>
+            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="1" name="indTipoSolucao"> Sou empresário e este é um problema que encontro na minha empresa<br>
+            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="2" name="indTipoSolucao"> Sou um consumidor e é um problema que gostaria de ver resolvido<br>
+            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="3" name="indTipoSolucao"> É apenas algo que eu imaginei<br>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Qual a probabilidade de você investir em uma ideia de negócio que solucionasse este problema?</label><br>
+            <rating [max]="5" style="font-size: 30px;" [(ngModel)]="problema.numProbabilidadeInvestir"></rating>
+          </div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="salvar()">Salvar</button>&nbsp;
+      <button class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateexclusao>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Exclusão</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          Tem certeza que deseja continuar?
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="continuar()">Sim</button>&nbsp;
+      <button class="btn btn-secondary" (click)="modalRefExclusao.hide()">Não</button>
+    </div>
+  </div>
+</ng-template>
