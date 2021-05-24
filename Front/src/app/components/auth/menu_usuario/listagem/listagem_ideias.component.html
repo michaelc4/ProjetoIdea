@@ -1,0 +1,191 @@
+<div [ngStyle]="{'width': !changeText ? '80px' : '450px'}" style="float: left;">
+  <ul class="accordion">
+    <li class="tabs" (mouseover)="changeText=true" (mouseout)="changeText=false">
+      <div class="social-links twitter-icon">
+        <i class="fa fa-filter"></i>
+      </div>
+      <div class="paragraph" style="padding: 10px;">
+        <div class="form-group">
+          <button class="btn btn-secondary" (click)="openModalNew(template)">Criar Idéia</button>
+        </div>
+
+
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
+        </div>
+        <div class="input-group form-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
+        </div>
+
+
+        <div class="form-group">
+          <button class="btn btn-secondary" (click)="getAllPaged()">Pesquisar</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div [ngStyle]="{'width': !changeText ? 'calc(100% - 80px)' : 'calc(100% - 450px)'}" style="float: left; padding-left: 10px;">
+  <ngx-datatable class="bootstrap" [rows]="ideias" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.force" [limit]="page.size" (page)="setPage($event)">
+    <ngx-datatable-column name="desIdeia" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> Descrição da idéia </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getStringRezise(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="desMotivoInvestir" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> Motivo para investir </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getStringRezise(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indInteresseCompartilhar" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> Interesse em compartilhar? </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getInteresseCompartilhar(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indNivelDesenvolvimento" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> Nível de desenvolvimento? </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getNivelDesenvolvimento(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indNivelSigilo" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> Nível de sigilo </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value == '1' ? 'Público' : 'Privado' }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indAprovado" [sortable]="false" [width]="30" [cellClass]="'my-custom-cell-global'">
+      <ng-template let-column="column" ngx-datatable-header-template> Aprovado </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value == '1' ? 'Sim' : 'Não' }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="id" [sortable]="false" [width]="30">
+      <ng-template let-column="column" ngx-datatable-header-template> Ações </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <button class="btn btn-primary" (click)="openModalChange(value, template)"><i class="fa fa-pencil-square-o"></i></button>
+        &nbsp;
+        <button class="btn btn-danger" (click)="delete(value, templateexclusao)"><i class="fa fa-trash"></i></button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Idéia</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Dados</h5>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-align-justify"></i>
+              </span>
+            </div>
+            <textarea class="form-control" placeholder="Descrição da idéia..." [(ngModel)]="ideia.desIdeia"></textarea>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-align-justify"></i>
+              </span>
+            </div>
+            <textarea class="form-control" placeholder="Por que vale apena investir nesta idéia" [(ngModel)]="ideia.desMotivoInvestir"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Qual o seu interesse em compartilhar esta ideia?</label><br>
+            <input type="radio" [(ngModel)]="ideia.indInteresseCompartilhar" value="1" name="indInteresseCompartilhar"> Quero encontrar alguém que me ajude a colocá-la em prática<br>
+            <input type="radio" [(ngModel)]="ideia.indInteresseCompartilhar" value="2" name="indInteresseCompartilhar"> Quero divulgar uma solução para alguém que esteja disposto a trabalhar nela<br>
+            <input type="radio" [(ngModel)]="ideia.indInteresseCompartilhar" value="3" name="indInteresseCompartilhar"> Foi apenas algo que pensei<br>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Qual o nível atual de desenvolvimento desta ideia?</label><br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="1" name="indNivelDesenvolvimento"> É apenas uma ideia<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="2" name="indNivelDesenvolvimento"> Tenho um projeto para executar esta ideia<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="3" name="indNivelDesenvolvimento"> Já tenho um produto desenvolvido<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="4" name="indNivelDesenvolvimento"> Já tenho um pedido de patente<br>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-align-justify"></i>
+              </span>
+            </div>
+            <textarea class="form-control" placeholder="Comentários?" [(ngModel)]="ideia.desComentario"></textarea>
+          </div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="salvar()">Salvar</button>&nbsp;
+      <button class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateexclusao>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Exclusão</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          Tem certeza que deseja continuar?
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="continuar()">Sim</button>&nbsp;
+      <button class="btn btn-secondary" (click)="modalRefExclusao.hide()">Não</button>
+    </div>
+  </div>
+</ng-template>

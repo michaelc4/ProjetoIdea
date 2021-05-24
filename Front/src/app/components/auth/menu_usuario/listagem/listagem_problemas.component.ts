@@ -61,9 +61,9 @@ export class MenuUsuarioProblemasComponent {
   getTipoBeneficio(indTipo: string) {
     if (indTipo == "2") {
       return "Consumidor";
-    } else if (indTipo == "2") {
+    } else if (indTipo == "3") {
       return "Sociedade";
-    } else if (indTipo == "2") {
+    } else if (indTipo == "4") {
       return "Governo";
     } else {
       return "Empresa";
@@ -73,7 +73,7 @@ export class MenuUsuarioProblemasComponent {
   getTipoSolucao(indTipo: string) {
     if (indTipo == "2") {
       return "É um problema que gostaria de ver resolvido";
-    } else if (indTipo == "2") {
+    } else if (indTipo == "3") {
       return "É apenas algo que eu imaginei";
     } else {
       return "É um problema que encontro na minha empresa";
