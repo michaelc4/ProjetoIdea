@@ -81,8 +81,8 @@ export class MenuUsuarioProblemasComponent {
   }
 
   getStringRezise(str: string) {
-    if (str && str.length > 200) {
-      return str.substring(0, 200) + "...";
+    if (str && str.length >= 100) {
+      return str.substring(0, 100) + "...";
     }
 
     return str;
@@ -113,6 +113,7 @@ export class MenuUsuarioProblemasComponent {
     this.spinner.show();
     this.problemaService.delete(this.idExclusao)
       .subscribe((data: any) => {
+        this.notifierService.notify('success', 'Problema excluído com sucesso');
         this.modalRefExclusao.hide();
         this.spinner.hide();
         this.getAllPaged();

@@ -1963,4 +1963,9 @@ body:not(.responsive).device-mobile-optimized ._2qI_L ._3MMC_ {
 
 .my-custom-cell-global .datatable-body-cell-label {
     margin-top: 5px;
+    font-size: 13px;
+}
+
+.datatable-header .datatable-header-cell-template-wrap {
+    font-weight: bold;
 }

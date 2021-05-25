@@ -1,7 +1,12 @@
 $backgroundColor: #f77462;
-$list: #fcfcfc;
-$border: #fcfcfc;
+$list: #f7f7f7;
+$border: #f7f7f7;
 $geneicons: rgb(216, 216, 216);
+
+input:focus {
+  outline: 0 0 0 0 !important;
+  box-shadow: 0 0 0 0 !important;
+}
 
 .accordion {
   background: $border;
@@ -9,7 +14,7 @@ $geneicons: rgb(216, 216, 216);
   display: block;
   list-style-type: none;
   overflow: hidden;
-  height: 600px;
+  height: 500px;
   font-size: 0;
   float: left;
 }
@@ -18,15 +23,15 @@ $geneicons: rgb(216, 216, 216);
   display: inline-block;
   background-color: $list;
   border-right: $border 1px solid;
-  width: 80px;
-  height: 600px;
+  width: 60px;
+  height: 500px;
   overflow: hidden;
   position: relative;
   margin: 0;
   font-size: 16px;
   
   &:hover {
-    width: 450px;
+    width: 460px;
 
     .social-links {
       a {
@@ -43,8 +48,8 @@ $geneicons: rgb(216, 216, 216);
 
   .paragraph {
     position: relative;
-    width: 360px;
-    margin-left: 80px;
+    width: 390px;
+    margin-left: 60px;
     padding: 50px 0 0 10px;
     height: 600px;
     background: #fff;
@@ -73,12 +78,12 @@ $geneicons: rgb(216, 216, 216);
     
     &:before,
     &:after {
-      width: 80px;
+      width: 60px;
       height: 200px;
       position: absolute;
       text-indent: 0;
-      padding-top: 90px;
-      padding-left: 30px;
+      padding-top: 230px;
+      padding-left: 20px;
       display: block;
       color: $geneicons;
     }

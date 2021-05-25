@@ -81,8 +81,8 @@ export class MenuUsuarioIdeiasComponent {
   }
 
   getStringRezise(str: string) {
-    if (str && str.length > 200) {
-      return str.substring(0, 200) + "...";
+    if (str && str.length > 150) {
+      return str.substring(0, 150) + "...";
     }
 
     return str;
@@ -113,6 +113,7 @@ export class MenuUsuarioIdeiasComponent {
     this.spinner.show();
     this.ideiaService.delete(this.idExclusao)
       .subscribe((data: any) => {
+        this.notifierService.notify('success', 'Idéia excluída com sucesso');
         this.modalRefExclusao.hide();
         this.spinner.hide();
         this.getAllPaged();
