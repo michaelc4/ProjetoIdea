@@ -1969,3 +1969,13 @@ body:not(.responsive).device-mobile-optimized ._2qI_L ._3MMC_ {
 .datatable-header .datatable-header-cell-template-wrap {
     font-weight: bold;
 }
+
+input[type=text]:focus {
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+textarea:focus {
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+}

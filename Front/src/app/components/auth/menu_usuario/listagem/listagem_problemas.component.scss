@@ -3,18 +3,13 @@ $list: #f7f7f7;
 $border: #f7f7f7;
 $geneicons: rgb(216, 216, 216);
 
-input:focus {
-  outline: 0 0 0 0 !important;
-  box-shadow: 0 0 0 0 !important;
-}
-
 .accordion {
   background: $border;
   width: 100%;
   display: block;
   list-style-type: none;
   overflow: hidden;
-  height: 500px;
+  height: 550px;
   font-size: 0;
   float: left;
 }
@@ -24,12 +19,12 @@ input:focus {
   background-color: $list;
   border-right: $border 1px solid;
   width: 60px;
-  height: 500px;
+  height: 550px;
   overflow: hidden;
   position: relative;
   margin: 0;
   font-size: 16px;
-  
+
   &:hover {
     width: 460px;
 
@@ -51,7 +46,7 @@ input:focus {
     width: 390px;
     margin-left: 60px;
     padding: 50px 0 0 10px;
-    height: 600px;
+    height: 550px;
     background: #fff;
 
     h1 {
@@ -75,14 +70,14 @@ input:focus {
     text-indent: -9999px;
     font-size: 25px;
     line-height: 0;
-    
+
     &:before,
     &:after {
       width: 60px;
       height: 200px;
       position: absolute;
       text-indent: 0;
-      padding-top: 230px;
+      padding-top: 270px;
       padding-left: 20px;
       display: block;
       color: $geneicons;
@@ -105,4 +100,12 @@ input:focus {
       content: '\f202';
     }
   }
+}
+
+.filter-class {
+  font-size: 14px;
+}
+
+.filter-class input {
+  font-size: 14px;
 }

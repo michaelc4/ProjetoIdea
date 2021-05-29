@@ -8,74 +8,70 @@
         <div class="form-group">
           <button class="btn btn-secondary" (click)="openModalNew(template)">Criar Problema</button>
         </div>
-
         <div class="card" style="width: 100%;">
           <div class="card-body">
             <h5 class="card-title">Filtros</h5>
-
-
-            <div class="container">
+            <div class="container filter-class">
               <div class="row">
-                <div class="col">
+                <div class="col-6" style="padding-left: 0px; padding-right: 2px;">
+                  <label for="datainicial" class="form-label">Data inicial</label>
                   <div class="input-group form-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fa fa-key"></i>
-                      </span>
-                    </div>
-                    <input type="date" class="form-control" placeholder="Senha" maxlength="20">
+                    <input id="datainicial" type="date" class="form-control" [(ngModel)]="filtros.registrationDateIniSearch" placeholder="Data inicial" maxlength="10">
                   </div>
                 </div>
-                <div class="col">
+                <div class="col-6" style="padding-left: 2px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Data inicial</label>
                   <div class="input-group form-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fa fa-key"></i>
-                      </span>
-                    </div>
-                    <input type="date" class="form-control" placeholder="Senha" maxlength="20">
+                    <input id="datafinal" type="date" class="form-control" [(ngModel)]="filtros.registrationDateEndSearch" placeholder="Data final" maxlength="10">
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Descrição do problema</label>
                   <div class="input-group form-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fa fa-key"></i>
-                      </span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Senha" maxlength="20">
+                    <input type="text" class="form-control" placeholder="..." maxlength="20" [(ngModel)]="filtros.problemSearch">
                   </div>
                 </div>
               </div>
-            </div>
-
-
-
-            
-            
-            
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fa fa-key"></i>
-                </span>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <label class="form-label">Público que beneficia?</label>
+                </div>
               </div>
-              <input type="password" class="form-control" placeholder="Senha" maxlength="20">
-            </div>
-            <div class="input-group form-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fa fa-key"></i>
-                </span>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="1" name="indTipoBeneficio"> Empresa<br>
+                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="2" name="indTipoBeneficio"> Consumidor<br>
+                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="3" name="indTipoBeneficio"> Sociedade<br>
+                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="4" name="indTipoBeneficio"> Governo<br>
+                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="" name="indTipoBeneficio" checked> Todos<br>
+                </div>
               </div>
-              <input type="password" class="form-control" placeholder="Senha" maxlength="20">
-            </div>
-
-
-            <div class="form-group">
-              <button class="btn btn-secondary" (click)="getAllPaged()">Pesquisar</button>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px; margin-top: 10px;">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="filtros.approvedSearch">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Somente aprovados
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <div class="form-group">
+                    <button class="btn btn-secondary" (click)="getAllPaged()">Pesquisar</button>
+                    &nbsp;
+                    <button class="btn btn-secondary" (click)="cleanFilters()">Limpar Filtros</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -83,13 +79,6 @@
     </li>
   </ul>
 </div>
-
-
-
-
-
-
-
 
 <div [ngStyle]="{'width': !changeText ? 'calc(100% - 60px)' : 'calc(100% - 460px)'}" style="float: left; padding-left: 10px;">
   <ngx-datatable class="bootstrap" [rows]="problemas" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.flex" [limit]="page.size" (page)="setPage($event)">
@@ -125,8 +114,8 @@
     </ngx-datatable-column>
     <ngx-datatable-column name="id" [sortable]="false" [flexGrow]="1.5">
       <ng-template let-column="column" ngx-datatable-header-template> Ações </ng-template>
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <button class="btn btn-primary" (click)="openModalChange(value, template)"><i class="fa fa-pencil-square-o"></i></button>
+      <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+        <button class="btn btn-primary" (click)="openModalChange(row, template)"><i class="fa fa-pencil-square-o"></i></button>
         &nbsp;
         <button class="btn btn-danger" (click)="delete(value, templateexclusao)"><i class="fa fa-trash"></i></button>
       </ng-template>
@@ -147,37 +136,58 @@
         <div class="card-body">
           <h5 class="card-title">Dados</h5>
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-align-justify"></i>
-              </span>
-            </div>
-            <textarea class="form-control" placeholder="Descrição do problema..." [(ngModel)]="problema.desProblema"></textarea>
+            <label class="control-label col-md-12" style="padding-left: 0px;">Descrição do problema</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="problema.desProblema"></textarea>
           </div>
           <div class="form-group">
             <label class="control-label col-md-12" style="padding-left: 0px;">A resolução deste problema beneficia a que público?</label><br>
-            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="1" name="indTipoBeneficio"> Empresa<br>
-            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="2" name="indTipoBeneficio"> Consumidor<br>
-            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="3" name="indTipoBeneficio"> Sociedade<br>
-            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="4" name="indTipoBeneficio"> Governo<br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="1" id="indTipoBeneficio1"> Empresa<br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="2" id="indTipoBeneficio2"> Consumidor<br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="3" id="indTipoBeneficio3"> Sociedade<br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="4" id="indTipoBeneficio4"> Governo<br>
           </div>
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-align-justify"></i>
-              </span>
-            </div>
-            <textarea class="form-control" placeholder="Como você acha que esse problema seria resolvido?" [(ngModel)]="problema.desSolucao"></textarea>
+            <label class="control-label col-md-12" style="padding-left: 0px;">Como você acha que esse problema seria resolvido?</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="problema.desSolucao"></textarea>
           </div>
           <div class="form-group">
             <label class="control-label col-md-12" style="padding-left: 0px;">Qual é o seu interesse na resolução deste problema?</label><br>
-            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="1" name="indTipoSolucao"> Sou empresário e este é um problema que encontro na minha empresa<br>
-            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="2" name="indTipoSolucao"> Sou um consumidor e é um problema que gostaria de ver resolvido<br>
-            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="3" name="indTipoSolucao"> É apenas algo que eu imaginei<br>
+            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="1" name="indTipoSolucao" id="indTipoSolucao1"> Sou empresário e este é um problema que encontro na minha empresa<br>
+            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="2" name="indTipoSolucao" id="indTipoSolucao2"> Sou um consumidor e é um problema que gostaria de ver resolvido<br>
+            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="3" name="indTipoSolucao" id="indTipoSolucao3"> É apenas algo que eu imaginei<br>
           </div>
           <div class="form-group">
             <label class="control-label col-md-12" style="padding-left: 0px;">Qual a probabilidade de você investir em uma ideia de negócio que solucionasse este problema?</label><br>
             <rating [max]="5" style="font-size: 30px;" [(ngModel)]="problema.numProbabilidadeInvestir"></rating>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Anexos</h5>
+          <file-upload [(ngModel)]="uploadedFiles" name="arquivos" fileslimit="5" [accept]="'.jpeg,.jpg,.png,.pdf'"></file-upload>
+          <div class="form-group" style="width: 100%; margin-top: 10px;">
+            <button class="btn btn-secondary" (click)="importarArquivos()">Importar Arquivos</button>
+          </div>
+          <div class="form-group" style="width: 100%; margin-top: 10px;">
+            <table class="table table-striped" *ngIf="files.length != 0">
+              <thead>
+                <th>Nome Arquivo</th>
+                <th style="width: 150px;">Ações</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let arquivo of files">
+                  <td>{{arquivo.desNomeOriginal}}</td>
+                  <td>
+                    <button class="btn btn-primary" (click)="downloadFile(arquivo.desAnexo, arquivo.desNomeOriginal)"><i class="fa fa-download"></i></button>
+                    &nbsp;
+                    <button class="btn btn-danger" (click)="removeFile(arquivo.desNomeOriginal)"><i class="fa fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <label class="control-label col-md-12" style="padding-left: 0px;" *ngIf="files.length == 0">Nenhum arquivo importado</label>
           </div>
         </div>
       </div>

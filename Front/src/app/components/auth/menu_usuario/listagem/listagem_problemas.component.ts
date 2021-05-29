@@ -1,5 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
-import { ProblemasPagedResult, ProblemaModel, ProblemaPostParamModel, ProblemaPutParamModel } from '../../../../models/problema.model';
+import { ProblemasPagedResult, ProblemaModel, ProblemaPostParamModel, ProblemaPutParamModel, FiltroProblemaModel, ProblemaAnexoModel, ProblemaAnexoAddModel } from '../../../../models/problema.model';
 import { PageModel } from '../../../../models/page.model';
 import { ProblemaService } from '../../../../providers/problema.service';
 import { Global } from '../../../../providers/global.service';
@@ -8,6 +8,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { NgxSpinnerService } from "ngx-spinner";
 import { NotifierService } from 'angular-notifier';
+import { saveAs } from 'file-saver';
+import { base64ToBlob } from '../../../../functions/string.functions';
 
 @Component({
   selector: 'app-auth-menu-usuarios-listagem-problemas',
@@ -26,6 +28,9 @@ export class MenuUsuarioProblemasComponent {
   changeText: boolean = false;
   problema: ProblemaModel = new ProblemaModel();
   idExclusao: string = '';
+  filtros: FiltroProblemaModel = new FiltroProblemaModel();
+  uploadedFiles: Array<File> = [];
+  files: Array<ProblemaAnexoModel> = new Array<ProblemaAnexoModel>();
 
   constructor(private global: Global,
     private problemaService: ProblemaService,
@@ -34,6 +39,7 @@ export class MenuUsuarioProblemasComponent {
     private spinner: NgxSpinnerService) {
     this.page.pageNumber = 0;
     this.page.size = 10;
+    this.uploadedFiles = [];
   }
 
   ngOnInit() {
@@ -49,7 +55,7 @@ export class MenuUsuarioProblemasComponent {
 
   getAllPaged() {
     this.spinner.show();
-    this.problemaService.getAllPagedByUser(this.page.pageNumber + 1, this.page.size, this.global.getLoggedUser().id)
+    this.problemaService.getAllPagedByUser(this.page.pageNumber + 1, this.page.size, this.global.getLoggedUser().id, this.filtros.problemSearch, this.filtros.benefitTypeSearch, this.filtros.solutionTypeSearch, this.filtros.approvedSearch ? "1" : "", this.filtros.registrationDateIniSearch, this.filtros.registrationDateEndSearch)
       .subscribe((data: ProblemasPagedResult) => {
         this.spinner.hide();
         this.problemas = data.results;
@@ -88,20 +94,23 @@ export class MenuUsuarioProblemasComponent {
     return str;
   }
 
+  cleanFilters() {
+    this.filtros = new FiltroProblemaModel();
+  }
+
   // Add or Change
   openModalNew(template: TemplateRef<any>) {
     this.problema = new ProblemaModel();
     this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg' }));
   }
 
-  openModalChange(id: string, template: TemplateRef<any>) {
-    this.spinner.show();
-    this.problemaService.get(id)
-      .subscribe((data: ProblemaModel) => {
-        this.spinner.hide();
-        this.problema = data;
-        this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg' }));
-      });
+  openModalChange(row: ProblemaModel, template: TemplateRef<any>) {
+    this.problema = row;
+    this.files = row.anexos;
+    if (!this.files) {
+      this.files = new Array<ProblemaAnexoModel>();
+    }
+    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg' }));
   }
 
   delete(id: string, template: TemplateRef<any>) {
@@ -139,6 +148,18 @@ export class MenuUsuarioProblemasComponent {
 
     if (!isError) {
       this.spinner.show();
+      let arrAnexos = new Array<ProblemaAnexoAddModel>();
+      if (this.files && this.files.length > 0) {
+        for (let file of this.files) {
+          let newFile = new ProblemaAnexoAddModel();
+          newFile.desAnexo = file.desAnexo;
+          newFile.desNomeOriginal = file.desNomeOriginal;
+          newFile.indTipoArquivo = "1";
+          newFile.problemaId = "00000000-0000-0000-0000-000000000000";
+          arrAnexos.push(newFile);
+        }
+      }
+
       if (this.problema.id && this.problema.id.trim() != '') {
         let problemaPut = new ProblemaPutParamModel();
         problemaPut.id = this.problema.id;
@@ -148,6 +169,7 @@ export class MenuUsuarioProblemasComponent {
         problemaPut.indTipoSolucao = this.problema.indTipoSolucao;
         problemaPut.numProbabilidadeInvestir = this.problema.numProbabilidadeInvestir;
         problemaPut.usuarioId = this.global.getLoggedUser().id;
+        problemaPut.anexos = arrAnexos;
 
         this.problemaService.put(problemaPut)
           .subscribe((data: any) => {
@@ -165,6 +187,7 @@ export class MenuUsuarioProblemasComponent {
         problemaPost.indTipoSolucao = this.problema.indTipoSolucao;
         problemaPost.numProbabilidadeInvestir = this.problema.numProbabilidadeInvestir;
         problemaPost.usuarioId = this.global.getLoggedUser().id;
+        problemaPost.anexos = arrAnexos;
 
         this.problemaService.post(problemaPost)
           .subscribe((data: any) => {
@@ -175,5 +198,47 @@ export class MenuUsuarioProblemasComponent {
           });
       }
     }
+  }
+
+  // Anexos
+  importarArquivos() {
+    for (let i = 0; i < this.uploadedFiles.length; i++) {
+      this.getBase64(this.uploadedFiles[i]).then(() => { });
+    }
+    this.uploadedFiles = [];
+  }
+
+  getBase64(file: File) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        let encoded = reader.result != null ? reader.result.toString().replace(/^data:(.*,)?/, '') : '';
+        if ((encoded.length % 4) > 0) {
+          encoded += '='.repeat(4 - (encoded.length % 4));
+        }
+
+        if (!this.files.some(e => e.desNomeOriginal === file.name)) {
+          let anexo = new ProblemaAnexoModel();
+          anexo.desAnexo = encoded;
+          anexo.indTipoArquivo = '1';
+          anexo.desNomeOriginal = file.name;
+          this.files.push(anexo);
+        }
+        resolve(encoded);
+      };
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  downloadFile(b64encodedString: string, fileName: string) {
+    if (b64encodedString) {
+      var blob = base64ToBlob(b64encodedString, 'text/plain');
+      saveAs(blob, fileName);
+    }
+  }
+
+  removeFile(fileName: string) {
+    this.files = this.files.filter(obj => obj.desNomeOriginal !== fileName);
   }
 }

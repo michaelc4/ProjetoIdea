@@ -5,8 +5,8 @@ export class ProblemaModel extends Serializable {
     public id: string = '';
     public desProblema: string = '';
     public desSolucao: string = '';
-    public indTipoBeneficio: string = '';
-    public indTipoSolucao: string = '';
+    public indTipoBeneficio: string = '1';
+    public indTipoSolucao: string = '1';
     public numProbabilidadeInvestir: number = 0;
     public indAtivo: string = '';
     public indAprovado: string = '';
@@ -66,4 +66,13 @@ export class ProblemaAnexoAddModel extends Serializable {
     public desAnexo: string = '';
     public indTipoArquivo: string = '';
     public desNomeOriginal: string = '';
+}
+
+export class FiltroProblemaModel extends Serializable {
+    public problemSearch: string = '';
+    public benefitTypeSearch: string = '';
+    public solutionTypeSearch: string = '';
+    public approvedSearch: boolean = false;
+    public registrationDateIniSearch: string = '';
+    public registrationDateEndSearch: string = '';
 }
