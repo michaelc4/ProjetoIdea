@@ -165,7 +165,9 @@
       <br>
       <div class="card" style="width: 100%;">
         <div class="card-body">
-          <h5 class="card-title">Anexos</h5>
+          <h5 class="card-title">Anexos
+            <div class="card-files-text">(Máx. 5 anexos)</div>
+          </h5>
           <file-upload [(ngModel)]="uploadedFiles" name="arquivos" fileslimit="5" [accept]="'.jpeg,.jpg,.png,.pdf'"></file-upload>
           <div class="form-group" style="width: 100%; margin-top: 10px;">
             <button class="btn btn-secondary" (click)="importarArquivos()">Importar Arquivos</button>

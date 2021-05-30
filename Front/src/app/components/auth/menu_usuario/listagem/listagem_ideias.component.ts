@@ -9,7 +9,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { NgxSpinnerService } from "ngx-spinner";
 import { NotifierService } from 'angular-notifier';
 import { saveAs } from 'file-saver';
-import { base64ToBlob } from '../../../../functions/string.functions';
+import { base64ToBlob, getBase64 } from '../../../../functions/string.functions';
 
 @Component({
   selector: 'app-auth-menu-usuarios-listagem-ideias',
@@ -101,7 +101,9 @@ export class MenuUsuarioIdeiasComponent {
   // Add or Change
   openModalNew(template: TemplateRef<any>) {
     this.ideia = new IdeiaModel();
-    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg' }));
+    this.uploadedFiles = [];
+    this.files = new Array<IdeiaAnexoModel>();
+    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-xl' }));
   }
 
   openModalChange(row: IdeiaModel, template: TemplateRef<any>) {
@@ -110,7 +112,7 @@ export class MenuUsuarioIdeiasComponent {
     if (!this.files) {
       this.files = new Array<IdeiaAnexoModel>();
     }
-    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg' }));
+    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-xl' }));
   }
 
   delete(id: string, template: TemplateRef<any>) {
@@ -204,33 +206,18 @@ export class MenuUsuarioIdeiasComponent {
 
   // Anexos
   importarArquivos() {
-    for (let i = 0; i < this.uploadedFiles.length; i++) {
-      this.getBase64(this.uploadedFiles[i]).then(() => { });
-    }
-    this.uploadedFiles = [];
-  }
-
-  getBase64(file: File) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        let encoded = reader.result != null ? reader.result.toString().replace(/^data:(.*,)?/, '') : '';
-        if ((encoded.length % 4) > 0) {
-          encoded += '='.repeat(4 - (encoded.length % 4));
-        }
-
-        if (!this.files.some(e => e.desNomeOriginal === file.name)) {
+    for (let i = this.uploadedFiles.length - 1; i >= 0; i--) {
+      getBase64(this.uploadedFiles[i]).then((encoded: any) => {
+        if (!this.files.some(e => e.desNomeOriginal === this.uploadedFiles[i].name) && this.files.length < 5) {
           let anexo = new IdeiaAnexoModel();
           anexo.desAnexo = encoded;
           anexo.indTipoArquivo = '1';
-          anexo.desNomeOriginal = file.name;
+          anexo.desNomeOriginal = this.uploadedFiles[i].name;
           this.files.push(anexo);
         }
-        resolve(encoded);
-      };
-      reader.onerror = error => reject(error);
-    });
+        this.uploadedFiles = this.uploadedFiles.filter(obj => obj.name !== this.uploadedFiles[i].name);
+      });
+    }
   }
 
   downloadFile(b64encodedString: string, fileName: string) {

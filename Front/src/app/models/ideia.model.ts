@@ -5,9 +5,9 @@ export class IdeiaModel extends Serializable {
     public id: string = '';
     public desIdeia: string = '';
     public desMotivoInvestir: string = '';
-    public indInteresseCompartilhar: string = '';
-    public indNivelDesenvolvimento: string = '';
-    public indNivelSigilo: string = '';
+    public indInteresseCompartilhar: string = '1';
+    public indNivelDesenvolvimento: string = '1';
+    public indNivelSigilo: string = '1';
     public desComentario: string = '';
     public numPotencialDisrupcao: number = 0;
     public numPessoasImpactadas: number = 0;

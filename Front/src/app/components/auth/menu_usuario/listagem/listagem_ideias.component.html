@@ -157,20 +157,12 @@
         <div class="card-body">
           <h5 class="card-title">Dados</h5>
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-align-justify"></i>
-              </span>
-            </div>
-            <textarea class="form-control" placeholder="Descrição da idéia..." [(ngModel)]="ideia.desIdeia"></textarea>
+            <label class="control-label col-md-12" style="padding-left: 0px;">Descrição da idéia</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="ideia.desIdeia"></textarea>
           </div>
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-align-justify"></i>
-              </span>
-            </div>
-            <textarea class="form-control" placeholder="Por que vale apena investir nesta idéia" [(ngModel)]="ideia.desMotivoInvestir"></textarea>
+            <label class="control-label col-md-12" style="padding-left: 0px;">Por que vale apena investir nesta idéia?</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="ideia.desMotivoInvestir"></textarea>
           </div>
           <div class="form-group">
             <label class="control-label col-md-12" style="padding-left: 0px;">Qual o seu interesse em compartilhar esta ideia?</label><br>
@@ -185,13 +177,45 @@
             <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="3" name="indNivelDesenvolvimento"> Já tenho um produto desenvolvido<br>
             <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="4" name="indNivelDesenvolvimento"> Já tenho um pedido de patente<br>
           </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Nível de sigilo?</label><br>
+            <input type="radio" [(ngModel)]="ideia.indNivelSigilo" value="0" name="indNivelSigilo"> Privado<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelSigilo" value="1" name="indNivelSigilo"> Público<br>
+          </div>
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-align-justify"></i>
-              </span>
-            </div>
-            <textarea class="form-control" placeholder="Comentários?" [(ngModel)]="ideia.desComentario"></textarea>
+            <label class="control-label col-md-12" style="padding-left: 0px;">Comentários</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="ideia.desComentario"></textarea>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Anexos
+            <div class="card-files-text">(Máx. 5 anexos)</div>
+          </h5>
+          <file-upload [(ngModel)]="uploadedFiles" name="arquivos" fileslimit="5" [accept]="'.jpeg,.jpg,.png,.pdf'"></file-upload>
+          <div class="form-group" style="width: 100%; margin-top: 10px;">
+            <button class="btn btn-secondary" (click)="importarArquivos()">Importar Arquivos</button>
+          </div>
+          <div class="form-group" style="width: 100%; margin-top: 10px;">
+            <table class="table table-striped" *ngIf="files.length != 0">
+              <thead>
+                <th>Nome Arquivo</th>
+                <th style="width: 150px;">Ações</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let arquivo of files">
+                  <td>{{arquivo.desNomeOriginal}}</td>
+                  <td>
+                    <button class="btn btn-primary" (click)="downloadFile(arquivo.desAnexo, arquivo.desNomeOriginal)"><i class="fa fa-download"></i></button>
+                    &nbsp;
+                    <button class="btn btn-danger" (click)="removeFile(arquivo.desNomeOriginal)"><i class="fa fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <label class="control-label col-md-12 no-files" style="padding-left: 0px;" *ngIf="files.length == 0">Nenhum arquivo importado</label>
           </div>
         </div>
       </div>
