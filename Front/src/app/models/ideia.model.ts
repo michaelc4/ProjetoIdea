@@ -82,3 +82,14 @@ export class IdeiaAnexoAddModel extends Serializable {
     public indTipoArquivo: string = '';
     public desNomeOriginal: string = '';
 }
+
+export class FiltroIdeiaModel extends Serializable {
+    public ideaSearch: string = '';
+    public reasonSearch: string = '';
+    public shareSearch: string = '';
+    public developmentSearch: string = '';
+    public secretSearch: string = '';
+    public approvedSearch: boolean = false;
+    public registrationDateIniSearch: string = '';
+    public registrationDateEndSearch: string = '';
+}

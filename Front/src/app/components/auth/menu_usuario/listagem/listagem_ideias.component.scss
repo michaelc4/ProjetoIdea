@@ -1,6 +1,6 @@
 $backgroundColor: #f77462;
-$list: #fcfcfc;
-$border: #fcfcfc;
+$list: #f7f7f7;
+$border: #f7f7f7;
 $geneicons: rgb(216, 216, 216);
 
 .accordion {
@@ -9,7 +9,7 @@ $geneicons: rgb(216, 216, 216);
   display: block;
   list-style-type: none;
   overflow: hidden;
-  height: 600px;
+  height: 550px;
   font-size: 0;
   float: left;
 }
@@ -18,15 +18,15 @@ $geneicons: rgb(216, 216, 216);
   display: inline-block;
   background-color: $list;
   border-right: $border 1px solid;
-  width: 80px;
-  height: 600px;
+  width: 60px;
+  height: 550px;
   overflow: hidden;
   position: relative;
   margin: 0;
   font-size: 16px;
-  
+
   &:hover {
-    width: 450px;
+    width: 460px;
 
     .social-links {
       a {
@@ -43,10 +43,10 @@ $geneicons: rgb(216, 216, 216);
 
   .paragraph {
     position: relative;
-    width: 360px;
-    margin-left: 80px;
+    width: 390px;
+    margin-left: 60px;
     padding: 50px 0 0 10px;
-    height: 600px;
+    height: 550px;
     background: #fff;
 
     h1 {
@@ -70,15 +70,15 @@ $geneicons: rgb(216, 216, 216);
     text-indent: -9999px;
     font-size: 25px;
     line-height: 0;
-    
+
     &:before,
     &:after {
-      width: 80px;
+      width: 60px;
       height: 200px;
       position: absolute;
       text-indent: 0;
-      padding-top: 90px;
-      padding-left: 30px;
+      padding-top: 270px;
+      padding-left: 20px;
       display: block;
       color: $geneicons;
     }
@@ -100,4 +100,18 @@ $geneicons: rgb(216, 216, 216);
       content: '\f202';
     }
   }
+}
+
+.filter-class {
+  font-size: 14px;
+}
+
+.filter-class input {
+  font-size: 14px;
+}
+
+.no-files {
+  text-align: center;
+  font-weight: bold;
+  color: darkgray;
 }

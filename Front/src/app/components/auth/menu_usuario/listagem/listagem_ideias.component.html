@@ -1,4 +1,4 @@
-<div [ngStyle]="{'width': !changeText ? '80px' : '450px'}" style="float: left;">
+<div [ngStyle]="{'width': !changeText ? '60px' : '460px'}" style="float: left;">
   <ul class="accordion">
     <li class="tabs" (mouseover)="changeText=true" (mouseout)="changeText=false">
       <div class="social-links twitter-icon">
@@ -8,106 +8,141 @@
         <div class="form-group">
           <button class="btn btn-secondary" (click)="openModalNew(template)">Criar Idéia</button>
         </div>
-
-
-        <div class="input-group form-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fa fa-key"></i>
-            </span>
+        <div class="card" style="width: 100%;">
+          <div class="card-body">
+            <h5 class="card-title">Filtros</h5>
+            <div class="container filter-class">
+              <div class="row">
+                <div class="col-6" style="padding-left: 0px; padding-right: 2px;">
+                  <label for="datainicial" class="form-label">Data inicial</label>
+                  <div class="input-group form-group">
+                    <input id="datainicial" type="date" class="form-control" placeholder="Data inicial" maxlength="10">
+                  </div>
+                </div>
+                <div class="col-6" style="padding-left: 2px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Data inicial</label>
+                  <div class="input-group form-group">
+                    <input id="datafinal" type="date" class="form-control" placeholder="Data final" maxlength="10">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Descrição do problema</label>
+                  <div class="input-group form-group">
+                    <input type="text" class="form-control" placeholder="..." maxlength="20">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <label class="form-label">Público que beneficia?</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <input type="radio" value="1" name="indTipoBeneficio"> Empresa<br>
+                  <input type="radio" value="2" name="indTipoBeneficio"> Consumidor<br>
+                  <input type="radio" value="3" name="indTipoBeneficio"> Sociedade<br>
+                  <input type="radio" value="4" name="indTipoBeneficio"> Governo<br>
+                  <input type="radio" value="" name="indTipoBeneficio" checked> Todos<br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px; margin-top: 10px;">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Somente aprovados
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <div class="form-group">
+                    <button class="btn btn-secondary" (click)="getAllPaged()">Pesquisar</button>
+                    &nbsp;
+                    <button class="btn btn-secondary" (click)="cleanFilters()">Limpar Filtros</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
-        </div>
-        <div class="input-group form-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fa fa-key"></i>
-            </span>
-          </div>
-          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
-        </div>
-        <div class="input-group form-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fa fa-key"></i>
-            </span>
-          </div>
-          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
-        </div>
-        <div class="input-group form-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fa fa-key"></i>
-            </span>
-          </div>
-          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
-        </div>
-        <div class="input-group form-group">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <i class="fa fa-key"></i>
-            </span>
-          </div>
-          <input type="password" class="form-control" placeholder="Senha" maxlength="20">
-        </div>
-
-
-        <div class="form-group">
-          <button class="btn btn-secondary" (click)="getAllPaged()">Pesquisar</button>
         </div>
       </div>
     </li>
   </ul>
 </div>
 
-<div [ngStyle]="{'width': !changeText ? 'calc(100% - 80px)' : 'calc(100% - 450px)'}" style="float: left; padding-left: 10px;">
-  <ngx-datatable class="bootstrap" [rows]="ideias" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.force" [limit]="page.size" (page)="setPage($event)">
-    <ngx-datatable-column name="desIdeia" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+
+
+
+<div [ngStyle]="{'width': !changeText ? 'calc(100% - 60px)' : 'calc(100% - 460px)'}" style="float: left; padding-left: 10px;">
+  <ngx-datatable class="bootstrap" [rows]="ideias" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.flex" [limit]="page.size" (page)="setPage($event)">
+    <ngx-datatable-column name="desIdeia" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
       <ng-template let-column="column" ngx-datatable-header-template> Descrição da idéia </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getStringRezise(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="desMotivoInvestir" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+    <ngx-datatable-column name="desMotivoInvestir" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
       <ng-template let-column="column" ngx-datatable-header-template> Motivo para investir </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getStringRezise(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="indInteresseCompartilhar" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+    <ngx-datatable-column name="indInteresseCompartilhar" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2">
       <ng-template let-column="column" ngx-datatable-header-template> Interesse em compartilhar? </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getInteresseCompartilhar(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="indNivelDesenvolvimento" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+    <ngx-datatable-column name="indNivelDesenvolvimento" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2">
       <ng-template let-column="column" ngx-datatable-header-template> Nível de desenvolvimento? </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getNivelDesenvolvimento(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="indNivelSigilo" [sortable]="false" [cellClass]="'my-custom-cell-global'">
+    <ngx-datatable-column name="indNivelSigilo" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1">
       <ng-template let-column="column" ngx-datatable-header-template> Nível de sigilo </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value == '1' ? 'Público' : 'Privado' }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="indAprovado" [sortable]="false" [width]="30" [cellClass]="'my-custom-cell-global'">
+    <ngx-datatable-column name="indAprovado" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1">
       <ng-template let-column="column" ngx-datatable-header-template> Aprovado </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value == '1' ? 'Sim' : 'Não' }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="id" [sortable]="false" [width]="30">
+    <ngx-datatable-column name="id" [sortable]="false" [flexGrow]="1.5">
       <ng-template let-column="column" ngx-datatable-header-template> Ações </ng-template>
-      <ng-template let-value="value" ngx-datatable-cell-template>
-        <button class="btn btn-primary" (click)="openModalChange(value, template)"><i class="fa fa-pencil-square-o"></i></button>
+      <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+        <button class="btn btn-primary" (click)="openModalChange(row, template)"><i class="fa fa-pencil-square-o"></i></button>
         &nbsp;
         <button class="btn btn-danger" (click)="delete(value, templateexclusao)"><i class="fa fa-trash"></i></button>
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <ng-template #template>
   <div class="modal-header">
@@ -167,6 +202,16 @@
     </div>
   </div>
 </ng-template>
+
+
+
+
+
+
+
+
+
+
 
 <ng-template #templateexclusao>
   <div class="modal-header">
