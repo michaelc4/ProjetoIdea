@@ -30,7 +30,7 @@
                 <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
                   <label for="datafinal" class="form-label">Descrição do problema</label>
                   <div class="input-group form-group">
-                    <input type="text" class="form-control" placeholder="..." maxlength="20" [(ngModel)]="filtros.problemSearch">
+                    <input type="text" class="form-control" placeholder="..." maxlength="1000" [(ngModel)]="filtros.problemSearch">
                   </div>
                 </div>
               </div>
@@ -41,11 +41,11 @@
               </div>
               <div class="row">
                 <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
-                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="1" name="indTipoBeneficio"> Empresa<br>
-                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="2" name="indTipoBeneficio"> Consumidor<br>
-                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="3" name="indTipoBeneficio"> Sociedade<br>
-                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="4" name="indTipoBeneficio"> Governo<br>
-                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="" name="indTipoBeneficio" checked> Todos<br>
+                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="1" name="indTipoBeneficioFilter"> Empresa<br>
+                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="2" name="indTipoBeneficioFilter"> Consumidor<br>
+                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="3" name="indTipoBeneficioFilter"> Sociedade<br>
+                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="4" name="indTipoBeneficioFilter"> Governo<br>
+                  <input type="radio" [(ngModel)]="filtros.benefitTypeSearch" value="" name="indTipoBeneficioFilter" checked> Todos<br>
                 </div>
               </div>
               <div class="row">
@@ -66,7 +66,7 @@
               <div class="row">
                 <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
                   <div class="form-group">
-                    <button class="btn btn-secondary" (click)="getAllPaged()">Pesquisar</button>
+                    <button class="btn btn-secondary" (click)="search()">Pesquisar</button>
                     &nbsp;
                     <button class="btn btn-secondary" (click)="cleanFilters()">Limpar Filtros</button>
                   </div>

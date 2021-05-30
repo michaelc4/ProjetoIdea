@@ -16,42 +16,54 @@
                 <div class="col-6" style="padding-left: 0px; padding-right: 2px;">
                   <label for="datainicial" class="form-label">Data inicial</label>
                   <div class="input-group form-group">
-                    <input id="datainicial" type="date" class="form-control" placeholder="Data inicial" maxlength="10">
+                    <input id="datainicial" type="date" class="form-control" [(ngModel)]="filtros.registrationDateIniSearch" placeholder="Data inicial" maxlength="10">
                   </div>
                 </div>
                 <div class="col-6" style="padding-left: 2px; padding-right: 0px;">
                   <label for="datafinal" class="form-label">Data inicial</label>
                   <div class="input-group form-group">
-                    <input id="datafinal" type="date" class="form-control" placeholder="Data final" maxlength="10">
+                    <input id="datafinal" type="date" class="form-control" [(ngModel)]="filtros.registrationDateEndSearch" placeholder="Data final" maxlength="10">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
-                  <label for="datafinal" class="form-label">Descrição do problema</label>
+                  <label for="datafinal" class="form-label">Descrição da idéia</label>
                   <div class="input-group form-group">
-                    <input type="text" class="form-control" placeholder="..." maxlength="20">
+                    <input type="text" class="form-control" placeholder="..." maxlength="1000" [(ngModel)]="filtros.ideaSearch">
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
-                  <label class="form-label">Público que beneficia?</label>
+                  <label class="form-label">Nível de desenvolvimento?</label>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
-                  <input type="radio" value="1" name="indTipoBeneficio"> Empresa<br>
-                  <input type="radio" value="2" name="indTipoBeneficio"> Consumidor<br>
-                  <input type="radio" value="3" name="indTipoBeneficio"> Sociedade<br>
-                  <input type="radio" value="4" name="indTipoBeneficio"> Governo<br>
-                  <input type="radio" value="" name="indTipoBeneficio" checked> Todos<br>
+                  <input type="radio" value="1" name="developmentSearchFilter" [(ngModel)]="filtros.developmentSearch"> É apenas uma ideia<br>
+                  <input type="radio" value="2" name="developmentSearchFilter" [(ngModel)]="filtros.developmentSearch"> Tenho um projeto para executar esta ideia<br>
+                  <input type="radio" value="3" name="developmentSearchFilter" [(ngModel)]="filtros.developmentSearch"> Já tenho um produto desenvolvido<br>
+                  <input type="radio" value="4" name="developmentSearchFilter" [(ngModel)]="filtros.developmentSearch"> Já tenho um pedido de patente<br>
+                  <input type="radio" value="" name="developmentSearchFilter" [(ngModel)]="filtros.developmentSearch" checked> Todos<br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px; margin-top: 10px;">
+                  <label class="form-label">Nível de sigilo?</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <input type="radio" value="1" name="secretSearchFilter" [(ngModel)]="filtros.secretSearch"> Público<br>
+                  <input type="radio" value="0" name="secretSearchFilter" [(ngModel)]="filtros.secretSearch"> Privado<br>
+                  <input type="radio" value="" name="secretSearchFilter" [(ngModel)]="filtros.secretSearch" checked> Todos<br>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12" style="padding-left: 0px; padding-right: 0px; margin-top: 10px;">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="filtros.approvedSearch">
                     <label class="form-check-label" for="flexCheckDefault">
                       Somente aprovados
                     </label>
@@ -66,7 +78,7 @@
               <div class="row">
                 <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
                   <div class="form-group">
-                    <button class="btn btn-secondary" (click)="getAllPaged()">Pesquisar</button>
+                    <button class="btn btn-secondary" (click)="search()">Pesquisar</button>
                     &nbsp;
                     <button class="btn btn-secondary" (click)="cleanFilters()">Limpar Filtros</button>
                   </div>
@@ -79,9 +91,6 @@
     </li>
   </ul>
 </div>
-
-
-
 
 <div [ngStyle]="{'width': !changeText ? 'calc(100% - 60px)' : 'calc(100% - 460px)'}" style="float: left; padding-left: 10px;">
   <ngx-datatable class="bootstrap" [rows]="ideias" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.flex" [limit]="page.size" (page)="setPage($event)">
@@ -131,18 +140,6 @@
     </ngx-datatable-column>
   </ngx-datatable>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 <ng-template #template>
   <div class="modal-header">
@@ -226,16 +223,6 @@
     </div>
   </div>
 </ng-template>
-
-
-
-
-
-
-
-
-
-
 
 <ng-template #templateexclusao>
   <div class="modal-header">

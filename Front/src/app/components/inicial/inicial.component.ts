@@ -14,4 +14,8 @@ export class InicialComponent {
   menuUsuario() {
     this.router.navigateByUrl('/menu-usuario');
   }
+
+  menuAdministrativo() {
+    this.router.navigateByUrl('/menu-administrativo');
+  }
 }

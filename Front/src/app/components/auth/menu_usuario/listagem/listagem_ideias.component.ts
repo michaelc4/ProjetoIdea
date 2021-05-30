@@ -98,6 +98,11 @@ export class MenuUsuarioIdeiasComponent {
     this.filtros = new FiltroIdeiaModel();
   }
 
+  search() {
+    this.page.pageNumber = 0;
+    this.getAllPaged();
+  }
+
   // Add or Change
   openModalNew(template: TemplateRef<any>) {
     this.ideia = new IdeiaModel();

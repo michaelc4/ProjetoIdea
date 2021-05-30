@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
+import { GaugeModule } from 'angular-gauge';
 
 // Services
 import { Global } from "./providers/global.service";
@@ -29,6 +30,7 @@ import { AppComponent } from './app.component';
 import { InicialComponent } from "../app/components/inicial/inicial.component";
 import { LoginComponent } from "../app/components/login/login.component";
 import { MenuUsuarioComponent } from "../app/components/auth/menu_usuario/menu_usuario.component";
+import { MenuAdministrativoComponent } from "../app/components/auth/menu_administrativo/menu_administrativo.component";
 import { MenuUsuarioProblemasComponent } from "../app/components/auth/menu_usuario/listagem/listagem_problemas.component";
 import { MenuUsuarioIdeiasComponent } from "../app/components/auth/menu_usuario/listagem/listagem_ideias.component";
 
@@ -87,6 +89,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     InicialComponent,
     LoginComponent,
     MenuUsuarioComponent,
+    MenuAdministrativoComponent,
     MenuUsuarioProblemasComponent,
     MenuUsuarioIdeiasComponent
   ],
@@ -109,6 +112,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PaginationModule.forRoot(),
     TabsModule.forRoot(),
     RatingModule.forRoot(),
+    GaugeModule.forRoot(),
     NgxDatatableModule.forRoot({
       messages: {
         emptyMessage: 'Nenhum dado encontrado',

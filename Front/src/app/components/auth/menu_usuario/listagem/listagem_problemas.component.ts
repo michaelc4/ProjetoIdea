@@ -98,6 +98,11 @@ export class MenuUsuarioProblemasComponent {
     this.filtros = new FiltroProblemaModel();
   }
 
+  search() {
+    this.page.pageNumber = 0;
+    this.getAllPaged();
+  }
+
   // Add or Change
   openModalNew(template: TemplateRef<any>) {
     this.problema = new ProblemaModel();
