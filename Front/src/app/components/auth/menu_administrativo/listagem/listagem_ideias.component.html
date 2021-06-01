@@ -1,0 +1,247 @@
+<div [ngStyle]="{'width': !changeText ? '60px' : '460px'}" style="float: left;">
+  <ul class="accordion">
+    <li class="tabs" (mouseover)="changeText=true" (mouseout)="changeText=false">
+      <div class="social-links twitter-icon">
+        <i class="fa fa-filter"></i>
+      </div>
+      <div class="paragraph" style="padding: 10px;">
+        <div class="form-group">
+          <button class="btn btn-secondary" (click)="openModalNew(template)">Criar Idéia</button>
+        </div>
+        <div class="card" style="width: 100%;">
+          <div class="card-body">
+            <h5 class="card-title">Filtros</h5>
+            <div class="container filter-class">
+              <div class="row">
+                <div class="col-6" style="padding-left: 0px; padding-right: 2px;">
+                  <label for="datainicial" class="form-label">Data inicial</label>
+                  <div class="input-group form-group">
+                    <input id="datainicial" type="date" class="form-control" [(ngModel)]="filtros.registrationDateIniSearch" placeholder="Data inicial" maxlength="10">
+                  </div>
+                </div>
+                <div class="col-6" style="padding-left: 2px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Data inicial</label>
+                  <div class="input-group form-group">
+                    <input id="datafinal" type="date" class="form-control" [(ngModel)]="filtros.registrationDateEndSearch" placeholder="Data final" maxlength="10">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Descrição da idéia</label>
+                  <div class="input-group form-group">
+                    <input type="text" class="form-control" placeholder="..." maxlength="1000" [(ngModel)]="filtros.ideaSearch">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <label class="form-label">Nível de desenvolvimento?</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <input type="radio" value="1" name="developmentSearchFilter" [(ngModel)]="filtros.developmentSearch"> É apenas uma ideia<br>
+                  <input type="radio" value="2" name="developmentSearchFilter" [(ngModel)]="filtros.developmentSearch"> Tenho um projeto para executar esta ideia<br>
+                  <input type="radio" value="3" name="developmentSearchFilter" [(ngModel)]="filtros.developmentSearch"> Já tenho um produto desenvolvido<br>
+                  <input type="radio" value="4" name="developmentSearchFilter" [(ngModel)]="filtros.developmentSearch"> Já tenho um pedido de patente<br>
+                  <input type="radio" value="" name="developmentSearchFilter" [(ngModel)]="filtros.developmentSearch" checked> Todos<br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px; margin-top: 10px;">
+                  <label class="form-label">Nível de sigilo?</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <input type="radio" value="1" name="secretSearchFilter" [(ngModel)]="filtros.secretSearch"> Público<br>
+                  <input type="radio" value="0" name="secretSearchFilter" [(ngModel)]="filtros.secretSearch"> Privado<br>
+                  <input type="radio" value="" name="secretSearchFilter" [(ngModel)]="filtros.secretSearch" checked> Todos<br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px; margin-top: 10px;">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="filtros.approvedSearch">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Somente aprovados
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <div class="form-group">
+                    <button class="btn btn-secondary" (click)="search()">Pesquisar</button>
+                    &nbsp;
+                    <button class="btn btn-secondary" (click)="cleanFilters()">Limpar Filtros</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div [ngStyle]="{'width': !changeText ? 'calc(100% - 60px)' : 'calc(100% - 460px)'}" style="float: left; padding-left: 10px;">
+  <ngx-datatable class="bootstrap" [rows]="ideias" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.flex" [limit]="page.size" (page)="setPage($event)">
+    <ngx-datatable-column name="desIdeia" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
+      <ng-template let-column="column" ngx-datatable-header-template> Descrição da idéia </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getStringRezise(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="desMotivoInvestir" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
+      <ng-template let-column="column" ngx-datatable-header-template> Motivo para investir </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getStringRezise(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indInteresseCompartilhar" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2">
+      <ng-template let-column="column" ngx-datatable-header-template> Interesse em compartilhar? </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getInteresseCompartilhar(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indNivelDesenvolvimento" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2">
+      <ng-template let-column="column" ngx-datatable-header-template> Nível de desenvolvimento? </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ getNivelDesenvolvimento(value) }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indNivelSigilo" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1">
+      <ng-template let-column="column" ngx-datatable-header-template> Nível de sigilo </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value == '1' ? 'Público' : 'Privado' }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indAprovado" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1">
+      <ng-template let-column="column" ngx-datatable-header-template> Aprovado </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value == '1' ? 'Sim' : 'Não' }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="id" [sortable]="false" [flexGrow]="1.5">
+      <ng-template let-column="column" ngx-datatable-header-template> Ações </ng-template>
+      <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+        <button class="btn btn-primary" (click)="openModalChange(row, template)"><i class="fa fa-pencil-square-o"></i></button>
+        &nbsp;
+        <button class="btn btn-danger" (click)="delete(value, templateexclusao)"><i class="fa fa-trash"></i></button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Idéia</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Dados</h5>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Descrição da idéia</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="ideia.desIdeia"></textarea>
+          </div>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Por que vale apena investir nesta idéia?</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="ideia.desMotivoInvestir"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Qual o seu interesse em compartilhar esta ideia?</label><br>
+            <input type="radio" [(ngModel)]="ideia.indInteresseCompartilhar" value="1" name="indInteresseCompartilhar"> Quero encontrar alguém que me ajude a colocá-la em prática<br>
+            <input type="radio" [(ngModel)]="ideia.indInteresseCompartilhar" value="2" name="indInteresseCompartilhar"> Quero divulgar uma solução para alguém que esteja disposto a trabalhar nela<br>
+            <input type="radio" [(ngModel)]="ideia.indInteresseCompartilhar" value="3" name="indInteresseCompartilhar"> Foi apenas algo que pensei<br>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Qual o nível atual de desenvolvimento desta ideia?</label><br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="1" name="indNivelDesenvolvimento"> É apenas uma ideia<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="2" name="indNivelDesenvolvimento"> Tenho um projeto para executar esta ideia<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="3" name="indNivelDesenvolvimento"> Já tenho um produto desenvolvido<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="4" name="indNivelDesenvolvimento"> Já tenho um pedido de patente<br>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Nível de sigilo?</label><br>
+            <input type="radio" [(ngModel)]="ideia.indNivelSigilo" value="0" name="indNivelSigilo"> Privado<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelSigilo" value="1" name="indNivelSigilo"> Público<br>
+          </div>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Comentários</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="ideia.desComentario"></textarea>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Anexos
+            <div class="card-files-text">(Máx. 5 anexos)</div>
+          </h5>
+          <file-upload [(ngModel)]="uploadedFiles" name="arquivos" fileslimit="5" [accept]="'.jpeg,.jpg,.png,.pdf'"></file-upload>
+          <div class="form-group" style="width: 100%; margin-top: 10px;">
+            <button class="btn btn-secondary" (click)="importarArquivos()">Importar Arquivos</button>
+          </div>
+          <div class="form-group" style="width: 100%; margin-top: 10px;">
+            <table class="table table-striped" *ngIf="files.length != 0">
+              <thead>
+                <th>Nome Arquivo</th>
+                <th style="width: 150px;">Ações</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let arquivo of files">
+                  <td>{{arquivo.desNomeOriginal}}</td>
+                  <td>
+                    <button class="btn btn-primary" (click)="downloadFile(arquivo.desAnexo, arquivo.desNomeOriginal)"><i class="fa fa-download"></i></button>
+                    &nbsp;
+                    <button class="btn btn-danger" (click)="removeFile(arquivo.desNomeOriginal)"><i class="fa fa-trash"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <label class="control-label col-md-12 no-files" style="padding-left: 0px;" *ngIf="files.length == 0">Nenhum arquivo importado</label>
+          </div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="salvar()">Salvar</button>&nbsp;
+      <button class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateexclusao>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Exclusão</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          Tem certeza que deseja continuar?
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="continuar()">Sim</button>&nbsp;
+      <button class="btn btn-secondary" (click)="modalRefExclusao.hide()">Não</button>
+    </div>
+  </div>
+</ng-template>

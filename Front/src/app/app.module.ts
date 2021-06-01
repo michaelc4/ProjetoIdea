@@ -24,6 +24,7 @@ import { GaugeModule } from 'angular-gauge';
 // Services
 import { Global } from "./providers/global.service";
 import { AuthGuard } from "./providers/authguard.service";
+import { AuthGuardAdmin } from "./providers/authguardadmin.service";
 
 //Components
 import { AppComponent } from './app.component';
@@ -33,6 +34,8 @@ import { MenuUsuarioComponent } from "../app/components/auth/menu_usuario/menu_u
 import { MenuAdministrativoComponent } from "../app/components/auth/menu_administrativo/menu_administrativo.component";
 import { MenuUsuarioProblemasComponent } from "../app/components/auth/menu_usuario/listagem/listagem_problemas.component";
 import { MenuUsuarioIdeiasComponent } from "../app/components/auth/menu_usuario/listagem/listagem_ideias.component";
+import { MenuAdminProblemasComponent } from "../app/components/auth/menu_administrativo/listagem/listagem_problemas.component";
+import { MenuAdminIdeiasComponent } from "../app/components/auth/menu_administrativo/listagem/listagem_ideias.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -91,7 +94,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuUsuarioComponent,
     MenuAdministrativoComponent,
     MenuUsuarioProblemasComponent,
-    MenuUsuarioIdeiasComponent
+    MenuUsuarioIdeiasComponent,
+    MenuAdminProblemasComponent,
+    MenuAdminIdeiasComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -143,7 +148,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
     Global,
-    AuthGuard
+    AuthGuard,
+    AuthGuardAdmin
   ],
   bootstrap: [
     AppComponent
