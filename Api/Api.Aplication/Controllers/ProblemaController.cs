@@ -98,7 +98,7 @@ namespace Api.Aplication.Controllers
             }
         }
 
-        [Authorize("Bearer", Roles = "Admin")]
+        [Authorize("Bearer")]
         [HttpGet("getallpagedbyuser")]
         public async Task<ActionResult> GetPagedByUser(int page, int pageSize, Guid userId, string problemSearch, string benefitTypeSearch, string solutionTypeSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
