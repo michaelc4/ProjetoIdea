@@ -9,7 +9,7 @@ $geneicons: rgb(216, 216, 216);
   display: block;
   list-style-type: none;
   overflow: hidden;
-  height: 550px;
+  height: 500px;
   font-size: 0;
   float: left;
 }
@@ -19,7 +19,7 @@ $geneicons: rgb(216, 216, 216);
   background-color: $list;
   border-right: $border 1px solid;
   width: 60px;
-  height: 550px;
+  height: 500px;
   overflow: hidden;
   position: relative;
   margin: 0;
@@ -46,7 +46,7 @@ $geneicons: rgb(216, 216, 216);
     width: 390px;
     margin-left: 60px;
     padding: 50px 0 0 10px;
-    height: 550px;
+    height: 500px;
     background: #fff;
 
     h1 {

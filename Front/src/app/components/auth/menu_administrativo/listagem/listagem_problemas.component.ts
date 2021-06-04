@@ -103,14 +103,7 @@ export class MenuAdminProblemasComponent {
     this.getAllPaged();
   }
 
-  // Add or Change
-  openModalNew(template: TemplateRef<any>) {
-    this.problema = new ProblemaModel();
-    this.uploadedFiles = [];
-    this.files = new Array<ProblemaAnexoModel>();
-    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-xl' }));
-  }
-
+  // Change
   openModalChange(row: ProblemaModel, template: TemplateRef<any>) {
     this.problema = row;
     this.files = row.anexos;
@@ -175,36 +168,30 @@ export class MenuAdminProblemasComponent {
         problemaPut.indTipoBeneficio = this.problema.indTipoBeneficio;
         problemaPut.indTipoSolucao = this.problema.indTipoSolucao;
         problemaPut.numProbabilidadeInvestir = this.problema.numProbabilidadeInvestir;
-        problemaPut.usuarioId = this.global.getLoggedUser().id;
+        problemaPut.usuarioId = this.problema.usuarioId;
+        problemaPut.indAtivo = this.problema.indAtivo;
+        problemaPut.indAprovado = this.problema.indAprovado;
         problemaPut.anexos = arrAnexos;
 
-        this.problemaService.put(problemaPut)
+        this.problemaService.putAvaliacao(problemaPut)
           .subscribe((data: any) => {
             this.spinner.hide();
             this.notifierService.notify('success', 'Problema alterado com sucesso');
             this.modalRef.hide();
             this.getAllPaged();
           });
-
-      } else {
-        let problemaPost = new ProblemaPostParamModel();
-        problemaPost.desProblema = this.problema.desProblema;
-        problemaPost.desSolucao = this.problema.desSolucao;
-        problemaPost.indTipoBeneficio = this.problema.indTipoBeneficio;
-        problemaPost.indTipoSolucao = this.problema.indTipoSolucao;
-        problemaPost.numProbabilidadeInvestir = this.problema.numProbabilidadeInvestir;
-        problemaPost.usuarioId = this.global.getLoggedUser().id;
-        problemaPost.anexos = arrAnexos;
-
-        this.problemaService.post(problemaPost)
-          .subscribe((data: any) => {
-            this.spinner.hide();
-            this.notifierService.notify('success', 'Problema cadastrado com sucesso');
-            this.modalRef.hide();
-            this.getAllPaged();
-          });
       }
     }
+  }
+
+  aprovarProblema(row: ProblemaModel) {
+    this.problema = row;
+    this.files = row.anexos;
+    if (!this.files) {
+      this.files = new Array<ProblemaAnexoModel>();
+    }
+    this.problema.indAprovado = this.problema.indAprovado == '1' ? '0' : '1';
+    this.salvar();
   }
 
   // Anexos

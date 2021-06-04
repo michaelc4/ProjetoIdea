@@ -5,9 +5,6 @@
         <i class="fa fa-filter"></i>
       </div>
       <div class="paragraph" style="padding: 10px;">
-        <div class="form-group">
-          <button class="btn btn-secondary" (click)="openModalNew(template)">Criar Problema</button>
-        </div>
         <div class="card" style="width: 100%;">
           <div class="card-body">
             <h5 class="card-title">Filtros</h5>
@@ -82,25 +79,25 @@
 
 <div [ngStyle]="{'width': !changeText ? 'calc(100% - 60px)' : 'calc(100% - 460px)'}" style="float: left; padding-left: 10px;">
   <ngx-datatable class="bootstrap" [rows]="problemas" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.flex" [limit]="page.size" (page)="setPage($event)">
-    <ngx-datatable-column name="desProblema" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
+    <ngx-datatable-column name="desProblema" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.5">
       <ng-template let-column="column" ngx-datatable-header-template> Descrição do Problema </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getStringRezise(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="desSolucao" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
+    <ngx-datatable-column name="desSolucao" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.5">
       <ng-template let-column="column" ngx-datatable-header-template> Possível solução </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getStringRezise(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="indTipoBeneficio" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1.5">
+    <ngx-datatable-column name="indTipoBeneficio" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2">
       <ng-template let-column="column" ngx-datatable-header-template> Público que beneficia? </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getTipoBeneficio(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="indTipoSolucao" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2">
+    <ngx-datatable-column name="indTipoSolucao" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.3">
       <ng-template let-column="column" ngx-datatable-header-template> Qual o interesse na resolução? </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getTipoSolucao(value) }}
@@ -112,12 +109,17 @@
         {{ value == '1' ? 'Sim' : 'Não' }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="id" [sortable]="false" [flexGrow]="1.5">
+    <ngx-datatable-column name="id" [sortable]="false" [flexGrow]="2.6">
       <ng-template let-column="column" ngx-datatable-header-template> Ações </ng-template>
       <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-        <button class="btn btn-primary" (click)="openModalChange(row, template)"><i class="fa fa-pencil-square-o"></i></button>
+        <button *ngIf="row.indAprovado != '1'" class="btn btn-success" (click)="aprovarProblema(row)" data-toggle="tooltip" data-placement="top" title="Aprovar"><i class="fa fa-check"></i></button>
+        <button *ngIf="row.indAprovado == '1'" class="btn btn-danger" (click)="aprovarProblema(row)" data-toggle="tooltip" data-placement="top" title="Reprovar"><i class="fa fa-times"></i></button>
         &nbsp;
-        <button class="btn btn-danger" (click)="delete(value, templateexclusao)"><i class="fa fa-trash"></i></button>
+        <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Voluntários"><i class="fa fa-users"></i></button>
+        &nbsp;
+        <button class="btn btn-primary" (click)="openModalChange(row, template)" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-pencil-square-o"></i></button>
+        &nbsp;
+        <button class="btn btn-danger" (click)="delete(value, templateexclusao)" data-toggle="tooltip" data-placement="top" title="Excluir"><i class="fa fa-trash"></i></button>
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>

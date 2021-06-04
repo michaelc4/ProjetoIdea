@@ -5,9 +5,6 @@
         <i class="fa fa-filter"></i>
       </div>
       <div class="paragraph" style="padding: 10px;">
-        <div class="form-group">
-          <button class="btn btn-secondary" (click)="openModalNew(template)">Criar Idéia</button>
-        </div>
         <div class="card" style="width: 100%;">
           <div class="card-body">
             <h5 class="card-title">Filtros</h5>
@@ -94,48 +91,59 @@
 
 <div [ngStyle]="{'width': !changeText ? 'calc(100% - 60px)' : 'calc(100% - 460px)'}" style="float: left; padding-left: 10px;">
   <ngx-datatable class="bootstrap" [rows]="ideias" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.flex" [limit]="page.size" (page)="setPage($event)">
-    <ngx-datatable-column name="desIdeia" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
+    <ngx-datatable-column name="desIdeia" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.5">
       <ng-template let-column="column" ngx-datatable-header-template> Descrição da idéia </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getStringRezise(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="desMotivoInvestir" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
+    <ngx-datatable-column name="desMotivoInvestir" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.5">
       <ng-template let-column="column" ngx-datatable-header-template> Motivo para investir </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getStringRezise(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="indInteresseCompartilhar" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2">
+    <ngx-datatable-column name="indInteresseCompartilhar" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.7">
       <ng-template let-column="column" ngx-datatable-header-template> Interesse em compartilhar? </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getInteresseCompartilhar(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="indNivelDesenvolvimento" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2">
+    <ngx-datatable-column name="indNivelDesenvolvimento" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.7">
       <ng-template let-column="column" ngx-datatable-header-template> Nível de desenvolvimento? </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ getNivelDesenvolvimento(value) }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="indNivelSigilo" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1">
+    <ngx-datatable-column name="indNivelSigilo" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1.5">
       <ng-template let-column="column" ngx-datatable-header-template> Nível de sigilo </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value == '1' ? 'Público' : 'Privado' }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="indAprovado" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1">
+    <ngx-datatable-column name="numPontuacaoGeral" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1.2">
+      <ng-template let-column="column" ngx-datatable-header-template> Pontuação </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="indAprovado" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1.1">
       <ng-template let-column="column" ngx-datatable-header-template> Aprovado </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>
         {{ value == '1' ? 'Sim' : 'Não' }}
       </ng-template>
     </ngx-datatable-column>
-    <ngx-datatable-column name="id" [sortable]="false" [flexGrow]="1.5">
+    <ngx-datatable-column name="id" [sortable]="false" [flexGrow]="3.4">
       <ng-template let-column="column" ngx-datatable-header-template> Ações </ng-template>
       <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
-        <button class="btn btn-primary" (click)="openModalChange(row, template)"><i class="fa fa-pencil-square-o"></i></button>
+        <button *ngIf="row.indAprovado != '1'" class="btn btn-success" (click)="aprovarIdeia(row)" data-toggle="tooltip" data-placement="top" title="Aprovar"><i class="fa fa-check"></i></button>
+        <button *ngIf="row.indAprovado == '1'" class="btn btn-danger" (click)="aprovarIdeia(row)" data-toggle="tooltip" data-placement="top" title="Reprovar"><i class="fa fa-times"></i></button>
         &nbsp;
-        <button class="btn btn-danger" (click)="delete(value, templateexclusao)"><i class="fa fa-trash"></i></button>
+        <button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Voluntários"><i class="fa fa-users"></i></button>
+        &nbsp;
+        <button class="btn btn-primary" (click)="openModalChange(row, template)" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-pencil-square-o"></i></button>
+        &nbsp;
+        <button class="btn btn-danger" (click)="delete(value, templateexclusao)" data-toggle="tooltip" data-placement="top" title="Excluir"><i class="fa fa-trash"></i></button>
       </ng-template>
     </ngx-datatable-column>
   </ngx-datatable>
@@ -213,6 +221,87 @@
               </tbody>
             </table>
             <label class="control-label col-md-12 no-files" style="padding-left: 0px;" *ngIf="files.length == 0">Nenhum arquivo importado</label>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Análise e Priorização</h5>
+          <div class="row">
+            <div class="col-4" style="padding-left: 0px; padding-right: 0px;">
+              <br><label class="control-label col-md-12">Potencial de disrupção</label>
+              <div class="row">
+                <div class="col-7">
+                  <progress-bar [progress]="ideia.numPotencialDisrupcao.toString()" [color]="'#B2D152'">
+                  </progress-bar>
+                </div>
+                <div class="col-3">
+                  <input type="number" min="0" max="100" class="form-control heigth-input" placeholder="0" [(ngModel)]="ideia.numPotencialDisrupcao" (change)="pontuacao()">
+                </div>
+              </div>
+            </div>
+            <div class="col-4" style="padding-left: 0px; padding-right: 0px;">
+              <br><label class="control-label col-md-12">Potencial de ganho</label>
+              <div class="row">
+                <div class="col-7">
+                  <progress-bar [progress]="ideia.numPotencialGanho.toString()" [color]="'#F45C5C'">
+                  </progress-bar>
+                </div>
+                <div class="col-3">
+                  <input type="number" min="0" max="100" class="form-control heigth-input" placeholder="0" [(ngModel)]="ideia.numPotencialGanho" (change)="pontuacao()">
+                </div>
+              </div>
+            </div>
+            <div class="col-4" style="padding-left: 0px; padding-right: 0px;">
+              <br><label class="control-label col-md-12">Impacto ambiental</label>
+              <div class="row">
+                <div class="col-7">
+                  <progress-bar [progress]="ideia.numImpactoAmbiental.toString()" [color]="'#3BC9F5'">
+                  </progress-bar>
+                </div>
+                <div class="col-3">
+                  <input type="number" min="0" max="100" class="form-control heigth-input" placeholder="0" [(ngModel)]="ideia.numImpactoAmbiental" (change)="pontuacao()">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4" style="padding-left: 0px; padding-right: 0px;">
+              <br><label class="control-label col-md-12">Pessoas impactadas</label>
+              <div class="row">
+                <div class="col-7">
+                  <progress-bar [progress]="ideia.numPessoasImpactadas.toString()" [color]="'#D2ACF7'">
+                  </progress-bar>
+                </div>
+                <div class="col-3">
+                  <input type="number" min="0" max="100" class="form-control heigth-input" placeholder="0" [(ngModel)]="ideia.numPessoasImpactadas" (change)="pontuacao()">
+                </div>
+              </div>
+            </div>
+            <div class="col-4" style="padding-left: 0px; padding-right: 0px;">
+              <br><label class="control-label col-md-12">Valor de investimento</label>
+              <div class="row">
+                <div class="col-7">
+                  <progress-bar [progress]="ideia.numValorInvestimento.toString()" [color]="'#E9B8A7'">
+                  </progress-bar>
+                </div>
+                <div class="col-3">
+                  <input type="number" min="0" max="100" class="form-control heigth-input" placeholder="0" [(ngModel)]="ideia.numValorInvestimento" (change)="pontuacao()">
+                </div>
+              </div>
+            </div>
+            <div class="col-4" style="padding-left: 0px; padding-right: 0px;">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8" style="padding-left: 0px; padding-right: 0px;">
+              <label class="control-label col-md-12 pontuacaototal">Pontuação Geral</label>
+            </div>
+            <div class="col-4" style="padding-left: 0px; padding-right: 0px;">
+              <mwl-gauge class="seven gaugepontuacaototal" [max]="500" [dialStartAngle]="-90" [dialEndAngle]="-90.001" [showValue]="true" [value]="ideia.numPontuacaoGeral" [animated]="true" [animationDuration]="1">
+              </mwl-gauge>
+            </div>
           </div>
         </div>
       </div>

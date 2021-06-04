@@ -1963,7 +1963,7 @@ body:not(.responsive).device-mobile-optimized ._2qI_L ._3MMC_ {
 
 .my-custom-cell-global .datatable-body-cell-label {
     margin-top: 5px;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .datatable-header .datatable-header-cell-template-wrap {
@@ -2105,4 +2105,15 @@ mwl-gauge.seven>.gauge>.value {
     stroke: #f8774b;
     stroke-dasharray: none;
     stroke-width: 5;
+}
+
+.gaugepontuacaototal>.gauge {
+    max-height: 250px;
+}
+
+.pontuacaototal {
+    font-size: 30px;
+    text-align: right;
+    margin-top: 120px;
+    font-weight: bold;
 }

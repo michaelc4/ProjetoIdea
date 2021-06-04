@@ -20,6 +20,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { GaugeModule } from 'angular-gauge';
+import { ProgressBarModule } from "angular-progress-bar"
 
 // Services
 import { Global } from "./providers/global.service";
@@ -111,6 +112,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     PerfectScrollbarModule,
     FileUploadModule,
+    ProgressBarModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),

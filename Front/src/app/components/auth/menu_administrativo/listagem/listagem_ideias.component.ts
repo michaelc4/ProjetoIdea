@@ -24,7 +24,7 @@ export class MenuAdminIdeiasComponent {
   ColumnMode = ColumnMode;
   page = new PageModel();
   ideias: Array<IdeiaModel> = new Array<IdeiaModel>();
-  colunas: object[] = [{ name: 'id' }, { name: 'desIdeia' }, { name: 'desMotivoInvestir' }, { name: 'indInteresseCompartilhar' }, { name: 'indNivelDesenvolvimento' }, { name: 'indNivelSigilo' }, { name: 'indAprovado' }];
+  colunas: object[] = [{ name: 'id' }, { name: 'desIdeia' }, { name: 'desMotivoInvestir' }, { name: 'indInteresseCompartilhar' }, { name: 'indNivelDesenvolvimento' }, { name: 'indNivelSigilo' }, { name: 'numPontuacaoGeral' }, { name: 'indAprovado' }];
   changeText: boolean = false;
   ideia: IdeiaModel = new IdeiaModel();
   idExclusao: string = '';
@@ -45,6 +45,7 @@ export class MenuAdminIdeiasComponent {
   ngOnInit() {
     this.setPage({ offset: 0 });
     this.getAllPaged();
+    this.pontuacao();
   }
 
   // List
@@ -103,20 +104,14 @@ export class MenuAdminIdeiasComponent {
     this.getAllPaged();
   }
 
-  // Add or Change
-  openModalNew(template: TemplateRef<any>) {
-    this.ideia = new IdeiaModel();
-    this.uploadedFiles = [];
-    this.files = new Array<IdeiaAnexoModel>();
-    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-xl' }));
-  }
-
+  // Change
   openModalChange(row: IdeiaModel, template: TemplateRef<any>) {
     this.ideia = row;
     this.files = row.anexos;
     if (!this.files) {
       this.files = new Array<IdeiaAnexoModel>();
     }
+    this.pontuacao();
     this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-xl' }));
   }
 
@@ -176,37 +171,61 @@ export class MenuAdminIdeiasComponent {
         ideiaPut.indNivelDesenvolvimento = this.ideia.indNivelDesenvolvimento;
         ideiaPut.indNivelSigilo = this.ideia.indNivelSigilo;
         ideiaPut.desComentario = this.ideia.desComentario;
-        ideiaPut.usuarioId = this.global.getLoggedUser().id;
+        ideiaPut.usuarioId = this.ideia.usuarioId;
+        ideiaPut.numPotencialDisrupcao = this.ideia.numPotencialDisrupcao;
+        ideiaPut.numPessoasImpactadas = this.ideia.numPessoasImpactadas;
+        ideiaPut.numPotencialGanho = this.ideia.numPotencialGanho;
+        ideiaPut.numValorInvestimento = this.ideia.numValorInvestimento;
+        ideiaPut.numImpactoAmbiental = this.ideia.numImpactoAmbiental;
+        ideiaPut.numPontuacaoGeral = this.ideia.numPontuacaoGeral;
+        ideiaPut.indAtivo = this.ideia.indAtivo;
+        ideiaPut.indAprovado = this.ideia.indAprovado;
         ideiaPut.anexos = arrAnexos;
 
-        this.ideiaService.put(ideiaPut)
+        this.ideiaService.putAvaliacao(ideiaPut)
           .subscribe((data: any) => {
             this.spinner.hide();
             this.notifierService.notify('success', 'Idéia alterada com sucesso');
             this.modalRef.hide();
             this.getAllPaged();
           });
-
-      } else {
-        let ideiaPost = new IdeiaPostParamModel();
-        ideiaPost.desIdeia = this.ideia.desIdeia;
-        ideiaPost.desMotivoInvestir = this.ideia.desMotivoInvestir;
-        ideiaPost.indInteresseCompartilhar = this.ideia.indInteresseCompartilhar;
-        ideiaPost.indNivelDesenvolvimento = this.ideia.indNivelDesenvolvimento;
-        ideiaPost.indNivelSigilo = this.ideia.indNivelSigilo;
-        ideiaPost.desComentario = this.ideia.desComentario;
-        ideiaPost.usuarioId = this.global.getLoggedUser().id;
-        ideiaPost.anexos = arrAnexos;
-
-        this.ideiaService.post(ideiaPost)
-          .subscribe((data: any) => {
-            this.spinner.hide();
-            this.notifierService.notify('success', 'Idéia cadastrada com sucesso');
-            this.modalRef.hide();
-            this.getAllPaged();
-          });
       }
     }
+  }
+
+  aprovarIdeia(row: IdeiaModel) {
+    this.ideia = row;
+    this.files = row.anexos;
+    if (!this.files) {
+      this.files = new Array<IdeiaAnexoModel>();
+    }
+    this.ideia.indAprovado = this.ideia.indAprovado == '1' ? '0' : '1';
+    this.salvar();
+  }
+
+  // Pontuação
+  pontuacao() {
+    if (this.ideia.numPotencialDisrupcao > 100) {
+      this.ideia.numPotencialDisrupcao = 100;
+    }
+
+    if (this.ideia.numPotencialGanho > 100) {
+      this.ideia.numPotencialGanho = 100;
+    }
+
+    if (this.ideia.numImpactoAmbiental > 100) {
+      this.ideia.numImpactoAmbiental = 100;
+    }
+
+    if (this.ideia.numPessoasImpactadas > 100) {
+      this.ideia.numPessoasImpactadas = 100;
+    }
+
+    if (this.ideia.numValorInvestimento > 100) {
+      this.ideia.numValorInvestimento = 100;
+    }
+
+    this.ideia.numPontuacaoGeral = this.ideia.numPotencialDisrupcao + this.ideia.numPotencialGanho + this.ideia.numImpactoAmbiental + this.ideia.numPessoasImpactadas + this.ideia.numValorInvestimento;
   }
 
   // Anexos
