@@ -1,8 +1,7 @@
 import { Component, TemplateRef } from '@angular/core';
-import { ProblemasPagedResult, ProblemaModel, ProblemaPostParamModel, ProblemaPutParamModel, FiltroProblemaModel, ProblemaAnexoModel, ProblemaAnexoAddModel } from '../../../../models/problema.model';
+import { ProblemasPagedResult, ProblemaModel, ProblemaPutParamModel, FiltroProblemaModel, ProblemaAnexoModel, ProblemaAnexoAddModel } from '../../../../models/problema.model';
 import { PageModel } from '../../../../models/page.model';
 import { ProblemaService } from '../../../../providers/problema.service';
-import { Global } from '../../../../providers/global.service';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -32,8 +31,7 @@ export class MenuAdminProblemasComponent {
   uploadedFiles: Array<File> = [];
   files: Array<ProblemaAnexoModel> = new Array<ProblemaAnexoModel>();
 
-  constructor(private global: Global,
-    private problemaService: ProblemaService,
+  constructor(private problemaService: ProblemaService,
     private modalService: BsModalService,
     private notifierService: NotifierService,
     private spinner: NgxSpinnerService) {

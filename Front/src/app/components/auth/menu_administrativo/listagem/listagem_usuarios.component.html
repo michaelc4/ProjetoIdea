@@ -1,0 +1,172 @@
+<div [ngStyle]="{'width': !changeText ? '60px' : '460px'}" style="float: left;">
+  <ul class="accordion">
+    <li class="tabs" (mouseover)="changeText=true" (mouseout)="changeText=false">
+      <div class="social-links twitter-icon">
+        <i class="fa fa-filter"></i>
+      </div>
+      <div class="paragraph" style="padding: 10px;">
+        <div class="card" style="width: 100%;">
+          <div class="card-body">
+            <h5 class="card-title">Filtros</h5>
+            <div class="container filter-class">
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Nome</label>
+                  <div class="input-group form-group">
+                    <input type="text" class="form-control" placeholder="..." maxlength="100" [(ngModel)]="filtros.nameSearch">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Email</label>
+                  <div class="input-group form-group">
+                    <input type="text" class="form-control" placeholder="..." maxlength="100" [(ngModel)]="filtros.emailSearch">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Telefone</label>
+                  <div class="input-group form-group">
+                    <input type="text" class="form-control" placeholder="..." maxlength="100" [(ngModel)]="filtros.foneSearch">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px; margin-top: 10px;">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="filtros.isAdminSearch">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Somente usuário administradores
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <div class="form-group">
+                    <button class="btn btn-secondary" (click)="search()">Pesquisar</button>
+                    &nbsp;
+                    <button class="btn btn-secondary" (click)="cleanFilters()">Limpar Filtros</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div [ngStyle]="{'width': !changeText ? 'calc(100% - 60px)' : 'calc(100% - 460px)'}" style="float: left; padding-left: 10px;">
+  <ngx-datatable class="bootstrap" [rows]="usuarios" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.flex" [limit]="page.size" (page)="setPage($event)">
+    <ngx-datatable-column name="desNome" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
+      <ng-template let-column="column" ngx-datatable-header-template> Nome </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="desEmail" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
+      <ng-template let-column="column" ngx-datatable-header-template> Email </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="desTelefone" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
+      <ng-template let-column="column" ngx-datatable-header-template> Telefone </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="admin" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1.5">
+      <ng-template let-column="column" ngx-datatable-header-template> Administrador </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value == '1' ? 'Sim' : 'Não' }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="local" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1.5">
+      <ng-template let-column="column" ngx-datatable-header-template> Local </ng-template>
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value == '1' ? 'Sim' : 'Não' }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="id" [sortable]="false" [flexGrow]="2">
+      <ng-template let-column="column" ngx-datatable-header-template> Ações </ng-template>
+      <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+        <button class="btn btn-primary" (click)="openModalView(row, template)" data-toggle="tooltip" data-placement="top" title="Visualizar"><i class="fa fa-eye"></i></button>
+        &nbsp;
+        <button class="btn btn-danger" (click)="delete(value, templateexclusao)" data-toggle="tooltip" data-placement="top" title="Excluir"><i class="fa fa-trash"></i></button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Usuário</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Dados</h5>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Nome</label><br>
+            <input type="text" class="form-control" placeholder="Nome" [(ngModel)]="usuario.desNome" readonly>
+          </div>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Email</label><br>
+            <input type="text" class="form-control" placeholder="Nome" [(ngModel)]="usuario.desEmail" readonly>
+          </div>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Telefone</label><br>
+            <input type="text" class="form-control" placeholder="Telefone" [(ngModel)]="usuario.desTelefone" mask="(00) 0000-0000||(00) 00000-0000" readonly>
+          </div>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Especialidade</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="usuario.desEspecialidade" readonly></textarea>
+          </div>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Experiência</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="usuario.desExperiencia" readonly></textarea>
+          </div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="modalRef.hide()">Fechar</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateexclusao>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Exclusão</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          Tem certeza que deseja continuar?
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="continuar()">Sim</button>&nbsp;
+      <button class="btn btn-secondary" (click)="modalRefExclusao.hide()">Não</button>
+    </div>
+  </div>
+</ng-template>

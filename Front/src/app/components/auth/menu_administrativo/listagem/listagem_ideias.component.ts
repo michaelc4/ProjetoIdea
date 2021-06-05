@@ -1,8 +1,7 @@
 import { Component, TemplateRef } from '@angular/core';
-import { IdeiasPagedResult, IdeiaModel, IdeiaPostParamModel, IdeiaPutParamModel, FiltroIdeiaModel, IdeiaAnexoModel, IdeiaAnexoAddModel } from '../../../../models/ideia.model';
+import { IdeiasPagedResult, IdeiaModel, IdeiaPutParamModel, FiltroIdeiaModel, IdeiaAnexoModel, IdeiaAnexoAddModel } from '../../../../models/ideia.model';
 import { PageModel } from '../../../../models/page.model';
 import { IdeiaService } from '../../../../providers/ideia.service';
-import { Global } from '../../../../providers/global.service';
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -32,8 +31,7 @@ export class MenuAdminIdeiasComponent {
   uploadedFiles: Array<File> = [];
   files: Array<IdeiaAnexoModel> = new Array<IdeiaAnexoModel>();
 
-  constructor(private global: Global,
-    private ideiaService: IdeiaService,
+  constructor(private ideiaService: IdeiaService,
     private modalService: BsModalService,
     private notifierService: NotifierService,
     private spinner: NgxSpinnerService) {

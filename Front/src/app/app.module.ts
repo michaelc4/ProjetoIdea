@@ -37,6 +37,7 @@ import { MenuUsuarioProblemasComponent } from "../app/components/auth/menu_usuar
 import { MenuUsuarioIdeiasComponent } from "../app/components/auth/menu_usuario/listagem/listagem_ideias.component";
 import { MenuAdminProblemasComponent } from "../app/components/auth/menu_administrativo/listagem/listagem_problemas.component";
 import { MenuAdminIdeiasComponent } from "../app/components/auth/menu_administrativo/listagem/listagem_ideias.component";
+import { MenuAdminUsuariosComponent } from "../app/components/auth/menu_administrativo/listagem/listagem_usuarios.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -97,7 +98,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuUsuarioProblemasComponent,
     MenuUsuarioIdeiasComponent,
     MenuAdminProblemasComponent,
-    MenuAdminIdeiasComponent
+    MenuAdminIdeiasComponent,
+    MenuAdminUsuariosComponent
   ],
   imports: [
     BrowserAnimationsModule,

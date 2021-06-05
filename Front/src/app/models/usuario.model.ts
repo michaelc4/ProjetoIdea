@@ -39,3 +39,10 @@ export class UsuarioPutParamModel extends Serializable {
     public desEspecialidade: string = '';
     public desExperiencia: string = '';
 }
+
+export class FiltroUsuarioModel extends Serializable {
+    public nameSearch: string = '';
+    public emailSearch: string = '';
+    public foneSearch: string = '';
+    public isAdminSearch: boolean = false;
+}
