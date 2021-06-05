@@ -1,0 +1,20 @@
+<ng-template #templateexclusao>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Exclusão</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          gdfgfdgfdgfdgfggdfgfdf
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="modalRef.hide()">Fechar</button>
+    </div>
+  </div>
+</ng-template>
