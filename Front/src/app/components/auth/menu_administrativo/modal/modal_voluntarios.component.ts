@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'app-auth-modal-voluntarios',
@@ -6,11 +8,22 @@ import { Component } from '@angular/core';
   styleUrls: ['modal_voluntarios.component.scss'],
   providers: []
 })
-export class MenuAdministrativoComponent {
+export class ModalVoluntariosComponent implements AfterViewInit {
+  config: PerfectScrollbarConfigInterface = {};
+  public uuid: string = '';
+  public type: string = '';
 
-  constructor() { }
+  constructor(public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
 
+  }
+
+  ngAfterViewInit() {
+
+  }
+
+  loadVoluntarios() {
+    console.log(this.bsModalRef.content);
   }
 }

@@ -9,6 +9,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { NotifierService } from 'angular-notifier';
 import { saveAs } from 'file-saver';
 import { base64ToBlob, getBase64 } from '../../../../functions/string.functions';
+import { ModalVoluntariosComponent } from '../modal/modal_voluntarios.component';
 
 @Component({
   selector: 'app-auth-menu-admin-listagem-ideias',
@@ -103,6 +104,14 @@ export class MenuAdminIdeiasComponent {
   }
 
   // Change
+  openModalVoluntarios(row: IdeiaModel) {
+    let modal = this.modalService.show(ModalVoluntariosComponent, Object.assign({}, { class: 'modal-xl' }));
+    if (modal.content) {
+      modal.content.uuid = row.id;
+      modal.content.type = 'Idéia';
+    }
+  }
+
   openModalChange(row: IdeiaModel, template: TemplateRef<any>) {
     this.ideia = row;
     this.files = row.anexos;
