@@ -117,7 +117,7 @@ namespace Api.Tests.Integration.Service
             await _problemaBuilder.CreateInDataBase(_problemaBuilder.InstanciarObjeto());
             await _problemaBuilder.CreateInDataBase(_problemaBuilder.InstanciarObjeto());
 
-            var problemaList = await _problemaService.GetPagedInitialScreen(1, 10);
+            var problemaList = await _problemaService.GetPagedInitialScreen(1, 10, null, null, null, null, null, null);
             Assert.NotNull(problemaList);
             Assert.Equal(4, problemaList.RowCount);
         }

@@ -12,7 +12,7 @@ namespace Api.Domain.Interfaces.Services
 
         Task<PagedResultPresenter<IdeiaPresenter>> GetPagedByUser(int page, int pageSize, Guid userId, string ideaSearch, string reasonSearch, string shareSearch, string developmentSearch, string secretSearch, string approvedSearch, string registrationDateIniSearch, string registrationDateEndSearch);
 
-        Task<PagedResultPresenter<IdeiaPresenter>> GetPagedInitialScreen(int page, int pageSize);
+        Task<PagedResultPresenter<IdeiaPresenter>> GetPagedInitialScreen(int page, int pageSize, Guid? userId, string ideaSearch, string reasonSearch, string shareSearch, string developmentSearch, string registrationDateIniSearch, string registrationDateEndSearch);
 
         Task<IdeiaPresenter> PutAvaliacao(IdeiaAvaliacaoPutDto dto);
     }

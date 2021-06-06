@@ -18,13 +18,15 @@ namespace Api.Service.Services
         private IRepository<IdeiaEntity> _repository;
         private IIdeiaAnexoRepository _repositoryAttachment;
         private ILikeRepository _repositoryLike;
+        private IVoluntarioRepository _repositoryVoluntary;
         private readonly IMapper _mapper;
 
-        public IdeiaService(IRepository<IdeiaEntity> repository, IIdeiaAnexoRepository repositoryAttachment, ILikeRepository repositoryLike, IMapper mapper) : base(repository, mapper)
+        public IdeiaService(IRepository<IdeiaEntity> repository, IIdeiaAnexoRepository repositoryAttachment, ILikeRepository repositoryLike, IVoluntarioRepository repositoryVoluntary, IMapper mapper) : base(repository, mapper)
         {
             _repository = repository;
             _repositoryAttachment = repositoryAttachment;
             _repositoryLike = repositoryLike;
+            _repositoryVoluntary = repositoryVoluntary;
             _mapper = mapper;
         }
 
@@ -72,7 +74,7 @@ namespace Api.Service.Services
                 query = query.Where(x => x.DataCriacao <= dateEnd);
             }
 
-            query = query.OrderBy(x => x.IndAprovado);
+            query = query.OrderBy(x => x.IndAprovado).ThenByDescending(x => x.DataCriacao);
             query = query.Include(x => x.Usuario);
 
             var result = _mapper.Map<PagedResultPresenter<IdeiaPresenter>>(await _repository.GetPaged(query, page, pageSize));
@@ -124,23 +126,54 @@ namespace Api.Service.Services
                 query = query.Where(x => x.DataCriacao <= dateEnd);
             }
 
-            query = query.OrderByDescending(x => x.IndAprovado);
+            query = query.OrderByDescending(x => x.IndAprovado).ThenByDescending(x => x.DataCriacao);
             query = query.Include(x => x.Usuario);
 
             var result = _mapper.Map<PagedResultPresenter<IdeiaPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
         }
 
-        public async Task<PagedResultPresenter<IdeiaPresenter>> GetPagedInitialScreen(int page, int pageSize)
+        public async Task<PagedResultPresenter<IdeiaPresenter>> GetPagedInitialScreen(int page, int pageSize, Guid? userId, string ideaSearch, string reasonSearch, string shareSearch, string developmentSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
             IQueryable<IdeiaEntity> query = _repository.GetQuery();
 
             query = query.Where(x => x.IndNivelSigilo == "1");
             query = query.Where(x => x.IndAprovado == "1");
+
+            if (!string.IsNullOrEmpty(ideaSearch))
+            {
+                query = query.Where(x => x.DesIdeia.Contains(ideaSearch.Trim()));
+            }
+
+            if (!string.IsNullOrEmpty(reasonSearch))
+            {
+                query = query.Where(x => x.DesMotivoInvestir.Contains(reasonSearch.Trim()));
+            }
+
+            if (!string.IsNullOrEmpty(shareSearch))
+            {
+                query = query.Where(x => x.IndInteresseCompartilhar == shareSearch.Trim());
+            }
+
+            if (!string.IsNullOrEmpty(developmentSearch))
+            {
+                query = query.Where(x => x.IndNivelDesenvolvimento == developmentSearch.Trim());
+            }
+
+            if (DateTime.TryParse(registrationDateIniSearch, out DateTime dateIni))
+            {
+                query = query.Where(x => x.DataCriacao >= dateIni);
+            }
+
+            if (DateTime.TryParse(registrationDateEndSearch, out DateTime dateEnd))
+            {
+                query = query.Where(x => x.DataCriacao <= dateEnd);
+            }
+
             query = query.OrderByDescending(x => x.NumPontuacaoGeral).ThenByDescending(x => x.DataCriacao);
 
             var result = _mapper.Map<PagedResultPresenter<IdeiaPresenter>>(await _repository.GetPaged(query, page, pageSize));
-            return await GetPresenterDetailInitial(result);
+            return await GetPresenterDetailInitial(result, userId);
         }
 
         public override async Task<IdeiaPresenter> Post(IdeiaPostDto dto)
@@ -227,7 +260,8 @@ namespace Api.Service.Services
                     }
                     item.Anexos = listAttachments;
 
-                    var likeQuery = await _repositoryLike.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id).ToListAsync();
+                    item.NumLikes = 0;
+                    var likeQuery = await _repositoryLike.GetQuery().Where(x => x.IdeiaId.ToString() == item.Id).ToListAsync();
                     if (likeQuery != null && likeQuery.Count > 0)
                     {
                         item.NumLikes = likeQuery.Count;
@@ -238,7 +272,7 @@ namespace Api.Service.Services
             return result;
         }
 
-        private async Task<PagedResultPresenter<IdeiaPresenter>> GetPresenterDetailInitial(PagedResultPresenter<IdeiaPresenter> result)
+        private async Task<PagedResultPresenter<IdeiaPresenter>> GetPresenterDetailInitial(PagedResultPresenter<IdeiaPresenter> result, Guid? userId)
         {
             if (result != null && result.Results != null)
             {
@@ -254,10 +288,21 @@ namespace Api.Service.Services
                     }
                     item.Anexos = listAttachments;
 
-                    var likeQuery = await _repositoryLike.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id).ToListAsync();
+                    item.NumLikes = 0;
+                    var likeQuery = await _repositoryLike.GetQuery().Where(x => x.IdeiaId.ToString() == item.Id).ToListAsync();
                     if (likeQuery != null && likeQuery.Count > 0)
                     {
                         item.NumLikes = likeQuery.Count;
+                    }
+
+                    item.VoluntarioId = null;
+                    if (userId.HasValue)
+                    {
+                        var voluntaryQuery = await _repositoryVoluntary.GetQuery().Where(x => x.IdeiaId.ToString() == item.Id && x.UsuarioId == userId.Value).FirstOrDefaultAsync();
+                        if (voluntaryQuery != null)
+                        {
+                            item.VoluntarioId = voluntaryQuery.Id.ToString();
+                        }
                     }
                 }
             }

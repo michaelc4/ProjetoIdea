@@ -117,7 +117,7 @@ namespace Api.Tests.Integration.Service
             await _ideiaBuilder.CreateInDataBase(_ideiaBuilder.InstanciarObjeto());
             await _ideiaBuilder.CreateInDataBase(_ideiaBuilder.InstanciarObjeto());
 
-            var ideiaList = await _ideiaService.GetPagedInitialScreen(1, 10);
+            var ideiaList = await _ideiaService.GetPagedInitialScreen(1, 10, null, null, null, null, null, null, null);
             Assert.NotNull(ideiaList);
             Assert.Equal(4, ideiaList.RowCount);
         }

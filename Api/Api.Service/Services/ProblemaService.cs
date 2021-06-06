@@ -18,13 +18,15 @@ namespace Api.Service.Services
         private IRepository<ProblemaEntity> _repository;
         private IProblemaAnexoRepository _repositoryAttachment;
         private ILikeRepository _repositoryLike;
+        private IVoluntarioRepository _repositoryVoluntary;
         private readonly IMapper _mapper;
 
-        public ProblemaService(IRepository<ProblemaEntity> repository, IProblemaAnexoRepository repositoryAttachment, ILikeRepository repositoryLike, IMapper mapper) : base(repository, mapper)
+        public ProblemaService(IRepository<ProblemaEntity> repository, IProblemaAnexoRepository repositoryAttachment, ILikeRepository repositoryLike, IVoluntarioRepository repositoryVoluntary, IMapper mapper) : base(repository, mapper)
         {
             _repository = repository;
             _repositoryAttachment = repositoryAttachment;
             _repositoryLike = repositoryLike;
+            _repositoryVoluntary = repositoryVoluntary;
             _mapper = mapper;
         }
 
@@ -62,7 +64,7 @@ namespace Api.Service.Services
                 query = query.Where(x => x.DataCriacao <= dateEnd);
             }
 
-            query = query.OrderBy(x => x.IndAprovado);
+            query = query.OrderBy(x => x.IndAprovado).ThenByDescending(x => x.DataCriacao);
             query = query.Include(x => x.Usuario);
 
             var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
@@ -104,22 +106,48 @@ namespace Api.Service.Services
                 query = query.Where(x => x.DataCriacao <= dateEnd);
             }
 
-            query = query.OrderBy(x => x.IndAprovado);
+            query = query.OrderBy(x => x.IndAprovado).ThenByDescending(x => x.DataCriacao);
             query = query.Include(x => x.Usuario);
 
             var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
             return await GetPresenterDetail(result);
         }
 
-        public async Task<PagedResultPresenter<ProblemaPresenter>> GetPagedInitialScreen(int page, int pageSize)
+        public async Task<PagedResultPresenter<ProblemaPresenter>> GetPagedInitialScreen(int page, int pageSize, Guid? userId, string problemSearch, string benefitTypeSearch, string solutionTypeSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
             IQueryable<ProblemaEntity> query = _repository.GetQuery();
 
             query = query.Where(x => x.IndAprovado == "1");
+
+            if (!string.IsNullOrEmpty(problemSearch))
+            {
+                query = query.Where(x => x.DesProblema.Contains(problemSearch.Trim()));
+            }
+
+            if (!string.IsNullOrEmpty(benefitTypeSearch))
+            {
+                query = query.Where(x => x.IndTipoBeneficio == benefitTypeSearch.Trim());
+            }
+
+            if (!string.IsNullOrEmpty(solutionTypeSearch))
+            {
+                query = query.Where(x => x.IndTipoSolucao == solutionTypeSearch.Trim());
+            }
+
+            if (DateTime.TryParse(registrationDateIniSearch, out DateTime dateIni))
+            {
+                query = query.Where(x => x.DataCriacao >= dateIni);
+            }
+
+            if (DateTime.TryParse(registrationDateEndSearch, out DateTime dateEnd))
+            {
+                query = query.Where(x => x.DataCriacao <= dateEnd);
+            }
+
             query = query.OrderByDescending(x => x.DataCriacao);
 
             var result = _mapper.Map<PagedResultPresenter<ProblemaPresenter>>(await _repository.GetPaged(query, page, pageSize));
-            return await GetPresenterDetailInitial(result);
+            return await GetPresenterDetailInitial(result, userId);
         }
 
         public override async Task<ProblemaPresenter> Post(ProblemaPostDto dto)
@@ -206,6 +234,7 @@ namespace Api.Service.Services
                     }
                     item.Anexos = listAttachments;
 
+                    item.NumLikes = 0;
                     var likeQuery = await _repositoryLike.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id).ToListAsync();
                     if (likeQuery != null && likeQuery.Count > 0)
                     {
@@ -217,7 +246,7 @@ namespace Api.Service.Services
             return result;
         }
 
-        private async Task<PagedResultPresenter<ProblemaPresenter>> GetPresenterDetailInitial(PagedResultPresenter<ProblemaPresenter> result)
+        private async Task<PagedResultPresenter<ProblemaPresenter>> GetPresenterDetailInitial(PagedResultPresenter<ProblemaPresenter> result, Guid? userId)
         {
             if (result != null && result.Results != null)
             {
@@ -233,10 +262,21 @@ namespace Api.Service.Services
                     }
                     item.Anexos = listAttachments;
 
+                    item.NumLikes = 0;
                     var likeQuery = await _repositoryLike.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id).ToListAsync();
                     if (likeQuery != null && likeQuery.Count > 0)
                     {
                         item.NumLikes = likeQuery.Count;
+                    }
+
+                    item.VoluntarioId = null;
+                    if (userId.HasValue)
+                    {
+                        var voluntaryQuery = await _repositoryVoluntary.GetQuery().Where(x => x.ProblemaId.ToString() == item.Id && x.UsuarioId == userId.Value).FirstOrDefaultAsync();
+                        if (voluntaryQuery != null)
+                        {
+                            item.VoluntarioId = voluntaryQuery.Id.ToString();
+                        }
                     }
                 }
             }

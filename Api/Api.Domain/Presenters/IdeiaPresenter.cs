@@ -26,5 +26,6 @@ namespace Api.Domain.Presenters
         public Guid UsuarioId { get; set; }
         public IEnumerable<IdeiaAnexoPresenter> Anexos { get; set; }
         public long NumLikes { get; set; }
+        public string VoluntarioId { get; set; }
     }
 }

@@ -118,7 +118,7 @@ namespace Api.Aplication.Controllers
         }
 
         [HttpGet("getallpagedinitialscreen")]
-        public async Task<ActionResult> GetPagedInitialScreen(int page, int pageSize)
+        public async Task<ActionResult> GetPagedInitialScreen(int page, int pageSize, Guid? userId, string ideaSearch, string reasonSearch, string shareSearch, string developmentSearch, string registrationDateIniSearch, string registrationDateEndSearch)
         {
             if (!ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace Api.Aplication.Controllers
 
             try
             {
-                return Ok(await _service.GetPagedInitialScreen(page, pageSize));
+                return Ok(await _service.GetPagedInitialScreen(page, pageSize, userId, ideaSearch, reasonSearch, shareSearch, developmentSearch, registrationDateIniSearch, registrationDateEndSearch));
             }
             catch (ArgumentException ex)
             {
