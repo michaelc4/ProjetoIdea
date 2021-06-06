@@ -8,7 +8,59 @@
   <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
     <div class="card" style="width: 100%;">
       <div class="card-body">
-        gdfgfdgfdgfdgfggdfgfdf
+        <ngx-datatable #myTable class="bootstrap" [rows]="voluntarios" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.flex" [limit]="page.size" (page)="setPage($event)">
+          <!-- Row Detail Template -->
+          <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow (toggle)="onDetailToggle($event)">
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+              <div style="padding-left:35px; padding-right: 35px; padding-top: 10px;">
+                <div><strong>Expecialidade</strong></div>
+                <div>{{ row.desEspecialidade }}</div>
+              </div>
+              <div style="padding-left:35px; padding-right: 35px; padding-top: 10px; padding-bottom: 10px;">
+                <div><strong>Experiência</strong></div>
+                <div>{{ row.desExperiencia }}</div>
+              </div>
+            </ng-template>
+          </ngx-datatable-row-detail>
+
+          <!-- Column Templates -->
+          <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+              <a href="javascript:void(0)" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded" title="Expandir/Retrair" (click)="toggleExpandRow(row)">
+              </a>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="desNome" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="3">
+            <ng-template let-column="column" ngx-datatable-header-template> Nome </ng-template>
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="desEmail" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.5">
+            <ng-template let-column="column" ngx-datatable-header-template> Email </ng-template>
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="desTelefone" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.5">
+            <ng-template let-column="column" ngx-datatable-header-template> Telefone </ng-template>
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="admin" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1.5">
+            <ng-template let-column="column" ngx-datatable-header-template> Administrador </ng-template>
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value == '1' ? 'Sim' : 'Não' }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="local" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1.5">
+            <ng-template let-column="column" ngx-datatable-header-template> Local </ng-template>
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value == '1' ? 'Sim' : 'Não' }}
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
       </div>
     </div>
   </perfect-scrollbar>
