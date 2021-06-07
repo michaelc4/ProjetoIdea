@@ -172,27 +172,33 @@ namespace Api.Service.Services
 
         public override async Task<ProblemaPresenter> Put(ProblemaPutDto dto)
         {
-            ProblemaEntity dtoResult = await _repository.UpdateAsync(_mapper.Map<ProblemaEntity>(dto));
-
-            var attachments = await _repositoryAttachment.GetByProjectAsync(dtoResult.Id.ToString());
-            if (attachments != null && attachments.Count() > 0)
+            var item = await _repository.SelectAsync(Guid.Parse(dto.Id));
+            if (item.UsuarioId == dto.UsuarioId)
             {
-                foreach (var attach in attachments)
+                ProblemaEntity dtoResult = await _repository.UpdateAsync(_mapper.Map<ProblemaEntity>(dto));
+
+                var attachments = await _repositoryAttachment.GetByProjectAsync(dtoResult.Id.ToString());
+                if (attachments != null && attachments.Count() > 0)
                 {
-                    await _repositoryAttachment.DeleteAsync(attach.Id);
+                    foreach (var attach in attachments)
+                    {
+                        await _repositoryAttachment.DeleteAsync(attach.Id);
+                    }
                 }
+
+                if (dto.Anexos != null && dto.Anexos.Count > 0)
+                {
+                    foreach (var attach in dto.Anexos)
+                    {
+                        attach.ProblemaId = dtoResult.Id;
+                        await _repositoryAttachment.InsertAsync(_mapper.Map<ProblemaAnexoEntity>(attach));
+                    }
+                }
+
+                return _mapper.Map<ProblemaPresenter>(dtoResult);
             }
 
-            if (dto.Anexos != null && dto.Anexos.Count > 0)
-            {
-                foreach (var attach in dto.Anexos)
-                {
-                    attach.ProblemaId = dtoResult.Id;
-                    await _repositoryAttachment.InsertAsync(_mapper.Map<ProblemaAnexoEntity>(attach));
-                }
-            }
-
-            return _mapper.Map<ProblemaPresenter>(dtoResult);
+            return null;
         }
 
         public async Task<ProblemaPresenter> PutAvaliacao(ProblemaAvaliacaoPutDto dto)
@@ -253,6 +259,7 @@ namespace Api.Service.Services
                 foreach (var item in result.Results)
                 {
                     item.Usuario = null;
+                    item.UsuarioId = Guid.NewGuid();
 
                     var listAttachments = new List<ProblemaAnexoPresenter>();
                     var attachments = await _repositoryAttachment.GetByProjectAsync(item.Id);

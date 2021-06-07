@@ -21,6 +21,7 @@ export class IdeiaModel extends Serializable {
     public dataCriacao: string = '';
     public usuarioId: string = '';
     public numLikes: number = 0;
+    public voluntarioId: string = '';
     public usuario: UsuarioModel = new UsuarioModel();
     public anexos: Array<IdeiaAnexoModel> = new Array<IdeiaAnexoModel>();
 }

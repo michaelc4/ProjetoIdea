@@ -108,8 +108,32 @@ export class ProblemaService {
             }));
     }
 
-    getAllPagedInitialScreen(page: number, pageSize: number): Observable<ProblemasPagedResult | any> {
+    getAllPagedInitialScreen(page: number, pageSize: number, userId?: string, problemSearch?: string, benefitTypeSearch?: string, solutionTypeSearch?: string, registrationDateIniSearch?: string, registrationDateEndSearch?: string): Observable<ProblemasPagedResult | any> {
         let url = this.global.getUrlApi() + "/api/problema/getallpagedinitialscreen?page=" + page + "&pageSize=" + pageSize;
+
+        if (userId && userId.trim() != '') {
+            url += "&userId=" + userId;
+        }
+
+        if (problemSearch && problemSearch.trim() != '') {
+            url += "&problemSearch=" + problemSearch;
+        }
+
+        if (benefitTypeSearch && benefitTypeSearch.trim() != '') {
+            url += "&benefitTypeSearch=" + benefitTypeSearch;
+        }
+
+        if (solutionTypeSearch && solutionTypeSearch.trim() != '') {
+            url += "&solutionTypeSearch=" + solutionTypeSearch;
+        }
+
+        if (registrationDateIniSearch && registrationDateIniSearch.trim() != '') {
+            url += "&registrationDateIniSearch=" + registrationDateIniSearch;
+        }
+
+        if (registrationDateEndSearch && registrationDateEndSearch.trim() != '') {
+            url += "&registrationDateEndSearch=" + registrationDateEndSearch;
+        }
 
         return this.http
             .get(url, this.global.getAutheticatedOptions())

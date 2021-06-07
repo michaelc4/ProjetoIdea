@@ -14,6 +14,7 @@ export class ProblemaModel extends Serializable {
     public dataCriacao: string = '';
     public usuarioId: string = '';
     public numLikes: number = 0;
+    public voluntarioId: string = '';
     public usuario: UsuarioModel = new UsuarioModel();
     public anexos: Array<ProblemaAnexoModel> = new Array<ProblemaAnexoModel>();
 }

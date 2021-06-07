@@ -1,0 +1,289 @@
+<div [ngStyle]="{'width': !changeText ? '60px' : '460px'}" style="float: left;">
+  <ul class="accordion">
+    <li class="tabs" (mouseover)="changeText=true" (mouseout)="changeText=false">
+      <div class="social-links twitter-icon">
+        <i class="fa fa-filter"></i>
+      </div>
+      <div class="paragraph" style="padding: 10px;">
+        <div class="card" style="width: 100%;">
+          <div class="card-body">
+            <h5 class="card-title">Filtros</h5>
+            <div class="container filter-class">
+              <div class="row">
+                <div class="col-6" style="padding-left: 0px; padding-right: 2px;">
+                  <label for="datainicial" class="form-label">Data inicial</label>
+                  <div class="input-group form-group">
+                    <input id="datainicial" type="date" class="form-control" [(ngModel)]="filtros.registrationDateIniSearch" placeholder="Data inicial" maxlength="10">
+                  </div>
+                </div>
+                <div class="col-6" style="padding-left: 2px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Data inicial</label>
+                  <div class="input-group form-group">
+                    <input id="datafinal" type="date" class="form-control" [(ngModel)]="filtros.registrationDateEndSearch" placeholder="Data final" maxlength="10">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <label for="datafinal" class="form-label">Descrição</label>
+                  <div class="input-group form-group">
+                    <input type="text" class="form-control" placeholder="..." maxlength="1000" [(ngModel)]="filtros.problemSearch">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+                  <div class="form-group">
+                    <button class="btn btn-secondary" (click)="search()">Pesquisar</button>
+                    &nbsp;
+                    <button class="btn btn-secondary" (click)="cleanFilters()">Limpar Filtros</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<div [ngStyle]="{'width': !changeText ? 'calc(100% - 60px)' : 'calc(100% - 460px)'}" style="float: left; padding-left: 10px;">
+  <div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">Atenção!</h4>
+    <p>Para você ser melhor avaliado, informe sua especilidade e sua experiência clicando na sua imagem.</p>
+  </div>
+  <div class="card" style="width: 100%;">
+    <div class="card-body">
+      <h5 class="card-title">Idéias</h5>
+      <ngx-datatable class="bootstrap" [rows]="ideias" [columns]="colunasI" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="pageI.totalElements" [offset]="pageI.pageNumber" [columnMode]="ColumnMode.flex" [limit]="pageI.size" (page)="setPageI($event)">
+        <ngx-datatable-column name="desIdeia" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.8">
+          <ng-template let-column="column" ngx-datatable-header-template> Descrição da idéia </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ getStringRezise(value) }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="desMotivoInvestir" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.8">
+          <ng-template let-column="column" ngx-datatable-header-template> Motivo para investir </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ getStringRezise(value) }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="indInteresseCompartilhar" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.2">
+          <ng-template let-column="column" ngx-datatable-header-template> Interesse em compartilhar? </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ getInteresseCompartilhar(value) }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="indNivelDesenvolvimento" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.2">
+          <ng-template let-column="column" ngx-datatable-header-template> Nível de desenvolvimento? </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ getNivelDesenvolvimento(value) }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="id" [sortable]="false" [flexGrow]="1.5">
+          <ng-template let-column="column" ngx-datatable-header-template> Ações </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <button *ngIf="!row.voluntarioId" class="btn btn-success" (click)="apoiarIdeia(row)" data-toggle="tooltip" data-placement="top" title="Apoiar"><i class="fa fa-check"></i></button>
+            <button *ngIf="row.voluntarioId" class="btn btn-danger" (click)="apoiarIdeia(row)" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fa fa-times"></i></button>
+            &nbsp;
+            <button class="btn btn-primary" (click)="openModalViewIdeia(row, templateI)" data-toggle="tooltip" data-placement="top" title="Visualizar"><i class="fa fa-eye"></i></button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+  <br>
+  <div class="card" style="width: 100%;">
+    <div class="card-body">
+      <h5 class="card-title">Problemas</h5>
+      <ngx-datatable class="bootstrap" [rows]="problemas" [columns]="colunasP" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="pageP.totalElements" [offset]="pageP.pageNumber" [columnMode]="ColumnMode.flex" [limit]="pageP.size" (page)="setPageP($event)">
+        <ngx-datatable-column name="desProblema" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.8">
+          <ng-template let-column="column" ngx-datatable-header-template> Descrição do Problema </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ getStringRezise(value) }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="desSolucao" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.8">
+          <ng-template let-column="column" ngx-datatable-header-template> Possível solução </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ getStringRezise(value) }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="indTipoBeneficio" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="1.8">
+          <ng-template let-column="column" ngx-datatable-header-template> Público que beneficia? </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ getTipoBeneficio(value) }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="indTipoSolucao" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.2">
+          <ng-template let-column="column" ngx-datatable-header-template> Qual o interesse na resolução? </ng-template>
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ getTipoSolucao(value) }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="id" [sortable]="false" [flexGrow]="1.5">
+          <ng-template let-column="column" ngx-datatable-header-template> Ações </ng-template>
+          <ng-template let-value="value" let-row="row" ngx-datatable-cell-template>
+            <button *ngIf="!row.voluntarioId" class="btn btn-success" (click)="apoiarProblema(row)" data-toggle="tooltip" data-placement="top" title="Apoiar"><i class="fa fa-check"></i></button>
+            <button *ngIf="row.voluntarioId" class="btn btn-danger" (click)="apoiarProblema(row)" data-toggle="tooltip" data-placement="top" title="Remover"><i class="fa fa-times"></i></button>
+            &nbsp;
+            <button class="btn btn-primary" (click)="openModalViewProblema(row, templateP)" data-toggle="tooltip" data-placement="top" title="Visualizar"><i class="fa fa-eye"></i></button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>
+
+<ng-template #templateI>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Idéia</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefI.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Dados</h5>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Descrição da idéia</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="ideia.desIdeia"></textarea>
+          </div>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Por que vale apena investir nesta idéia?</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="ideia.desMotivoInvestir"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Qual o seu interesse em compartilhar esta ideia?</label><br>
+            <input type="radio" [(ngModel)]="ideia.indInteresseCompartilhar" value="1" name="indInteresseCompartilhar"> Quero encontrar alguém que me ajude a colocá-la em prática<br>
+            <input type="radio" [(ngModel)]="ideia.indInteresseCompartilhar" value="2" name="indInteresseCompartilhar"> Quero divulgar uma solução para alguém que esteja disposto a trabalhar nela<br>
+            <input type="radio" [(ngModel)]="ideia.indInteresseCompartilhar" value="3" name="indInteresseCompartilhar"> Foi apenas algo que pensei<br>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Qual o nível atual de desenvolvimento desta ideia?</label><br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="1" name="indNivelDesenvolvimento"> É apenas uma ideia<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="2" name="indNivelDesenvolvimento"> Tenho um projeto para executar esta ideia<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="3" name="indNivelDesenvolvimento"> Já tenho um produto desenvolvido<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelDesenvolvimento" value="4" name="indNivelDesenvolvimento"> Já tenho um pedido de patente<br>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Nível de sigilo?</label><br>
+            <input type="radio" [(ngModel)]="ideia.indNivelSigilo" value="0" name="indNivelSigilo"> Privado<br>
+            <input type="radio" [(ngModel)]="ideia.indNivelSigilo" value="1" name="indNivelSigilo"> Público<br>
+          </div>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Comentários</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="ideia.desComentario"></textarea>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Anexos
+            <div class="card-files-text">(Máx. 5 anexos)</div>
+          </h5>
+          <div class="form-group" style="width: 100%; margin-top: 10px;">
+            <table class="table table-striped" *ngIf="filesI.length != 0">
+              <thead>
+                <th>Nome Arquivo</th>
+                <th style="width: 150px;">Ações</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let arquivo of filesI">
+                  <td>{{arquivo.desNomeOriginal}}</td>
+                  <td>
+                    <button class="btn btn-primary" (click)="downloadFile(arquivo.desAnexo, arquivo.desNomeOriginal)"><i class="fa fa-download"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <label class="control-label col-md-12 no-files" style="padding-left: 0px;" *ngIf="filesI.length == 0">Nenhum arquivo importado</label>
+          </div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="modalRefI.hide()">Cancelar</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #templateP>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Problema</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefP.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <perfect-scrollbar style="max-height: 550px;" fxFlex="auto" [config]="config" [scrollIndicators]="true">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Dados</h5>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Descrição do problema</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="problema.desProblema"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">A resolução deste problema beneficia a que público?</label><br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="1" name="indTipoBeneficioNew" id="indTipoBeneficio1"> Empresa<br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="2" name="indTipoBeneficioNew" id="indTipoBeneficio2"> Consumidor<br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="3" name="indTipoBeneficioNew" id="indTipoBeneficio3"> Sociedade<br>
+            <input type="radio" [(ngModel)]="problema.indTipoBeneficio" value="4" name="indTipoBeneficioNew" id="indTipoBeneficio4"> Governo<br>
+          </div>
+          <div class="input-group mb-3">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Como você acha que esse problema seria resolvido?</label><br>
+            <textarea class="form-control" placeholder="..." [(ngModel)]="problema.desSolucao"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Qual é o seu interesse na resolução deste problema?</label><br>
+            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="1" name="indTipoSolucao" id="indTipoSolucao1"> Sou empresário e este é um problema que encontro na minha empresa<br>
+            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="2" name="indTipoSolucao" id="indTipoSolucao2"> Sou um consumidor e é um problema que gostaria de ver resolvido<br>
+            <input type="radio" [(ngModel)]="problema.indTipoSolucao" value="3" name="indTipoSolucao" id="indTipoSolucao3"> É apenas algo que eu imaginei<br>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-12" style="padding-left: 0px;">Qual a probabilidade de você investir em uma ideia de negócio que solucionasse este problema?</label><br>
+            <rating [max]="5" style="font-size: 30px;" [(ngModel)]="problema.numProbabilidadeInvestir"></rating>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h5 class="card-title">Anexos
+            <div class="card-files-text">(Máx. 5 anexos)</div>
+          </h5>
+          <div class="form-group" style="width: 100%; margin-top: 10px;">
+            <table class="table table-striped" *ngIf="filesP.length != 0">
+              <thead>
+                <th>Nome Arquivo</th>
+                <th style="width: 150px;">Ações</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let arquivo of filesP">
+                  <td>{{arquivo.desNomeOriginal}}</td>
+                  <td>
+                    <button class="btn btn-primary" (click)="downloadFile(arquivo.desAnexo, arquivo.desNomeOriginal)"><i class="fa fa-download"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <label class="control-label col-md-12 no-files" style="padding-left: 0px;" *ngIf="filesP.length == 0">Nenhum arquivo importado</label>
+          </div>
+        </div>
+      </div>
+    </perfect-scrollbar>
+    <div class="form-group" style="width: 100%; margin-top: 10px; text-align: right;">
+      <button class="btn btn-secondary" (click)="modalRefP.hide()">Fechar</button>
+    </div>
+  </div>
+</ng-template>

@@ -124,8 +124,36 @@ export class IdeiaService {
             }));
     }
 
-    getAllPagedInitialScreen(page: number, pageSize: number): Observable<IdeiasPagedResult | any> {
+    getAllPagedInitialScreen(page: number, pageSize: number, userId?: string, ideaSearch?: string, reasonSearch?: string, shareSearch?: string, developmentSearch?: string, registrationDateIniSearch?: string, registrationDateEndSearch?: string): Observable<IdeiasPagedResult | any> {
         let url = this.global.getUrlApi() + "/api/ideia/getallpagedinitialscreen?page=" + page + "&pageSize=" + pageSize;
+
+        if (userId && userId.trim() != '') {
+            url += "&userId=" + userId;
+        }
+
+        if (ideaSearch && ideaSearch.trim() != '') {
+            url += "&ideaSearch=" + ideaSearch;
+        }
+
+        if (reasonSearch && reasonSearch.trim() != '') {
+            url += "&reasonSearch=" + reasonSearch;
+        }
+
+        if (shareSearch && shareSearch.trim() != '') {
+            url += "&shareSearch=" + shareSearch;
+        }
+
+        if (developmentSearch && developmentSearch.trim() != '') {
+            url += "&developmentSearch=" + developmentSearch;
+        }
+
+        if (registrationDateIniSearch && registrationDateIniSearch.trim() != '') {
+            url += "&registrationDateIniSearch=" + registrationDateIniSearch;
+        }
+
+        if (registrationDateEndSearch && registrationDateEndSearch.trim() != '') {
+            url += "&registrationDateEndSearch=" + registrationDateEndSearch;
+        }
 
         return this.http
             .get(url, this.global.getAutheticatedOptions())
