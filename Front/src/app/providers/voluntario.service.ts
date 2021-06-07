@@ -84,8 +84,8 @@ export class VoluntarioService {
     post(param: VoluntarioPostParamModel): Observable<any> {
         let body = {
             usuarioId: param.usuarioId,
-            ideiaId: param.ideiaId,
-            problemaId: param.problemaId
+            ideiaId: param.ideiaId && param.ideiaId != '' ? param.ideiaId : null,
+            problemaId: param.problemaId && param.problemaId != '' ? param.problemaId : null
         };
 
         let url = this.global.getUrlApi() + "/api/voluntario/post";

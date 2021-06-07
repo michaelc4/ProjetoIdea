@@ -201,7 +201,7 @@ export class MenuUsuarioProjetosComponent {
       this.voluntarioService.delete(row.voluntarioId)
         .subscribe((data: any) => {
           this.spinner.hide();
-          this.getAllPagedI();
+          this.getAllPagedP();
         });
     } else {
       this.spinner.show();
@@ -211,7 +211,7 @@ export class MenuUsuarioProjetosComponent {
       this.voluntarioService.post(post)
         .subscribe((data: any) => {
           this.spinner.hide();
-          this.getAllPagedI();
+          this.getAllPagedP();
         });
     }
   }
