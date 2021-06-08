@@ -49,6 +49,7 @@ export class LoginComponent implements OnDestroy {
         this.loginService.login(param)
           .pipe(takeWhile(() => this.alive))
           .subscribe((data: any) => {
+            this.socialservice.signOut();
             this.spinner.hide();
             this.notifierService.notify('success', 'Login com sucesso');
             this.global.setLoggedUser(data);
