@@ -38,7 +38,12 @@
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/font-awesome/css/font-awesome.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "file-saver",
+              "svg-gauge"
+            ]
           },
           "configurations": {
             "production": {
@@ -60,12 +65,12 @@
                   "type": "initial",
                   "maximumWarning": "4mb",
                   "maximumError": "5mb"
-               },
-               {
+                },
+                {
                   "type": "anyComponentStyle",
                   "maximumWarning": "150kb",
                   "maximumError": "150kb"
-               }
+                }
               ]
             }
           }

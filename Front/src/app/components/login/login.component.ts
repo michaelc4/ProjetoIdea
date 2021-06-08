@@ -24,6 +24,7 @@ export class LoginComponent implements OnDestroy {
   confirmPassword: string = '';
   fone: string = '';
   alive: boolean = true;
+  social: boolean = false;
 
   constructor(private socialservice: SocialAuthService,
     private global: Global,
@@ -37,28 +38,33 @@ export class LoginComponent implements OnDestroy {
     this.socialservice.authState
       .pipe(takeWhile(() => this.alive))
       .subscribe((user: any) => {
-        let param = new LoginParamModel();
-        param.email = user.email;
-        param.senha = '';
-        param.authToken = user.authToken;
-        param.idToken = user.idToken;
-        param.name = user.name;
-        param.photoUrl = user.photoUrl;
-        param.provider = user.provider;
-        this.spinner.show();
-        this.loginService.login(param)
-          .pipe(takeWhile(() => this.alive))
-          .subscribe((data: any) => {
-            this.socialservice.signOut();
-            this.spinner.hide();
-            this.notifierService.notify('success', 'Login com sucesso');
-            this.global.setLoggedUser(data);
-            this.router.navigateByUrl('/');
-          });
+        if (user) {
+          this.social = true;
+          let param = new LoginParamModel();
+          param.email = user.email;
+          param.senha = '';
+          param.authToken = user.authToken;
+          param.idToken = user.idToken;
+          param.name = user.name;
+          param.photoUrl = user.photoUrl;
+          param.provider = user.provider;
+          this.spinner.show();
+          this.loginService.login(param)
+            .pipe(takeWhile(() => this.alive))
+            .subscribe((data: any) => {
+              this.spinner.hide();
+              this.notifierService.notify('success', 'Login com sucesso');
+              this.global.setLoggedUser(data);
+              this.router.navigateByUrl('/');
+            });
+        }
       });
   }
 
   ngOnDestroy() {
+    if (this.socialservice && this.social) {
+      this.socialservice.signOut();
+    }
     this.alive = false;
   }
 
@@ -113,6 +119,7 @@ export class LoginComponent implements OnDestroy {
     this.confirmPassword = '';
     this.fone = '';
     this.alive = true;
+    this.social = false;
   }
 
   createUser() {
