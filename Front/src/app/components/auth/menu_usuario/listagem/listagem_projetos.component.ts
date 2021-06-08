@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { IdeiasPagedResult, IdeiaModel, IdeiaAnexoModel } from '../../../../models/ideia.model';
 import { ProblemasPagedResult, ProblemaModel, FiltroProblemaModel, ProblemaAnexoModel } from '../../../../models/problema.model';
 import { VoluntarioPostParamModel } from '../../../../models/voluntario.model';
@@ -22,6 +22,9 @@ import { base64ToBlob } from '../../../../functions/string.functions';
   providers: [IdeiaService, ProblemaService, VoluntarioService]
 })
 export class MenuUsuarioProjetosComponent {
+  @ViewChild('myTable1') table1: any;
+  @ViewChild('myTable2') table2: any;
+
   modalRefI: BsModalRef = new BsModalRef();
   modalRefP: BsModalRef = new BsModalRef();
   config: PerfectScrollbarConfigInterface = {};
@@ -57,6 +60,15 @@ export class MenuUsuarioProjetosComponent {
     this.setPageP({ offset: 0 });
     this.getAllPagedI();
     this.getAllPagedP();
+  }
+
+  recalculate() {
+    if (this.table1) {
+      this.table1.recalculate();
+    }
+    if (this.table2) {
+      this.table2.recalculate();
+    }
   }
 
   // List

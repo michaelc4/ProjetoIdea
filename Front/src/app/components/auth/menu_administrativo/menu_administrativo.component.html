@@ -7,14 +7,14 @@
       </ol>
     </nav>
     <tabset>
-      <tab heading="Gerenciamento Problemas" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
-        <app-auth-menu-admin-listagem-problemas></app-auth-menu-admin-listagem-problemas>
+      <tab heading="Gerenciamento Problemas" (selectTab)="selectedTab(1)" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
+        <app-auth-menu-admin-listagem-problemas #problemsList></app-auth-menu-admin-listagem-problemas>
       </tab>
-      <tab heading="Gerenciamento Idéias" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
-        <app-auth-menu-admin-listagem-ideias></app-auth-menu-admin-listagem-ideias>
+      <tab heading="Gerenciamento Idéias" (selectTab)="selectedTab(2)" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
+        <app-auth-menu-admin-listagem-ideias #ideaList></app-auth-menu-admin-listagem-ideias>
       </tab>
-      <tab heading="Gerenciamento Usuários" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
-        <app-auth-menu-admin-listagem-usuarios></app-auth-menu-admin-listagem-usuarios>
+      <tab heading="Gerenciamento Usuários" (selectTab)="selectedTab(3)" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
+        <app-auth-menu-admin-listagem-usuarios #userList></app-auth-menu-admin-listagem-usuarios>
       </tab>
     </tabset>
   </div>

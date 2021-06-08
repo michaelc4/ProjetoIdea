@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { IdeiasPagedResult, IdeiaModel, IdeiaPutParamModel, FiltroIdeiaModel, IdeiaAnexoModel, IdeiaAnexoAddModel } from '../../../../models/ideia.model';
 import { PageModel } from '../../../../models/page.model';
 import { IdeiaService } from '../../../../providers/ideia.service';
@@ -18,6 +18,8 @@ import { ModalVoluntariosComponent } from '../modal/modal_voluntarios.component'
   providers: [IdeiaService]
 })
 export class MenuAdminIdeiasComponent {
+  @ViewChild('myTable') table: any;
+
   modalRef: BsModalRef = new BsModalRef();
   modalRefExclusao: BsModalRef = new BsModalRef();
   config: PerfectScrollbarConfigInterface = {};
@@ -37,14 +39,19 @@ export class MenuAdminIdeiasComponent {
     private notifierService: NotifierService,
     private spinner: NgxSpinnerService) {
     this.page.pageNumber = 0;
-    this.page.size = 10;
+    this.page.size = 7;
     this.uploadedFiles = [];
   }
 
   ngOnInit() {
     this.setPage({ offset: 0 });
     this.getAllPaged();
-    this.pontuacao();
+  }
+
+  recalculate() {
+    if (this.table) {
+      this.table.recalculate();
+    }
   }
 
   // List
@@ -87,8 +94,8 @@ export class MenuAdminIdeiasComponent {
   }
 
   getStringRezise(str: string) {
-    if (str && str.length >= 100) {
-      return str.substring(0, 100) + "...";
+    if (str && str.length >= 60) {
+      return str.substring(0, 60) + "...";
     }
 
     return str;

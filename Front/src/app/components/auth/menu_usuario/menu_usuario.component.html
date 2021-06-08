@@ -7,14 +7,14 @@
       </ol>
     </nav>
     <tabset>
-      <tab heading="Meus Problemas" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
-        <app-auth-menu-usuarios-listagem-problemas></app-auth-menu-usuarios-listagem-problemas>
+      <tab heading="Meus Problemas" (selectTab)="selectedTab(1)" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
+        <app-auth-menu-usuarios-listagem-problemas #problemsList></app-auth-menu-usuarios-listagem-problemas>
       </tab>
-      <tab heading="Minhas Idéias" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
-        <app-auth-menu-usuarios-listagem-ideias></app-auth-menu-usuarios-listagem-ideias>
+      <tab heading="Minhas Idéias" (selectTab)="selectedTab(2)" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
+        <app-auth-menu-usuarios-listagem-ideias #ideaList></app-auth-menu-usuarios-listagem-ideias>
       </tab>
-      <tab heading="Meus Projetos" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
-        <app-auth-menu-usuarios-listagem-projetos></app-auth-menu-usuarios-listagem-projetos>
+      <tab heading="Meus Projetos" (selectTab)="selectedTab(3)" style="background-color: #fcfcfc; padding: 15px; overflow-y: auto; margin-bottom: 50px;">
+        <app-auth-menu-usuarios-listagem-projetos #projectList></app-auth-menu-usuarios-listagem-projetos>
       </tab>
     </tabset>
   </div>

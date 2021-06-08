@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { ProblemasPagedResult, ProblemaModel, ProblemaPostParamModel, ProblemaPutParamModel, FiltroProblemaModel, ProblemaAnexoModel, ProblemaAnexoAddModel } from '../../../../models/problema.model';
 import { PageModel } from '../../../../models/page.model';
 import { ProblemaService } from '../../../../providers/problema.service';
@@ -18,6 +18,8 @@ import { base64ToBlob, getBase64 } from '../../../../functions/string.functions'
   providers: [ProblemaService]
 })
 export class MenuUsuarioProblemasComponent {
+  @ViewChild('myTable') table: any;
+
   modalRef: BsModalRef = new BsModalRef();
   modalRefExclusao: BsModalRef = new BsModalRef();
   config: PerfectScrollbarConfigInterface = {};
@@ -38,13 +40,19 @@ export class MenuUsuarioProblemasComponent {
     private notifierService: NotifierService,
     private spinner: NgxSpinnerService) {
     this.page.pageNumber = 0;
-    this.page.size = 10;
+    this.page.size = 7;
     this.uploadedFiles = [];
   }
 
   ngOnInit() {
     this.setPage({ offset: 0 });
     this.getAllPaged();
+  }
+
+  recalculate() {
+    if (this.table) {
+      this.table.recalculate();
+    }
   }
 
   // List

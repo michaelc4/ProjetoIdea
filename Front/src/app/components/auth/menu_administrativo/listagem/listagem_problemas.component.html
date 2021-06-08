@@ -78,7 +78,7 @@
 </div>
 
 <div [ngStyle]="{'width': !changeText ? 'calc(100% - 60px)' : 'calc(100% - 460px)'}" style="float: left; padding-left: 10px;">
-  <ngx-datatable class="bootstrap" [rows]="problemas" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.flex" [limit]="page.size" (page)="setPage($event)">
+  <ngx-datatable #myTable class="bootstrap expandable" [rows]="problemas" [columns]="colunas" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [columnMode]="ColumnMode.flex" [limit]="page.size" (page)="setPage($event)">
     <ngx-datatable-column name="desProblema" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.5">
       <ng-template let-column="column" ngx-datatable-header-template> Descrição do Problema </ng-template>
       <ng-template let-value="value" ngx-datatable-cell-template>

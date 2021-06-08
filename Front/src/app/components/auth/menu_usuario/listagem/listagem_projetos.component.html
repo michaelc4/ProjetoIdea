@@ -61,7 +61,7 @@
   <div class="card" style="width: 100%;">
     <div class="card-body">
       <h5 class="card-title">Idéias</h5>
-      <ngx-datatable class="bootstrap" [rows]="ideias" [columns]="colunasI" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="pageI.totalElements" [offset]="pageI.pageNumber" [columnMode]="ColumnMode.flex" [limit]="pageI.size" (page)="setPageI($event)">
+      <ngx-datatable #myTable1 class="bootstrap" [rows]="ideias" [columns]="colunasI" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="pageI.totalElements" [offset]="pageI.pageNumber" [columnMode]="ColumnMode.flex" [limit]="pageI.size" (page)="setPageI($event)">
         <ngx-datatable-column name="desIdeia" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.8">
           <ng-template let-column="column" ngx-datatable-header-template> Descrição da idéia </ng-template>
           <ng-template let-value="value" ngx-datatable-cell-template>
@@ -102,7 +102,7 @@
   <div class="card" style="width: 100%;">
     <div class="card-body">
       <h5 class="card-title">Problemas</h5>
-      <ngx-datatable class="bootstrap" [rows]="problemas" [columns]="colunasP" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="pageP.totalElements" [offset]="pageP.pageNumber" [columnMode]="ColumnMode.flex" [limit]="pageP.size" (page)="setPageP($event)">
+      <ngx-datatable #myTable2 class="bootstrap" [rows]="problemas" [columns]="colunasP" [headerHeight]="50" [footerHeight]="50" rowHeight="auto" [externalPaging]="true" [count]="pageP.totalElements" [offset]="pageP.pageNumber" [columnMode]="ColumnMode.flex" [limit]="pageP.size" (page)="setPageP($event)">
         <ngx-datatable-column name="desProblema" [sortable]="false" [cellClass]="'my-custom-cell-global'" [flexGrow]="2.8">
           <ng-template let-column="column" ngx-datatable-header-template> Descrição do Problema </ng-template>
           <ng-template let-value="value" ngx-datatable-cell-template>

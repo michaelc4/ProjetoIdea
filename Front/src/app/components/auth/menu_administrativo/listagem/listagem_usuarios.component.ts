@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { UsuariosPagedResult, UsuarioModel, FiltroUsuarioModel } from '../../../../models/usuario.model';
 import { PageModel } from '../../../../models/page.model';
 import { UsuarioService } from '../../../../providers/usuario.service';
@@ -15,6 +15,8 @@ import { NotifierService } from 'angular-notifier';
   providers: [UsuarioService]
 })
 export class MenuAdminUsuariosComponent {
+  @ViewChild('myTable') table: any;
+
   modalRef: BsModalRef = new BsModalRef();
   modalRefExclusao: BsModalRef = new BsModalRef();
   config: PerfectScrollbarConfigInterface = {};
@@ -32,12 +34,18 @@ export class MenuAdminUsuariosComponent {
     private notifierService: NotifierService,
     private spinner: NgxSpinnerService) {
     this.page.pageNumber = 0;
-    this.page.size = 10;
+    this.page.size = 7;
   }
 
   ngOnInit() {
     this.setPage({ offset: 0 });
     this.getAllPaged();
+  }
+
+  recalculate() {
+    if (this.table) {
+      this.table.recalculate();
+    }
   }
 
   // List
