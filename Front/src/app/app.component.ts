@@ -67,7 +67,7 @@ export class AppComponent {
           if (!this.usuario.desImagem || this.usuario.desImagem.trim() == '') {
             this.usuario.desImagem = this.global.getDefaultUserImg();
           }
-          this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-md' }));
+          this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg' }));
         });
     }
   }

@@ -19,6 +19,7 @@ import { base64ToBlob, getBase64 } from '../../../../functions/string.functions'
 })
 export class MenuUsuarioIdeiasComponent {
   @ViewChild('myTable') table: any;
+  @ViewChild('template') templateRef: any;
 
   modalRef: BsModalRef = new BsModalRef();
   modalRefExclusao: BsModalRef = new BsModalRef();
@@ -112,11 +113,11 @@ export class MenuUsuarioIdeiasComponent {
   }
 
   // Add or Change
-  openModalNew(template: TemplateRef<any>) {
+  openModalNew() {
     this.ideia = new IdeiaModel();
     this.uploadedFiles = [];
     this.files = new Array<IdeiaAnexoModel>();
-    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-xl' }));
+    this.modalRef = this.modalService.show(this.templateRef, Object.assign({}, { class: 'modal-xl' }));
   }
 
   openModalChange(row: IdeiaModel, template: TemplateRef<any>) {

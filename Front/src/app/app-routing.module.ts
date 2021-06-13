@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: '', component: InicialComponent },
   { path: 'login', component: LoginComponent },
   { path: 'menu-usuario', component: MenuUsuarioComponent, canActivate: [AuthGuard] },
+  { path: 'menu-usuario/:id', component: MenuUsuarioComponent, canActivate: [AuthGuard] },
   { path: 'menu-administrativo', component: MenuAdministrativoComponent, canActivate: [AuthGuardAdmin] }
 ];
 

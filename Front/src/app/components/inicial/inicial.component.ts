@@ -11,8 +11,8 @@ export class InicialComponent {
 
   constructor(private router: Router) { }
 
-  menuUsuario() {
-    this.router.navigateByUrl('/menu-usuario');
+  menuUsuario(param: number) {
+    this.router.navigateByUrl('/menu-usuario/' + param);
   }
 
   menuAdministrativo() {
