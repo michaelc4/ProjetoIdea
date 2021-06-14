@@ -395,55 +395,30 @@
                   </h1>
                 </div>
 
-                <!-- Problemas -->
-                <div id="comp-km2etthz" class="_1Z_nJ" data-testid="richTextElement">
-                  <h1 class="font_0" style="font-size:40px">problemas</h1>
-                </div>
-                <div id="comp-km2f1ql8" class="_1Z_nJ" data-testid="richTextElement">
-                  <h2 class="font_2" style="font-size:30px">
-                    <span style="letter-spacing:0.03em">
-                      <span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">
-                        <span style="font-size:30px">
-                          <span style="color:#292929">Alagamentos no bairro São José</span>
-                        </span>
-                      </span>
-                    </span>
-                  </h2>
-                </div>
-                <div id="comp-km2f33fx" class="_1Z_nJ" data-testid="richTextElement">
-                  <h2 class="font_2" style="font-size:30px">
-                    <span style="letter-spacing:0.03em">
-                      <span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">
-                        <span style="font-size:30px">
-                          <span style="color:#292929">Mau atendimento no comércio em Caxias</span>
-                        </span>
-                      </span>
-                    </span>
-                  </h2>
-                </div>
-                <div id="comp-km2f3tv9" class="_1Z_nJ" data-testid="richTextElement">
-                  <h2 class="font_2" style="font-size:30px">
-                    <span style="letter-spacing:0.03em">
-                      <span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">
-                        <span style="font-size:30px">
-                          <span style="color:#292929">Acessibilidade para cadeirantes</span>
-                        </span>
-                      </span>
-                    </span>
-                  </h2>
-                </div>
-                <div id="comp-km2f5nl7" class="_1Z_nJ" data-testid="richTextElement">
-                  <h2 class="font_2" style="font-size:30px">
-                    <span style="letter-spacing:0.03em">
-                      <span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">
-                        <span style="font-size:30px">
-                          <span style="color:#292929">Educação financeira nas escolas</span>
-                        </span>
-                      </span>
-                    </span>
-                  </h2>
-                </div>
 
+
+
+
+
+                <!-- Problemas -->
+                <div class="problemaTitle _1Z_nJ">
+                  <h1 class="font_0 problemaTitleH1">Problemas</h1>
+                </div>
+                <ng-scrollbar appearance="compact" class="problemaTable" style="max-height: 200px; height: 200px;" [autoHeightDisabled]="true" [autoWidthDisabled]="true" [sensorDisabled]="true">
+                  <div scrollViewport infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onProblemaScroll()">
+                    <table>
+                      <tbody>
+                        <tr *ngFor="let problema of problemas">
+                          <td class="_1Z_nJ">
+                            <h2 class="font_2 problemaTableH2">
+                              <span class="problemaTableSpan">{{getStringRezise(problema.desProblema)}}</span>
+                            </h2>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </ng-scrollbar>
               </div>
             </div>
           </div>
