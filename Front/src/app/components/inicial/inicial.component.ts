@@ -4,13 +4,15 @@ import { IdeiasPagedResult, IdeiaModel } from '../../models/ideia.model';
 import { ProblemasPagedResult, ProblemaModel } from '../../models/problema.model';
 import { IdeiaService } from '../../providers/ideia.service';
 import { ProblemaService } from '../../providers/problema.service';
+import { LikeService } from '../../providers/like.service';
+import { LikePostParamModel } from '../../models/like.model';
 import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-inicial',
   templateUrl: './inicial.component.html',
   styleUrls: ['./inicial.component.scss'],
-  providers: [IdeiaService, ProblemaService]
+  providers: [IdeiaService, ProblemaService, LikeService]
 })
 export class InicialComponent {
   ideias: Array<IdeiaModel> = new Array<IdeiaModel>();
@@ -24,6 +26,7 @@ export class InicialComponent {
   constructor(private router: Router,
     private ideiaService: IdeiaService,
     private problemaService: ProblemaService,
+    private likeService: LikeService,
     private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
@@ -51,9 +54,9 @@ export class InicialComponent {
     return str;
   }
 
-  onProblemaScroll() {
-    if (this.problemaPaging != 1 && this.problemaPaging < this.problemaPagingMax + 1) {
-      this.getAllPagedP(true);
+  onIdeiaScroll() {
+    if (this.ideiaPaging != 1 && this.ideiaPaging < this.ideiaPagingMax + 1) {
+      this.getAllPagedI(true);
     }
   }
 
@@ -73,7 +76,14 @@ export class InicialComponent {
         this.ideiaPagingMax = data.pageCount;
         if (enableSpinner)
           this.spinner.hide();
+        this.ideiaPaging += 1;
       });
+  }
+
+  onProblemaScroll() {
+    if (this.problemaPaging != 1 && this.problemaPaging < this.problemaPagingMax + 1) {
+      this.getAllPagedP(true);
+    }
   }
 
   getAllPagedP(enableSpinner: boolean) {
@@ -93,6 +103,24 @@ export class InicialComponent {
         if (enableSpinner)
           this.spinner.hide();
         this.problemaPaging += 1;
+      });
+  }
+
+  likeClick(ideia: IdeiaModel) {
+    this.likeService.getIPAddress()
+      .subscribe((data: any) => {
+        if (data && data.ip) {
+          let post = new LikePostParamModel();
+          post.ipUsr = data.ip;
+          post.ideiaId = ideia.id;
+          post.problemaId = undefined;
+          this.likeService.post(post)
+            .subscribe((dataP: any) => {
+              this.ideiaPaging = 1;
+              this.ideias = new Array<IdeiaModel>();
+              this.getAllPagedI(true);
+            });
+        }
       });
   }
 }

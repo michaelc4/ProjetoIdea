@@ -2149,3 +2149,12 @@ mwl-gauge.seven>.gauge>.value {
 .ps-container .ps-scrollbar-y-rail {
     display: block !important;
 }
+
+.gaugepontuacaototalInitial {
+    padding: 0;
+    margin: 0;
+}
+
+.gaugepontuacaototalInitial>.gauge {
+    max-height: 120px;
+}

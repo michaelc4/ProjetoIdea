@@ -217,24 +217,62 @@
                   </h2>
                 </div>
 
+
+
+
+
+
+
+
                 <!-- Idéias -->
-                <div id="comp-km2dlom7" class="_1Z_nJ" data-testid="richTextElement">
-                  <h1 class="font_0" style="font-size:40px">Ideias em destaque</h1>
+                <div class="ideiaTitle _1Z_nJ">
+                  <h1 class="font_0 ideiaTitleH1">Ideias em destaque</h1>
                 </div>
-                <div id="comp-km2ej179" class="_1lRal">
+                <ng-scrollbar appearance="compact" class="ideiaTable" style="max-height: 400px; height: 400px;" [autoHeightDisabled]="true" [autoWidthDisabled]="true" [sensorDisabled]="true">
+                  <div scrollViewport infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onIdeiaScroll()">
+                    <table>
+                      <tbody>
+                        <tr *ngFor="let ideia of ideias">
+                          <td class="_1Z_nJ">
+                            <div class="ideiaTableDiv row">
+                              <div class="col-6">
+                                <p class="font_8" style="font-size: 23px; line-height: 1.3em;">
+                                  <span style="font-size:23px;">
+                                    <span style="letter-spacing:0.03em">
+                                      <span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">
+                                        <span style="color:#000000">{{getStringRezise(ideia.desIdeia)}}</span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </p>
+                              </div>
+                              <div class="col-3">
+                                <mwl-gauge class="two gaugepontuacaototalInitial" [max]="500" [dialStartAngle]="-90" [dialEndAngle]="-90.001" [showValue]="true" [value]="ideia.numPontuacaoGeral" [animated]="true" [animationDuration]="1">
+                                </mwl-gauge>
+                              </div>
+                              <div class="col-1">
+                                {{ideia.numLikes}}
+                                <button class="btn btn-secondary" (click)="likeClick(ideia)">Like</button>
+                              </div>
+                              <div class="col-2">
+                                <button class="btn btn-secondary">Apoiar</button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </ng-scrollbar>
+
+
+
+                <!--<div id="comp-km2ej179" class="_1lRal">
                   <div class="_2iB5S"></div>
                   <div data-mesh-id="comp-km2ej179inlineContent" data-testid="inline-content" class="">
                     <div data-mesh-id="comp-km2ej179inlineContent-gridContainer" data-testid="mesh-container-content">
                       <div id="comp-km2dnyz5" class="_1Z_nJ" data-testid="richTextElement">
-                        <p class="font_8" style="font-size: 23px; line-height: 1.3em;">
-                          <span style="font-size:23px;">
-                            <span style="letter-spacing:0.03em">
-                              <span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">
-                                <span style="color:#000000">Plataforma de telemedicina</span>
-                              </span>
-                            </span>
-                          </span>
-                        </p>
+                        
                       </div>
                       <div id="comp-km2e28fs" class="_1mp3l">
                         <div class="_2sExb"></div>
@@ -393,7 +431,7 @@
                   <h1 class="font_0" style="font-size:22px">
                     <span style="font-size:22px">222</span>
                   </h1>
-                </div>
+                </div>-->
 
 
 
@@ -404,7 +442,7 @@
                 <div class="problemaTitle _1Z_nJ">
                   <h1 class="font_0 problemaTitleH1">Problemas</h1>
                 </div>
-                <ng-scrollbar appearance="compact" class="problemaTable" style="max-height: 200px; height: 200px;" [autoHeightDisabled]="true" [autoWidthDisabled]="true" [sensorDisabled]="true">
+                <ng-scrollbar appearance="compact" class="problemaTable" style="max-height: 250px; height: 250px;" [autoHeightDisabled]="true" [autoWidthDisabled]="true" [sensorDisabled]="true">
                   <div scrollViewport infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onProblemaScroll()">
                     <table>
                       <tbody>

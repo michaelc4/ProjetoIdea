@@ -1,3 +1,35 @@
+          .ideiaTitle {
+              width: 1000px;
+              height: 43px;
+              position: relative;
+              margin: 0px 0px 19px calc((100% - 980px) * 0.5);
+              left: 6px;
+              grid-area: 17 / 1 / 18 / 2;
+              justify-self: start;
+              align-self: start;
+          }
+
+          .ideiaTitleH1 {
+              font-size: 40px;
+          }
+
+          .ideiaTable {
+              width: 1000px;
+              position: relative;
+              margin: 0px 0px 11px calc((100% - 980px) * 0.5);
+              left: 6px;
+              grid-area: 18 / 1 / 21 / 2;
+              justify-self: start;
+              align-self: start
+          }
+
+          .ideiaTableDiv {
+              border: 1px solid brown;
+              margin-right: 10px;
+              padding: 15px;
+              margin-bottom: 10px;
+          }
+
           .problemaTitle {
               width: 1000px;
               height: 43px;
@@ -6,7 +38,7 @@
               left: 6px;
               grid-area: 25 / 1 / 26 / 2;
               justify-self: start;
-              align-self: start
+              align-self: start;
           }
 
           .problemaTitleH1 {
@@ -20,7 +52,7 @@
               left: 6px;
               grid-area: 26 / 1 / 27 / 2;
               justify-self: start;
-              align-self: start
+              align-self: start;
           }
 
           .problemaTableH2 {
@@ -35,6 +67,17 @@
               letter-spacing: 0.03em;
           }
 
+          ._2iB5S {
+              border: var(--container-corvid-border-width, var(--brw, 1px)) solid var(--container-corvid-border-color, rgba(var(--brd, var(--color_15)), var(--alpha-brd, 1)));
+              background-color: var(--container-corvid-background-color, rgba(var(--bg, var(--color_11)), var(--alpha-bg, 1)));
+              border-radius: var(--rd, 5px);
+              box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, .6));
+              position: absolute;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              left: 0
+          }
 
 
 
@@ -48,7 +91,8 @@
 
 
 
-          
+
+
 
 
 
@@ -410,38 +454,6 @@
               min-height: 19px
           }
 
-          [data-mesh-id=comp-km2ej179inlineContent] {
-              height: auto;
-              width: 980px
-          }
-
-          [data-mesh-id=comp-km2ej179inlineContent-gridContainer] {
-              position: static;
-              display: grid;
-              height: auto;
-              width: 100%;
-              min-height: auto;
-              grid-template-rows: 1fr;
-              grid-template-columns: 100%
-          }
-
-          [data-mesh-id=comp-km2ej179inlineContent-gridContainer]>[id="comp-km2dnyz5"] {
-              position: relative;
-              margin: 35px 0px 34px 0;
-              left: 293px;
-              grid-area: 1 / 1 / 2 / 2;
-              justify-self: start;
-              align-self: start
-          }
-
-          [data-mesh-id=comp-km2ej179inlineContent-gridContainer]>[id="comp-km2e28fs"] {
-              position: relative;
-              margin: 4px 0px 5px 0;
-              left: 614px;
-              grid-area: 1 / 1 / 2 / 2;
-              justify-self: start;
-              align-self: start
-          }
 
           [data-mesh-id=comp-km2el2skinlineContent] {
               height: auto;
@@ -933,24 +945,6 @@
               align-self: start
           }
 
-          [data-mesh-id=Containeri3ordinlineContent-gridContainer]>[id="comp-km2dlom7"] {
-              position: relative;
-              margin: 0px 0px 19px calc((100% - 980px) * 0.5);
-              left: 4px;
-              grid-area: 17 / 1 / 18 / 2;
-              justify-self: start;
-              align-self: start
-          }
-
-          [data-mesh-id=Containeri3ordinlineContent-gridContainer]>[id="comp-km2ej179"] {
-              position: relative;
-              margin: 0px 0px 11px calc((100% - 980px) * 0.5);
-              left: 0px;
-              grid-area: 18 / 1 / 21 / 2;
-              justify-self: start;
-              align-self: start
-          }
-
           [data-mesh-id=Containeri3ordinlineContent-gridContainer]>[id="comp-km2e68m2"] {
               position: relative;
               margin: 9px 0px 0 calc((100% - 980px) * 0.5);
@@ -1167,14 +1161,7 @@
               height: 129px
           }
 
-          #comp-km2dlom7 {
-              width: 722px;
-              height: 43px
-          }
 
-          #comp-km2ej179 {
-              width: 980px
-          }
 
           #comp-km2e68m2 {
               width: 55px;
@@ -1242,10 +1229,7 @@
               height: 44px
           }
 
-          #comp-km2dnyz5 {
-              width: 321px;
-              height: 29px
-          }
+
 
           #comp-km2e28fs {
               width: 93px
@@ -1543,33 +1527,6 @@
               --fill: #3DD2FF
           }
 
-          #comp-km2dlom7 {
-              --f0: var(--font_0);
-              --f1: var(--font_1);
-              --f10: var(--font_10);
-              --f2: var(--font_2);
-              --f3: var(--font_3);
-              --f4: var(--font_4);
-              --f5: var(--font_5);
-              --f6: var(--font_6);
-              --f7: var(--font_7);
-              --f8: var(--font_8);
-              --f9: var(--font_9);
-              height: auto
-          }
-
-          #comp-km2ej179 {
-              --brw: 1px;
-              --brd: 228, 50, 146;
-              --bg: 50, 50, 50;
-              --rd: 0px;
-              --shd: none;
-              --alpha-bg: 0;
-              --alpha-brd: 1;
-              --boxShadowToggleOn-shd: none;
-              --shc-mutated-brightness: 25, 25, 25
-          }
-
           #comp-km2e68m2 {
               --opacity: 1
           }
@@ -1678,21 +1635,6 @@
               stroke: #000000;
               stroke-opacity: 1;
               fill: #ffffff;
-          }
-
-          #comp-km2dnyz5 {
-              --f0: var(--font_0);
-              --f1: var(--font_1);
-              --f10: var(--font_10);
-              --f2: var(--font_2);
-              --f3: var(--font_3);
-              --f4: var(--font_4);
-              --f5: var(--font_5);
-              --f6: var(--font_6);
-              --f7: var(--font_7);
-              --f8: var(--font_8);
-              --f9: var(--font_9);
-              height: auto
           }
 
           #comp-km2e28fs {
@@ -3932,23 +3874,7 @@
               height: 100%
           }
 
-          ._1lRal {
-              --container-corvid-border-color: rgba(var(--brd, var(--color_15)), var(--alpha-brd, 1));
-              --container-corvid-border-size: var(--brw, 1px);
-              --container-corvid-background-color: rgba(var(--bg, var(--color_11)), var(--alpha-bg, 1))
-          }
 
-          ._2iB5S {
-              border: var(--container-corvid-border-width, var(--brw, 1px)) solid var(--container-corvid-border-color, rgba(var(--brd, var(--color_15)), var(--alpha-brd, 1)));
-              background-color: var(--container-corvid-background-color, rgba(var(--bg, var(--color_11)), var(--alpha-bg, 1)));
-              border-radius: var(--rd, 5px);
-              box-shadow: var(--shd, 0 1px 4px rgba(0, 0, 0, .6));
-              position: absolute;
-              top: 0;
-              right: 0;
-              bottom: 0;
-              left: 0
-          }
 
           ._2m-vs {
               -webkit-clip-path: var(--fill-layer-clip);
