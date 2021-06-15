@@ -217,45 +217,36 @@
                   </h2>
                 </div>
 
-
-
-
-
-
-
-
                 <!-- Idéias -->
                 <div class="ideiaTitle _1Z_nJ">
                   <h1 class="font_0 ideiaTitleH1">Ideias em destaque</h1>
                 </div>
-                <ng-scrollbar appearance="compact" class="ideiaTable" style="max-height: 400px; height: 400px;" [autoHeightDisabled]="true" [autoWidthDisabled]="true" [sensorDisabled]="true">
+                <ng-scrollbar appearance="compact" class="ideiaTable" style="max-height: 500px; height: 500px;" [autoHeightDisabled]="true" [autoWidthDisabled]="true" [sensorDisabled]="true">
                   <div scrollViewport infiniteScroll [scrollWindow]="false" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onIdeiaScroll()">
                     <table>
                       <tbody>
                         <tr *ngFor="let ideia of ideias">
                           <td class="_1Z_nJ">
                             <div class="ideiaTableDiv row">
-                              <div class="col-6">
-                                <p class="font_8" style="font-size: 23px; line-height: 1.3em;">
-                                  <span style="font-size:23px;">
-                                    <span style="letter-spacing:0.03em">
-                                      <span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">
-                                        <span style="color:#000000">{{getStringRezise(ideia.desIdeia)}}</span>
-                                      </span>
-                                    </span>
-                                  </span>
+                              <div class="col-8 paddingZero">
+                                <p class="font_8 ideiaTableP">
+                                  <span class="ideiaTableSpan">{{getStringRezise(ideia.desIdeia, 100)}}</span>
                                 </p>
                               </div>
-                              <div class="col-3">
+                              <div class="col-1 textCenter paddingZero">
                                 <mwl-gauge class="two gaugepontuacaototalInitial" [max]="500" [dialStartAngle]="-90" [dialEndAngle]="-90.001" [showValue]="true" [value]="ideia.numPontuacaoGeral" [animated]="true" [animationDuration]="1">
                                 </mwl-gauge>
                               </div>
-                              <div class="col-1">
-                                {{ideia.numLikes}}
-                                <button class="btn btn-secondary" (click)="likeClick(ideia)">Like</button>
+                              <div class="col-1 textCenter">
+                                <div class="vertical-center">
+                                  <img src="../../../assets/likeicon.png" class="imgLike" width="50" height="50" (click)="likeClick(ideia)">
+                                  <h1 class="font_0" style="font-size: 22px;"><span style="font-size:22px;">{{ideia.numLikes}}</span></h1>
+                                </div>
                               </div>
-                              <div class="col-2">
-                                <button class="btn btn-secondary">Apoiar</button>
+                              <div class="col-2 textCenter paddingZero">
+                                <div class="vertical-center" style="width: 100%;">
+                                  <button class="btn btn-secondary ideiaTableButtonApoiar">Quero apoiar</button>
+                                </div>
                               </div>
                             </div>
                           </td>
@@ -264,179 +255,6 @@
                     </table>
                   </div>
                 </ng-scrollbar>
-
-
-
-                <!--<div id="comp-km2ej179" class="_1lRal">
-                  <div class="_2iB5S"></div>
-                  <div data-mesh-id="comp-km2ej179inlineContent" data-testid="inline-content" class="">
-                    <div data-mesh-id="comp-km2ej179inlineContent-gridContainer" data-testid="mesh-container-content">
-                      <div id="comp-km2dnyz5" class="_1Z_nJ" data-testid="richTextElement">
-                        
-                      </div>
-                      <div id="comp-km2e28fs" class="_1mp3l">
-                        <div class="_2sExb"></div>
-                        <div data-mesh-id="comp-km2e28fsinlineContent" data-testid="inline-content" class="">
-                          <div data-mesh-id="comp-km2e28fsinlineContent-gridContainer" data-testid="mesh-container-content">
-                            <div id="comp-km2ef6fb" class="_1Z_nJ" data-testid="richTextElement">
-                              <h1 class="font_0" style="font-size: 28px;"><span style="font-size:28px;">67%</span></h1>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="comp-km2e68m2" class="">
-                  <div data-testid="svgRoot-comp-km2e68m2" class="_36XXs _3Qjwl">
-                    <svg preserveAspectRatio="xMidYMid meet" data-bbox="27.5 24.5 145 151" viewBox="27.5 24.5 145 151" height="200" width="200" xmlns="http://www.w3.org/2000/svg" data-type="color" role="img">
-                      <g>
-                        <path d="M166.82 92.908c-4.907-6.392-12.402-9.912-21.097-9.912h-15.146c6.23-13.612 6.442-33.453 1.485-45.221-3.609-8.563-9.786-13.275-17.398-13.275-2.065 0-4.226.362-6.425 1.067C97.378 29.064 96.97 37.703 96.61 45.321c-.525 11.074-1.32 27.359-29.535 48.386V83.144H27.5v90.882h39.575v-11.241c6.772 6.125 16.413 12.715 26.557 12.715h45.764c9.546 0 18.961-7.209 21.44-16.41l10.278-38.174c2.838-10.55 1.275-20.76-4.294-28.008zM56.546 163.515H38.029V93.66h18.518l-.001 69.855zm104.396-45.33l-10.278 38.176c-1.237 4.598-6.501 8.625-11.269 8.625H93.632c-9.948 0-21.633-11.478-26.557-17.341v-41.027c38.409-26.049 39.433-47.737 40.053-60.801.38-8.062.829-9.112 4.341-10.246 1.153-.371 2.23-.557 3.196-.557 3.193 0 5.778 2.302 7.69 6.838 5.25 12.462 2.515 34.824-5.228 42.724l-8.754 8.931h37.35c5.424 0 9.831 2.003 12.74 5.796 3.559 4.637 4.463 11.515 2.479 18.882z" fill="#4854C7" data-color="1"></path>
-                      </g>
-                    </svg>
-                  </div>
-                </div>
-                <div id="comp-km2dun5b">
-                  <button type="button" class="StylableButton1196941481__root stButton1__root" data-testid="buttonContent" aria-label="Quero apoiar">
-                    <div class="StylableButton1196941481__container">
-                      <span class="StylableButton1196941481__label" data-testid="stylablebutton-label">Quero apoiar</span>
-                      <span class="StylableButton1196941481__icon" aria-hidden="true">
-                        <div>
-                          <svg data-bbox="13.05 2.55 33.878 54.8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
-                            <g>
-                              <path d="M46.5 28.9L20.6 3c-.6-.6-1.6-.6-2.2 0l-4.8 4.8c-.6.6-.6 1.6 0 2.2l19.8 20-19.9 19.9c-.6.6-.6 1.6 0 2.2l4.8 4.8c.6.6 1.6.6 2.2 0l21-21 4.8-4.8c.8-.6.8-1.6.2-2.2z"></path>
-                            </g>
-                          </svg>
-                        </div>
-                      </span>
-                    </div>
-                  </button>
-                </div>
-                <div id="comp-km2ebkgj" class="_1Z_nJ" data-testid="richTextElement">
-                  <h1 class="font_0" style="font-size: 22px;"><span style="font-size:22px;">281</span></h1>
-                </div>
-                <div id="comp-km2el2sk" class="_1lRal">
-                  <div class="_2iB5S"></div>
-                  <div data-mesh-id="comp-km2el2skinlineContent" data-testid="inline-content" class="">
-                    <div data-mesh-id="comp-km2el2skinlineContent-gridContainer" data-testid="mesh-container-content">
-                      <div id="comp-km2dqltt" class="_1Z_nJ" data-testid="richTextElement">
-                        <p class="font_8" style="font-size:23px; line-height:1.3em">
-                          <span style="font-size:23px">
-                            <span style="letter-spacing:0.03em">
-                              <span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">
-                                <span style="color:#000000">Sistema de estacionamentos inteligentes</span>
-                              </span>
-                            </span>
-                          </span>
-                        </p>
-                      </div>
-                      <div id="comp-km2ecgqt" class="_1Z_nJ" data-testid="richTextElement">
-                        <h1 class="font_0" style="font-size:22px"><span style="font-size:22px">345</span></h1>
-                      </div>
-                      <div id="comp-km2dvzp3">
-                        <button type="button" class="StylableButton1196941481__root stButton1__root" data-testid="buttonContent" aria-label="Quero apoiar">
-                          <div class="StylableButton1196941481__container">
-                            <span class="StylableButton1196941481__label" data-testid="stylablebutton-label">Quero apoiar</span><span class="StylableButton1196941481__icon" aria-hidden="true">
-                              <div>
-                                <svg data-bbox="13.05 2.55 33.878 54.8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
-                                  <g>
-                                    <path d="M46.5 28.9L20.6 3c-.6-.6-1.6-.6-2.2 0l-4.8 4.8c-.6.6-.6 1.6 0 2.2l19.8 20-19.9 19.9c-.6.6-.6 1.6 0 2.2l4.8 4.8c.6.6 1.6.6 2.2 0l21-21 4.8-4.8c.8-.6.8-1.6.2-2.2z"></path>
-                                  </g>
-                                </svg>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="comp-km2ea5bn" class="_1mp3l">
-                  <div class="_2sExb"></div>
-                  <div data-mesh-id="comp-km2ea5bninlineContent" data-testid="inline-content" class="">
-                    <div data-mesh-id="comp-km2ea5bninlineContent-gridContainer" data-testid="mesh-container-content">
-                      <div id="comp-km2efwzf" class="_1Z_nJ" data-testid="richTextElement">
-                        <h1 class="font_0" style="font-size:28px">
-                          <span style="font-size:28px">48%</span>
-                        </h1>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="comp-km2e6f21" class="">
-                  <div data-testid="svgRoot-comp-km2e6f21" class="_36XXs _3Qjwl">
-                    <svg preserveAspectRatio="xMidYMid meet" data-bbox="27.5 24.5 145 151" viewBox="27.5 24.5 145 151" height="200" width="200" xmlns="http://www.w3.org/2000/svg" data-type="color" role="img">
-                      <g>
-                        <path d="M166.82 92.908c-4.907-6.392-12.402-9.912-21.097-9.912h-15.146c6.23-13.612 6.442-33.453 1.485-45.221-3.609-8.563-9.786-13.275-17.398-13.275-2.065 0-4.226.362-6.425 1.067C97.378 29.064 96.97 37.703 96.61 45.321c-.525 11.074-1.32 27.359-29.535 48.386V83.144H27.5v90.882h39.575v-11.241c6.772 6.125 16.413 12.715 26.557 12.715h45.764c9.546 0 18.961-7.209 21.44-16.41l10.278-38.174c2.838-10.55 1.275-20.76-4.294-28.008zM56.546 163.515H38.029V93.66h18.518l-.001 69.855zm104.396-45.33l-10.278 38.176c-1.237 4.598-6.501 8.625-11.269 8.625H93.632c-9.948 0-21.633-11.478-26.557-17.341v-41.027c38.409-26.049 39.433-47.737 40.053-60.801.38-8.062.829-9.112 4.341-10.246 1.153-.371 2.23-.557 3.196-.557 3.193 0 5.778 2.302 7.69 6.838 5.25 12.462 2.515 34.824-5.228 42.724l-8.754 8.931h37.35c5.424 0 9.831 2.003 12.74 5.796 3.559 4.637 4.463 11.515 2.479 18.882z" fill="#4854C7" data-color="1"></path>
-                      </g>
-                    </svg>
-                  </div>
-                </div>
-                <div id="comp-km2elb3e" class="_1lRal">
-                  <div class="_2iB5S"></div>
-                  <div data-mesh-id="comp-km2elb3einlineContent" data-testid="inline-content" class="">
-                    <div data-mesh-id="comp-km2elb3einlineContent-gridContainer" data-testid="mesh-container-content">
-                      <div id="comp-km2dr51p" class="_1Z_nJ" data-testid="richTextElement">
-                        <p class="font_8" style="font-size:23px; line-height:1.3em">
-                          <span style="font-size:23px">
-                            <span style="letter-spacing:0.03em">
-                              <span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">
-                                <span style="color:#000000">Tecnologias assistivas para deficientes visuais</span>
-                              </span>
-                            </span>
-                          </span>
-                        </p>
-                      </div>
-                      <div id="comp-km2dwjlm">
-                        <button type="button" class="StylableButton1196941481__root stButton1__root" data-testid="buttonContent" aria-label="Quero apoiar">
-                          <div class="StylableButton1196941481__container">
-                            <span class="StylableButton1196941481__label" data-testid="stylablebutton-label">Quero apoiar</span>
-                            <span class="StylableButton1196941481__icon" aria-hidden="true">
-                              <div>
-                                <svg data-bbox="13.05 2.55 33.878 54.8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
-                                  <g>
-                                    <path d="M46.5 28.9L20.6 3c-.6-.6-1.6-.6-2.2 0l-4.8 4.8c-.6.6-.6 1.6 0 2.2l19.8 20-19.9 19.9c-.6.6-.6 1.6 0 2.2l4.8 4.8c.6.6 1.6.6 2.2 0l21-21 4.8-4.8c.8-.6.8-1.6.2-2.2z"></path>
-                                  </g>
-                                </svg>
-                              </div>
-                            </span>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="comp-km2eaayv" class="_1mp3l">
-                  <div class="_2sExb"></div>
-                  <div data-mesh-id="comp-km2eaayvinlineContent" data-testid="inline-content" class="">
-                    <div data-mesh-id="comp-km2eaayvinlineContent-gridContainer" data-testid="mesh-container-content">
-                      <div id="comp-km2egiwa" class="_1Z_nJ" data-testid="richTextElement">
-                        <h1 class="font_0" style="font-size:28px">
-                          <span style="font-size:28px">25%</span>
-                        </h1>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="comp-km2e8khl" class="">
-                  <div data-testid="svgRoot-comp-km2e8khl" class="_36XXs _3Qjwl">
-                    <svg preserveAspectRatio="xMidYMid meet" data-bbox="27.5 24.5 145 151" viewBox="27.5 24.5 145 151" height="200" width="200" xmlns="http://www.w3.org/2000/svg" data-type="color" role="img">
-                      <g>
-                        <path d="M166.82 92.908c-4.907-6.392-12.402-9.912-21.097-9.912h-15.146c6.23-13.612 6.442-33.453 1.485-45.221-3.609-8.563-9.786-13.275-17.398-13.275-2.065 0-4.226.362-6.425 1.067C97.378 29.064 96.97 37.703 96.61 45.321c-.525 11.074-1.32 27.359-29.535 48.386V83.144H27.5v90.882h39.575v-11.241c6.772 6.125 16.413 12.715 26.557 12.715h45.764c9.546 0 18.961-7.209 21.44-16.41l10.278-38.174c2.838-10.55 1.275-20.76-4.294-28.008zM56.546 163.515H38.029V93.66h18.518l-.001 69.855zm104.396-45.33l-10.278 38.176c-1.237 4.598-6.501 8.625-11.269 8.625H93.632c-9.948 0-21.633-11.478-26.557-17.341v-41.027c38.409-26.049 39.433-47.737 40.053-60.801.38-8.062.829-9.112 4.341-10.246 1.153-.371 2.23-.557 3.196-.557 3.193 0 5.778 2.302 7.69 6.838 5.25 12.462 2.515 34.824-5.228 42.724l-8.754 8.931h37.35c5.424 0 9.831 2.003 12.74 5.796 3.559 4.637 4.463 11.515 2.479 18.882z" fill="#4854C7" data-color="1"></path>
-                      </g>
-                    </svg>
-                  </div>
-                </div>
-                <div id="comp-km2ecmhz" class="_1Z_nJ" data-testid="richTextElement">
-                  <h1 class="font_0" style="font-size:22px">
-                    <span style="font-size:22px">222</span>
-                  </h1>
-                </div>-->
-
-
-
-
-
 
                 <!-- Problemas -->
                 <div class="problemaTitle _1Z_nJ">
@@ -449,7 +267,7 @@
                         <tr *ngFor="let problema of problemas">
                           <td class="_1Z_nJ">
                             <h2 class="font_2 problemaTableH2">
-                              <span class="problemaTableSpan">{{getStringRezise(problema.desProblema)}}</span>
+                              <span class="problemaTableSpan">{{getStringRezise(problema.desProblema, 120)}}</span>
                             </h2>
                           </td>
                         </tr>

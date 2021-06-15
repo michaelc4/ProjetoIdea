@@ -46,9 +46,9 @@ export class InicialComponent {
     this.router.navigateByUrl('/menu-administrativo');
   }
 
-  getStringRezise(str: string) {
-    if (str && str.length >= 120) {
-      return str.substring(0, 120) + "...";
+  getStringRezise(str: string, size: number) {
+    if (str && str.length >= size) {
+      return str.substring(0, size) + "...";
     }
 
     return str;
