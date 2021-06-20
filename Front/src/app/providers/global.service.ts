@@ -6,6 +6,7 @@ import { LoginModel } from '../models/login.model';
 export class Global {
   private loggedUser: LoginModel = new LoginModel();
   private urlApi: string = '';
+  private search: string = '';
 
   constructor() {
     this.setUrlApi("http://inovawebapi-env.eba-wnchtmyu.us-east-2.elasticbeanstalk.com");
@@ -22,6 +23,11 @@ export class Global {
   public setUrlApi(value: string) {
     this.urlApi = value;
     this.saveObject();
+  }
+
+  public getSearch() { return this.search; }
+  public setSearch(value: string) {
+    this.search = value;
   }
 
   public saveObject() {

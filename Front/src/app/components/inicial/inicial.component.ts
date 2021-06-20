@@ -7,6 +7,7 @@ import { ProblemaService } from '../../providers/problema.service';
 import { LikeService } from '../../providers/like.service';
 import { LikePostParamModel } from '../../models/like.model';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Global } from '../../providers/global.service';
 
 @Component({
   selector: 'app-inicial',
@@ -22,8 +23,10 @@ export class InicialComponent {
   problemaPaging: number = 1;
   problemaPagingMax: number = 1;
   numItens: number = 10;
+  isAdmin: boolean = false;
 
   constructor(private router: Router,
+    private global: Global,
     private ideiaService: IdeiaService,
     private problemaService: ProblemaService,
     private likeService: LikeService,
@@ -36,6 +39,10 @@ export class InicialComponent {
     this.problemas = new Array<ProblemaModel>();
     this.getAllPagedI(false);
     this.getAllPagedP(false);
+
+    if (this.global && this.global.getLoggedUser() && this.global.getLoggedUser().admin) {
+      this.isAdmin = true;
+    }
   }
 
   menuUsuario(param: number) {
@@ -44,6 +51,11 @@ export class InicialComponent {
 
   menuAdministrativo() {
     this.router.navigateByUrl('/menu-administrativo');
+  }
+
+  queroApoiar(row: IdeiaModel) {
+    this.global.setSearch(row.desIdeia);
+    this.router.navigateByUrl('/menu-usuario/' + 2);
   }
 
   getStringRezise(str: string, size: number) {

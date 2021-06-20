@@ -109,7 +109,7 @@
                     </svg>
                   </div>
                 </div>
-                <button class="btn btn-secondary ideiaTableButtonAcessoRestrito" (click)="menuAdministrativo()">Acesso Restrito</button>
+                <button *ngIf="isAdmin" class="btn btn-secondary ideiaTableButtonAcessoRestrito" (click)="menuAdministrativo()">Acesso Restrito</button>
                 <button class="btn btn-secondary ideiaTableButtonApontarProblema" (click)="menuUsuario(0)">Apontar um problema</button>
                 <button class="btn btn-secondary ideiaTableButtonCompartilharIdeia" (click)="menuUsuario(1)">Compartilhar uma ideia</button>
                 <button class="btn btn-secondary ideiaTableButtonQueroAjudar" (click)="menuUsuario(2)">Quero ajudar</button>
@@ -144,12 +144,14 @@
                             <div class="ideiaTableDiv row">
                               <div class="col-8 paddingZero">
                                 <p class="font_8 ideiaTableP">
-                                  <span class="ideiaTableSpan">{{getStringRezise(ideia.desIdeia, 100)}}</span>
+                                  <span class="ideiaTableSpan">{{getStringRezise(ideia.desIdeia, 400)}}</span>
                                 </p>
                               </div>
                               <div class="col-1 textCenter paddingZero">
-                                <mwl-gauge class="two gaugepontuacaototalInitial" [max]="500" [dialStartAngle]="-90" [dialEndAngle]="-90.001" [showValue]="true" [value]="ideia.numPontuacaoGeral" [animated]="true" [animationDuration]="1">
-                                </mwl-gauge>
+                                <div class="vertical-center" style="width: 100%;">
+                                  <mwl-gauge class="two gaugepontuacaototalInitial" [max]="500" [dialStartAngle]="-90" [dialEndAngle]="-90.001" [showValue]="true" [value]="ideia.numPontuacaoGeral" [animated]="true" [animationDuration]="1">
+                                  </mwl-gauge>
+                                </div>
                               </div>
                               <div class="col-1 textCenter">
                                 <div class="vertical-center">
@@ -159,7 +161,7 @@
                               </div>
                               <div class="col-2 textCenter paddingZero">
                                 <div class="vertical-center" style="width: 100%;">
-                                  <button class="btn btn-secondary ideiaTableButtonApoiar">Quero apoiar</button>
+                                  <button class="btn btn-secondary ideiaTableButtonApoiar" (click)="queroApoiar(ideia)">Quero apoiar</button>
                                 </div>
                               </div>
                             </div>
@@ -181,7 +183,7 @@
                         <tr *ngFor="let problema of problemas">
                           <td class="_1Z_nJ">
                             <h2 class="font_2 problemaTableH2">
-                              <span class="problemaTableSpan">{{getStringRezise(problema.desProblema, 120)}}</span>
+                              <span class="problemaTableSpan">{{getStringRezise(problema.desProblema, 400)}}</span>
                             </h2>
                           </td>
                         </tr>

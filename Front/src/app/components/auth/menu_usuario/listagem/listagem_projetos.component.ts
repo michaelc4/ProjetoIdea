@@ -56,6 +56,11 @@ export class MenuUsuarioProjetosComponent {
   }
 
   ngOnInit() {
+    if (this.global.getSearch() && this.global.getSearch().trim() != '') {
+      this.filtros.problemSearch = this.global.getSearch().trim();
+      this.global.setSearch('');
+    }
+
     this.setPageI({ offset: 0 });
     this.setPageP({ offset: 0 });
     this.getAllPagedI();
