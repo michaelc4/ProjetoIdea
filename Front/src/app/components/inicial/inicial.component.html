@@ -7,15 +7,6 @@
           <div id="Containeri3ord" class="_3Mgpu">
             <div data-mesh-id="Containeri3ordinlineContent" data-testid="inline-content" class="">
               <div data-mesh-id="Containeri3ordinlineContent-gridContainer" data-testid="mesh-container-content">
-                <div id="comp-km1fwv95" class="_1bOh_">
-                  <div class="_1HJvm"></div>
-                </div>
-                <div id="comp-khme62yv" class="_1mp3l">
-                  <div class="_2sExb"></div>
-                  <div data-mesh-id="comp-khme62yvinlineContent" data-testid="inline-content" class="">
-                    <div data-mesh-id="comp-khme62yvinlineContent-gridContainer" data-testid="mesh-container-content"></div>
-                  </div>
-                </div>
                 <div id="comp-km1ey0v8" class="_1Z_nJ" data-testid="richTextElement">
                   <h1 class="font_0" style="font-size: 47px;">
                     <span style="font-size:47px;">
@@ -50,8 +41,67 @@
                     </div>
                   </div>
                 </div>
-                <div id="comp-km1fkxy1" class="">
-                  <div data-testid="svgRoot-comp-km1fkxy1" class="_36XXs _3Qjwl">
+                <div class="_1Z_nJ textoTop">
+                  <p class="font_8 textoTopP">
+                    <span class="textoTopSpan">A plataforma ideiaUCS conecta problemas e soluções. Cadastre-se no nosso ambiente e encontre soluções ou indique problemas que gostaria de ver resolvidos.</span>
+                  </p>
+                </div>
+                <div class="_1bOh_ linhaInovacao">
+                  <div class="_1HJvm"></div>
+                </div>
+                <div class="_1mp3l bolinhaInova1">
+                  <div class="_2sExb"></div>
+                  <div data-mesh-id="comp-khme63d5inlineContent" data-testid="inline-content" class="">
+                    <div data-mesh-id="comp-khme63d5inlineContent-gridContainer" data-testid="mesh-container-content"></div>
+                  </div>
+                </div>
+                <div class="_1mp3l bolinhaInova2">
+                  <div class="_2sExb"></div>
+                  <div data-mesh-id="comp-khme62yvinlineContent" data-testid="inline-content" class="">
+                    <div data-mesh-id="comp-khme62yvinlineContent-gridContainer" data-testid="mesh-container-content"></div>
+                  </div>
+                </div>
+                <div class="_1mp3l bolinhaInova3">
+                  <div class="_2sExb"></div>
+                  <div data-mesh-id="comp-km1fz8hxinlineContent" data-testid="inline-content" class="">
+                    <div data-mesh-id="comp-km1fz8hxinlineContent-gridContainer" data-testid="mesh-container-content"></div>
+                  </div>
+                </div>
+                <div class="_1mp3l bolinhaInova4">
+                  <div class="_2sExb"></div>
+                  <div data-mesh-id="comp-km1fze7qinlineContent" data-testid="inline-content" class="">
+                    <div data-mesh-id="comp-km1fze7qinlineContent-gridContainer" data-testid="mesh-container-content"></div>
+                  </div>
+                </div>
+                <div class="_1Z_nJ textCaminhoInovacao">
+                  <h2 class="font_2 textRedeH2">
+                    <span class="textRedeSpan">Um caminho para a inovação</span>
+                  </h2>
+                </div>
+                <div class="_1Z_nJ textRegistreIdeia">
+                  <h2 class="font_2 textRedeH2">
+                    <span class="textRedeSpan">Registre sua ideia</span>
+                  </h2>
+                </div>
+                <div class="_1Z_nJ textCadastresePlataforma">
+                  <h2 class="font_2 textRedeH2">
+                    <span class="textRedeSpan">Cadastre-se na plataforma</span>
+                  </h2>
+                </div>
+                <div class="_1Z_nJ textAcompanheProjeto">
+                  <h2 class="font_2 textRedeH2">
+                    <span class="textRedeSpan">Acompanhe o projeto</span>
+                  </h2>
+                </div>
+                <div class="_1Z_nJ textParticipeNossaRede">
+                  <h2 class="font_2 textRedeH2">
+                    <span class="textRedeSpan">Participe de nossa rede</span>
+                  </h2>
+                </div>
+
+                <!-- Buttons -->
+                <div class="backgroundButtons">
+                  <div class="_36XXs _3Qjwl">
                     <svg preserveAspectRatio="none" data-bbox="17.3 68.2 165.3 63.6" xmlns="http://www.w3.org/2000/svg" viewBox="17.3 68.2 165.3 63.6" role="img">
                       <g>
                         <path d="M182.6 68.2v63.6H17.3V68.2h165.3z"></path>
@@ -59,161 +109,26 @@
                     </svg>
                   </div>
                 </div>
-                <div id="comp-km1fq8wp" class="_1Z_nJ" data-testid="richTextElement">
-                  <p class="font_8" style="font-size:15px; line-height:1.3em">
-                    <span style="letter-spacing:0.03em">
-                      <span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">
-                        <span style="font-size:15px">
-                          <span style="color:#000000">A plataforma ideiaUCS conecta problemas e soluções. Cadastre-se no nosso ambiente e encontre soluções ou indique problemas que gostaria de ver resolvidos.</span>
-                        </span>
-                      </span>
-                    </span>
+                <button class="btn btn-secondary ideiaTableButtonAcessoRestrito" (click)="menuAdministrativo()">Acesso Restrito</button>
+                <button class="btn btn-secondary ideiaTableButtonApontarProblema" (click)="menuUsuario(0)">Apontar um problema</button>
+                <button class="btn btn-secondary ideiaTableButtonCompartilharIdeia" (click)="menuUsuario(1)">Compartilhar uma ideia</button>
+                <button class="btn btn-secondary ideiaTableButtonQueroAjudar" (click)="menuUsuario(2)">Quero ajudar</button>
+
+                <!-- Text HUB -->
+                <div class="_1Z_nJ textideiaHub">
+                  <h2 class="font_2 textideiaHubH2">
+                    <span class="textideiaHubSpan">HUB</span>
+                  </h2>
+                </div>
+                <div class="_1Z_nJ textideiaUcs">
+                  <p class="font_7">
+                    <span class="textideiaUcsContent">O ideiaUCS faz parte do UCSiNOVA, um hub de fomento ao empreendedorismo e inovação no ecossistema da Serra Gaúcha. Queremos conectar pessoas, processos e estruturas com vistas a promover o desenvolvimento de soluções para os problemas da região. Você é convidado a fazer parte de tudo isso.&nbsp;</span>
                   </p>
                 </div>
-                <div id="comp-km1fz8hx" class="_1mp3l">
-                  <div class="_2sExb"></div>
-                  <div data-mesh-id="comp-km1fz8hxinlineContent" data-testid="inline-content" class="">
-                    <div data-mesh-id="comp-km1fz8hxinlineContent-gridContainer" data-testid="mesh-container-content"></div>
-                  </div>
-                </div>
-                <div id="comp-km1fze7q" class="_1mp3l">
-                  <div class="_2sExb"></div>
-                  <div data-mesh-id="comp-km1fze7qinlineContent" data-testid="inline-content" class="">
-                    <div data-mesh-id="comp-km1fze7qinlineContent-gridContainer" data-testid="mesh-container-content"></div>
-                  </div>
-                </div>
-                <div id="comp-khme63d5" class="_1mp3l">
-                  <div class="_2sExb"></div>
-                  <div data-mesh-id="comp-khme63d5inlineContent" data-testid="inline-content" class="">
-                    <div data-mesh-id="comp-khme63d5inlineContent-gridContainer" data-testid="mesh-container-content"></div>
-                  </div>
-                </div>
-                <div id="comp-km1g0o07" class="_1Z_nJ" data-testid="richTextElement">
-                  <h2 class="font_2" style="font-size: 16px;">
-                    <span style="font-size:16px;">
-                      <span style="font-family:futura-lt-w01-book,sans-serif">
-                        <span style="color:#292929">Registre sua ideia</span>
-                      </span>
-                    </span>
-                  </h2>
-                </div>
-                <div id="comp-km1g1ius" class="_1Z_nJ" data-testid="richTextElement">
-                  <h2 class="font_2" style="font-size:16px"><span style="font-size:16px">
-                      <span style="font-family:futura-lt-w01-book,sans-serif">
-                        <span style="color:#292929">Cadastre-se na plataforma</span>
-                      </span>
-                    </span>
-                  </h2>
-                </div>
-                <div id="comp-km1g1vrm" class="_1Z_nJ" data-testid="richTextElement">
-                  <h2 class="font_2" style="font-size:16px">
-                    <span style="font-size:16px">
-                      <span style="font-family:futura-lt-w01-book,sans-serif">
-                        <span style="color:#292929">Acompanhe o projeto</span>
-                      </span>
-                    </span>
-                  </h2>
-                </div>
-                <div id="comp-km1g2beb" class="_1Z_nJ" data-testid="richTextElement">
-                  <h2 class="font_2" style="font-size:16px">
-                    <span style="font-size:16px">
-                      <span style="font-family:futura-lt-w01-book,sans-serif">
-                        <span style="color:#292929">Participe de nossa rede</span>
-                      </span>
-                    </span>
-                  </h2>
-                </div>
-                <div id="comp-km1g63d4" style="left: 20px; width: 200px;">
-                  <a data-testid="linkElement" class="StylableButton1196941481__root style-km1g6o2s__root StylableButton1196941481__link" aria-label="Apontar um problema" (click)="menuAdministrativo()">
-                    <div class="StylableButton1196941481__container">
-                      <span class="StylableButton1196941481__label" data-testid="stylablebutton-label">Acesso Restrito</span>
-                      <span class="StylableButton1196941481__icon" aria-hidden="true">
-                        <div>
-                          <svg data-bbox="13.05 2.55 33.878 54.8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
-                            <g>
-                              <path d="M46.5 28.9L20.6 3c-.6-.6-1.6-.6-2.2 0l-4.8 4.8c-.6.6-.6 1.6 0 2.2l19.8 20-19.9 19.9c-.6.6-.6 1.6 0 2.2l4.8 4.8c.6.6 1.6.6 2.2 0l21-21 4.8-4.8c.8-.6.8-1.6.2-2.2z"></path>
-                            </g>
-                          </svg>
-                        </div>
-                      </span>
-                    </div>
-                  </a>
-                </div>
-                <div id="comp-km1g63d4">
-                  <a data-testid="linkElement" class="StylableButton1196941481__root style-km1g6o2s__root StylableButton1196941481__link" aria-label="Apontar um problema" (click)="menuUsuario(0)">
-                    <div class="StylableButton1196941481__container">
-                      <span class="StylableButton1196941481__label" data-testid="stylablebutton-label">Apontar um problema</span>
-                      <span class="StylableButton1196941481__icon" aria-hidden="true">
-                        <div>
-                          <svg data-bbox="13.05 2.55 33.878 54.8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
-                            <g>
-                              <path d="M46.5 28.9L20.6 3c-.6-.6-1.6-.6-2.2 0l-4.8 4.8c-.6.6-.6 1.6 0 2.2l19.8 20-19.9 19.9c-.6.6-.6 1.6 0 2.2l4.8 4.8c.6.6 1.6.6 2.2 0l21-21 4.8-4.8c.8-.6.8-1.6.2-2.2z"></path>
-                            </g>
-                          </svg>
-                        </div>
-                      </span>
-                    </div>
-                  </a>
-                </div>
 
-                <div id="comp-khnthz3m" class="_1Z_nJ" data-testid="richTextElement">
-                  <p class="font_7" style="font-size:17px"><span style="font-family:avenir-lt-w01_35-light1475496,sans-serif">O ideiaUCS faz parte do UCSiNOVA, um hub de fomento ao empreendedorismo e inovação no ecossistema da Serra Gaúcha. Queremos conectar pessoas, processos e estruturas com vistas a promover o desenvolvimento de soluções para os problemas da região. Você é convidado a fazer parte de tudo isso.&nbsp;</span></p>
-                </div>
-                <div id="comp-khntl2zh" class="_1Z_nJ" data-testid="richTextElement">
-                  <h2 class="font_2" style="font-size: 176px; line-height: 1em;">
-                    <span style="font-size:176px;">
-                      <span style="font-family:ahmedltw20-outlineregul,fantasy">
-                        <span style="color:#3DD2FF">
-                          <span style="font-weight:bold">HUB</span>
-                        </span>
-                      </span>
-                    </span>
-                  </h2>
-                </div>
-                <div id="comp-km1g7jqu">
-                  <a data-testid="linkElement" class="StylableButton1196941481__root style-km1g7jrj2__root StylableButton1196941481__link" aria-label="Compartilhar uma ideia" (click)="menuUsuario(1)">
-                    <div class="StylableButton1196941481__container">
-                      <span class="StylableButton1196941481__label" data-testid="stylablebutton-label">Compartilhar uma ideia</span>
-                      <span class="StylableButton1196941481__icon" aria-hidden="true">
-                        <div>
-                          <svg data-bbox="13.05 2.55 33.878 54.8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
-                            <g>
-                              <path d="M46.5 28.9L20.6 3c-.6-.6-1.6-.6-2.2 0l-4.8 4.8c-.6.6-.6 1.6 0 2.2l19.8 20-19.9 19.9c-.6.6-.6 1.6 0 2.2l4.8 4.8c.6.6 1.6.6 2.2 0l21-21 4.8-4.8c.8-.6.8-1.6.2-2.2z"></path>
-                            </g>
-                          </svg>
-                        </div>
-                      </span>
-                    </div>
-                  </a>
-                </div>
-                <div id="comp-km1g8g2j">
-                  <a data-testid="linkElement" class="StylableButton1196941481__root style-km1g8g3g2__root StylableButton1196941481__link" aria-label="Quero ajudar" (click)="menuUsuario(2)">
-                    <div class="StylableButton1196941481__container">
-                      <span class="StylableButton1196941481__label" data-testid="stylablebutton-label">Quero ajudar</span>
-                      <span class="StylableButton1196941481__icon" aria-hidden="true">
-                        <div>
-                          <svg data-bbox="13.05 2.55 33.878 54.8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
-                            <g>
-                              <path d="M46.5 28.9L20.6 3c-.6-.6-1.6-.6-2.2 0l-4.8 4.8c-.6.6-.6 1.6 0 2.2l19.8 20-19.9 19.9c-.6.6-.6 1.6 0 2.2l4.8 4.8c.6.6 1.6.6 2.2 0l21-21 4.8-4.8c.8-.6.8-1.6.2-2.2z"></path>
-                            </g>
-                          </svg>
-                        </div>
-                      </span>
-                    </div>
-                  </a>
-                </div>
-                <div id="comp-km2dhvjh" class="_1Z_nJ" data-testid="richTextElement">
-                  <h2 class="font_2" style="font-size:16px">
-                    <span style="font-size:16px">
-                      <span style="font-family:futura-lt-w01-book,sans-serif">
-                        <span style="color:#292929">Um caminho para a inovação</span>
-                      </span>
-                    </span>
-                  </h2>
-                </div>
-
-                <div id="comp-khntysn6" class="_1lRal">
-                  <div class="_2iB5S"></div>
+                <!-- Line -->
+                <div class="compLine">
+                  <div class="compLineContent"></div>
                 </div>
 
                 <!-- Idéias -->
