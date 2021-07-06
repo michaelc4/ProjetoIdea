@@ -9,8 +9,7 @@ namespace Api.Data.Context
     {
         public MyContext CreateDbContext(string[] args)
         {
-            var connectionString = "server=dbapiinova.czdgknerwits.us-east-2.rds.amazonaws.com;port=3306;database=dbapiinova;uid=dbapiinova;password=rootinova123";
-            //var connectionString = "server=dbapiinova.czdgknerwits.us-east-2.rds.amazonaws.com;port=3306;database=dbapiinovateste;uid=dbapiinova;password=rootinova123";
+            var connectionString = "server=dbapiinova.us-east-2.rds.amazonaws.com;port=3306;database=dba;uid=dba;password=root";
             //dotnet ef migrations add UsuarioMigration_ChangeProblema_Table
             //dotnet ef database update
             var optionsBuilder = new DbContextOptionsBuilder<MyContext>();
