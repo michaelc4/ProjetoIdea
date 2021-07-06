@@ -95,7 +95,7 @@ namespace Api.Tests.Integration
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
-            _connectionString = "server=dbapiinova.czdgknerwits.us-east-2.rds.amazonaws.com;port=3306;database=dbapiinovateste;uid=dbapiinova;password=rootinova123";
+            _connectionString = "server=dbapiinova.us-east-2.rds.amazonaws.com;port=3306;database=dba;uid=dba;password=root";
 
             ConfigureRepository.ConfigureDependenciesRepository(services, null, _connectionString);
             ConfigureService.ConfigureDependenciesService(services);
