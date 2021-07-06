@@ -8,5 +8,5 @@ Passo 4: Alterar as "TokenConfigurations" de acordo com a necessidade \
 Passo 5: Com as conections strings configuradas rodar o comando de update da migrations Ex: dotnet ef database update \
 Passo 6: Clicar em start na aplicação do visual studio. 
 
-Passos para subir a aplicação FrontEnd
+Passos para subir a aplicação FrontEnd \
 Passo 1: Baixar os repositórios do GitHUb.
