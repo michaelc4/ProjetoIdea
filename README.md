@@ -1,7 +1,6 @@
 # ProjetoLabSoftware
 
-Projeto desenvolvido para o Grupo 4 da disciplina de laboratório de software.
-Contato para dúvidas
+Projeto desenvolvido para o Grupo 4 da disciplina de laboratório de software do primeiro semestre de 2021. \
 
 Requisitos Backend \
 .Net Core 5.0 \
