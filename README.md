@@ -24,4 +24,4 @@ Passo 1: Baixar os repositórios do GitHUb. \
 Passo 2: Configurar a url da api "this.setUrlApi" no caminho ProjetoLabSoftware/Front/src/app/providers/global.service.ts. \
 Passo 3: Configurar os tokens "GoogleLoginProvider" e "FacebookLoginProvider" no caminho ProjetoLabSoftware/Front/src/app/app.module.ts. \
 Passo 4: Rodar o comando "npm i" para instalar todas as dependências do angular. \
-Passo 4: Rodar o comando "ng serve -open" para rodar a aplicação.
+Passo 5: Rodar o comando "ng serve -open" para rodar a aplicação.
