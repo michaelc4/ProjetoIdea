@@ -146,11 +146,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('740118931275-2dqkv6vacunok9bj7a17gvenc4po0us0.apps.googleusercontent.com')
+            provider: new GoogleLoginProvider('740118931275.apps.googleusercontent.com')
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('444951796825941')
+            provider: new FacebookLoginProvider('44495')
           }
         ]
       } as SocialAuthServiceConfig,
