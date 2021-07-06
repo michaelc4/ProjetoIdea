@@ -9,7 +9,7 @@ export class Global {
   private search: string = '';
 
   constructor() {
-    this.setUrlApi("http://inovawebapi-env.eba-wnchtmyu.us-east-2.elasticbeanstalk.com");
+    this.setUrlApi("http://inovawebapi-env.elasticbeanstalk.com");
     this.load();
   }
 
