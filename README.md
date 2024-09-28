@@ -1,4 +1,4 @@
-# ProjetoLabSoftware
+# ProjetoIdeaUCS
 
 Projeto desenvolvido no primeiro semestre de 2021.
 
